@@ -1,0 +1,27 @@
+.jumbotron{
+    background-color: #ff5722;
+    color: white !important;
+    height: 400px;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../images/church.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0rem !important;
+}
+
+.jumbotron h1, h2 {
+    color: white !important;
+}
+
+.content-wrapper{
+    margin-top: 0.2rem !important;
+}
+
+.slogans{
+   padding-top: 10px !important;
+}
+
+.asterisks{
+    color: red;
+    padding-right: 5px;;
+}

@@ -1,0 +1,19 @@
+{"menu": 
+	[
+	    {"url":"/", "name":"Content Layout", "i18n":"nav.content_layout", "icon":"feather icon-layout"},
+	    {"url":"full", "name":"Full Layout", "i18n":"nav.full_layout", "icon":"feather icon-file-text"},
+	    {"url":"https://pixinvent.com/demo/vuesax-html-admin-dashboard-template/documentation/documentation-laravel.html","name":"Documentation","slug":"documentation","icon":"feather icon-folder"},
+	    {"url":"#", "name":"Manage Cells", "i18n":"nav.content_layout", "icon":"feather icon-file-text",
+		    "submenu": [
+		        {"url":"../cells/index", "name":"All Cells", "i18n":"nav.content_layout", "icon":"feather icon-circle"},
+		        {"url":"../cells/create", "name":"Add Cell", "i18n":"nav.content_layout", "icon":"feather icon-circle"}
+		    ]
+		},
+		{"url":"##", "name":"Manage Fellowships", "i18n":"nav.content_layout", "icon":"feather icon-file-text",
+		    "submenu": [
+		        {"url":"./fellowships/index", "name":"All Fellowships", "i18n":"nav.content_layout", "icon":"feather icon-circle"},
+		        {"url":"./fellowships/create", "name":"Add Fellowship", "i18n":"nav.content_layout", "icon":"feather icon-circle"}
+		    ]
+		}
+	]
+}

@@ -1,0 +1,19 @@
+/*
+* This css file is specifically for custom styles that are applied
+* to the Select2 Select dropdown library.
+*/
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select2-container--default .select2-selection--single {
+    min-height: calc(1.25em + 2rem + 2px) !important;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}

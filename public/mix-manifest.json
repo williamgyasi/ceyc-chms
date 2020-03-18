@@ -1,0 +1,16 @@
+{
+    "/js/core/app.js": "/js/core/app.js",
+    "/js/core/app-menu.js": "/js/core/app-menu.js",
+    "/css/app.css": "/css/app.css",
+    "/css/bootstrap.css": "/css/bootstrap.css",
+    "/css/bootstrap-extended.css": "/css/bootstrap-extended.css",
+    "/css/colors.css": "/css/colors.css",
+    "/css/components.css": "/css/components.css",
+    "/css/themes/dark-layout.css": "/css/themes/dark-layout.css",
+    "/css/themes/semi-dark-layout.css": "/css/themes/semi-dark-layout.css",
+    "/css/pages/authentication.css": "/css/pages/authentication.css",
+    "/css/core/menu/menu-types/vertical-menu.css": "/css/core/menu/menu-types/vertical-menu.css",
+    "/css/core/core.css": "/css/core/core.css",
+    "/js/scripts/components.js": "/js/scripts/components.js",
+    "/js/scripts/footer.js": "/js/scripts/footer.js"
+}

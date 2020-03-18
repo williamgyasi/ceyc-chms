@@ -1,0 +1,6 @@
+{
+ "listItems": [
+   {"name":"Content Layout", "url":"#","icon":"ft-layout"},
+   {"name":"Full Layout", "url":"/full","icon":"ft-file-text"}
+ ]
+}
