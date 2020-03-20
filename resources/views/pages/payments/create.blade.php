@@ -86,11 +86,11 @@
                                     <option value="" selected disabled>
                                         Select Option
                                     </option>
-                                    <option value="tithe">Tithe</option>
-                                    <option value="offering">Offering</option>
-                                    <option value="seed offering">Seed Offering</option>
-                                    <option value="vow">Vow</option>
-                                    <option value="other">Other</option>
+                                    <option value="Tithe">Tithe</option>
+                                    <option value="Offering">Offering</option>
+                                    <option value="Seed offering">Seed Offering</option>
+                                    <option value="Vow">Vow</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             <button type="submit">PROCEED</button>
