@@ -43,7 +43,7 @@
         @endif
 
         <div class="row justify-content-center mt-5">
-            <div>
+            <div class="row justify-content-center">
             <img src="http://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png"
             
             <div class="col-md-6 col-sm-12">
