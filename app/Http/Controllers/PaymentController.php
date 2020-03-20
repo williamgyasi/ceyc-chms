@@ -113,9 +113,9 @@ class PaymentController extends Controller
         return view('pages.payments.process', compact('payment', 'transactionId'));
     }
 
-    public function confirm(Request $request, Response $response)
+    public function confirm(Request $request, $response)
     { 
-        dd($response);
+        dd($request->all());
         $curl = curl_init();
 
         $transactionId = $request->get('transactionID');

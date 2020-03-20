@@ -42,4 +42,4 @@ Route::resource('payments', 'PaymentController');
 
 Route::get('payments/{pay}/process', 'PaymentController@process')->name('payments.process');
 
-Route::get('payments/confirmation/{status}', 'PaymentController@confirm')->name('payments.confirm');
+Route::get('payments/confirmation/{response}', 'PaymentController@confirm')->name('payments.confirm');
