@@ -121,7 +121,7 @@
                             data-amount="{{ $payment->amount }}"
                             data-customer_email="{{ $payment->email }}" 
                             data-currency="GHS"
-                            data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response" 
+                            data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response/" 
                             data-pay_button_text="Pay"
                             data-custom_description="Payment Using CEYC-AC Payment Platform" data-payment_method="both">
                         </a>
@@ -137,7 +137,9 @@
 <script>
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
         }
     });
 </script>

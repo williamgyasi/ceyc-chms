@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PaymentController extends Controller
 {
@@ -112,9 +113,9 @@ class PaymentController extends Controller
         return view('pages.payments.process', compact('payment', 'transactionId'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(Request $request, Response $response)
     { 
-        //dd($request->all());
+        dd($response);
         $curl = curl_init();
 
         $transactionId = $request->get('transactionID');
@@ -134,7 +135,7 @@ class PaymentController extends Controller
         ));
         
         $response = curl_exec($curl);
-        dd($response);
+        // dd($response);
         $err = curl_error($curl);
         
         curl_close($curl);
@@ -144,7 +145,7 @@ class PaymentController extends Controller
         } else {
 
             return redirect()
-                    ->route('payments.confirm');
+                    ->route('payments.confirm' ,['status' => $response]);
         }
     }
 }
