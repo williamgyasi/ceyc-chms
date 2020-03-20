@@ -46,11 +46,11 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title font-weight-bold">
-                            PAYMENT
+                        <h4 class="card-title font-weight-bold justify-content-center">
+                            ONLINE GIVING
                         </h4>
                         <p class="card-text mt-2">
-                            Fill out the form to make a payment
+                            Kindly Fill Out the Form to Complete Your Giving
                         </p>
                         <form action=" {{ route('payments.store') }}" method="POST">
                             @csrf
@@ -61,6 +61,12 @@
                                 <input type="text" name="name" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="contact">
+                                    Phone Number
+                                </label>
+                                <input type="tel" name="contact" class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label for="email">
                                     Email
                                 </label>
@@ -68,22 +74,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount">
-                                    Amount
+                                    Amount (In GHS)
                                 </label>
                                 <input type="text" name="amount" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Paymet For
+                                    Reference
                                 </label>
                                 <select name="payment_option" id="" class="form-control custom-select">
                                     <option value="" selected disabled>
-                                        Select Payment Option
+                                        Select Option
                                     </option>
                                     <option value="tithe">Tithe</option>
                                     <option value="offering">Offering</option>
                                     <option value="seed offering">Seed Offering</option>
-                                    <option value="special seed offering">Special Seed Offering</option>
+                                    <option value="vow">Vow</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                             <button type="submit">PROCEED</button>
