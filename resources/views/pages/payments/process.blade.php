@@ -62,10 +62,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold">
-                            PAYMENT CONFIRMATION
+                            KINDLY CONFIRM YOUR PAYMENT INFORMATION
                         </h4>
                         <p class="card-text mt-2">
-                            Payment details
+                            Payment Details
                         </p>
                         <div class="row mt-3 mb-2">
                             <div class="col">
@@ -94,19 +94,19 @@
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    Amount (Gh¢)
+                                    Amount
                                 </p>
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->amount }}
+                                    GHS {{ $payment->amount }}
                                 </span>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    Payment For
+                                    Reference
                                 </p>
                             </div>
                             <div class="col">
@@ -122,7 +122,7 @@
                             data-customer_email="{{ $payment->email }}" 
                             data-currency="GHS"
                             data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response/" 
-                            data-pay_button_text="Pay"
+                            data-pay_button_text="Give"
                             data-custom_description="Payment Using CEYC-AC Payment Platform" data-payment_method="both">
                         </a>
                     </div>
