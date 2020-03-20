@@ -92,18 +92,6 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="row mt-3 mb-2">
-                            <div class="col">
-                                <p>
-                                    Phone Number
-                                </p>
-                            </div>
-                            <div class="col">
-                                <span>
-                                    {{ $giving->contact }}
-                                </span>
-                            </div>
-                        </div>
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
