@@ -56,15 +56,15 @@
                             @csrf
                             <div class="form-group">
                                 <label for="fullname">
-                                    Full Name
+                                    Full Name*
                                 </label>
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="contact">
-                                    Phone Number
+                                    Phone Number*
                                 </label>
-                                <input type="tel" name="contact" class="form-control">
+                                <input type="tel" name="contact" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">
@@ -74,15 +74,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount">
-                                    Amount (In GHS)
+                                    Amount (In GHS)*
                                 </label>
-                                <input type="text" name="amount" class="form-control">
+                                <input type="text" name="amount" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Reference
+                                    Reference*
                                 </label>
-                                <select name="payment_option" id="" class="form-control custom-select">
+                                <select name="payment_option" id="" class="form-control custom-select" required>
                                     <option value="" selected disabled>
                                         Select Option
                                     </option>
