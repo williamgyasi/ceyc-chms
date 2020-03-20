@@ -124,21 +124,19 @@
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $giving->amount }}
-                                    {{ $payment->contact }}
+                                    {{ $giving->contact }}
                                 </span>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    giving For
                                     Amount
                                 </p>
                             </div>
                             <div class="col">
                                 <span>
-                                    GHS {{ $payment->amount }}
+                                    GHS {{ $giving->amount }}
                                 </span>
                             </div>
                         </div>
@@ -163,9 +161,6 @@
                             data-redirect_url="{{ route('giving.completion') }}/"
                             data-pay_button_text="Pay"
                             data-custom_description="Giving Using CEYC-AC Giving Platform" data-payment_method="both">
-                            data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response/" 
-                            data-pay_button_text="Give"
-                            data-custom_description="Payment Using CEYC-AC Payment Platform" data-payment_method="both">
                         </a>
                     </div>
                 </div>
