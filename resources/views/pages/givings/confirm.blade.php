@@ -57,6 +57,19 @@
         </div>
         @endif
 
+        <div class="container justify-content-center mt-5">
+        @if (Session::has('success'))
+        <div class="card">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{ Session::get('success') }}</strong>
+            </div>
+        </div>
+        @endif
+        </div>
+
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-sm-12">
                 <div class="card">
@@ -75,7 +88,19 @@
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->name }}
+                                    {{ $giving->full_name }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-2">
+                            <div class="col">
+                                <p>
+                                    Phone Number
+                                </p>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    {{ $giving->contact }}
                                 </span>
                             </div>
                         </div>
@@ -87,7 +112,7 @@
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->email }}
+                                    {{ $giving->email }}
                                 </span>
                             </div>
                         </div>
@@ -99,31 +124,31 @@
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->amount }}
+                                    {{ $giving->amount }}
                                 </span>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    Payment For
+                                    giving For
                                 </p>
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->payment_option }}
+                                    {{ $giving->giving_option }}
                                 </span>
                             </div>
                         </div>
                         <a class="ttlr_inline" 
                             data-APIKey="OGZhMmM0Yzg3NmFiNTgzNjdlZTUyNjAxYzg2ZGVhMDA="
-                            data-transid="{{ $transactionId }}" 
-                            data-amount="{{ $payment->amount }}"
-                            data-customer_email="{{ $payment->email }}" 
+                            data-transid="{{ $giving->transaction_id }}" 
+                            data-amount="{{ $giving->amount }}"
+                            data-customer_email="{{ $giving->email }}" 
                             data-currency="GHS"
-                            data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response/" 
+                            data-redirect_url="{{ route('giving.completion') }}/"
                             data-pay_button_text="Pay"
-                            data-custom_description="Payment Using CEYC-AC Payment Platform" data-payment_method="both">
+                            data-custom_description="Giving Using CEYC-AC Giving Platform" data-payment_method="both">
                         </a>
                     </div>
                 </div>

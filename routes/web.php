@@ -38,8 +38,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('payments', 'PaymentController');
 
-Route::get('payments/{pay}/process', 'PaymentController@process')->name('payments.process');
+Route::get('giving/successful', 'GivingController@successful')->name('giving.successful');
 
-Route::get('payments/confirmation/{response}', 'PaymentController@confirm')->name('payments.confirm');
+Route::get('giving/error', 'GivingController@errorState')->name('giving.error');
+
+Route::get('giving/complete', 'GivingController@completion')->name('giving.completion');
+
+Route::post('giving', 'GivingController@store')->name('giving.store');
+
+Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
+
+Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');

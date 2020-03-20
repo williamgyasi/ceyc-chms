@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CEYC AIPORT-CITY | Payments</title>
+    <title>CEYC AIPORT-CITY | Online Giving</title>
 
         @include('panels/styles')
         <style>
@@ -52,38 +52,44 @@
                         <p class="card-text mt-2">
                             Fill out the form to make a payment
                         </p>
-                        <form action=" {{ route('payments.store') }}" method="POST">
+                        <form action=" {{ route('giving.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="fullname">
                                     Full Name
                                 </label>
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="full_name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">
                                     Email
                                 </label>
-                                <input type="email" name="email" class="form-control">
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact">Phone Number</label>
+                                <input type="text" name="contact" class="form-control" minlength="10" maxlength="10" required>
                             </div>
                             <div class="form-group">
                                 <label for="amount">
                                     Amount
                                 </label>
-                                <input type="text" name="amount" class="form-control">
+                                <input type="number" name="amount" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="">
                                     Paymet For
                                 </label>
-                                <select name="payment_option" id="" class="form-control custom-select">
+                                <select name="giving_option" id="" class="form-control custom-select" required>
                                     <option value="" selected disabled>
                                         Select Payment Option
                                     </option>
-                                    <option value="tithe">Tithe</option>
-                                    <option value="offering">Offering</option>
-                                    <option value="seed offering">Seed Offering</option>
-                                    <option value="special seed offering">Special Seed Offering</option>
+                                    <option value="Tithe">Tithe</option>
+                                    <option value="Offering">Offering</option>
+                                    <option value="Seed Offering">Seed Offering</option>
+                                    <option value="Special Seed Offering">Special Seed Offering</option>
+                                    <option value="Vow">Vow</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             <button type="submit">PROCEED</button>
