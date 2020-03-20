@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>CEYC AIPORT-CITY | Payments</title>
+    <title>CEYC Airport City | Online Giving</title>
 
 
     @include('panels/styles')
@@ -75,10 +75,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold">
-                            PAYMENT CONFIRMATION
+                            KINDLY CONFIRM THE PAYMENT DETAILS
                         </h4>
                         <p class="card-text mt-2">
-                            Payment details
+                            Payment Details
                         </p>
                         <div class="row mt-3 mb-2">
                             <div class="col">
@@ -119,12 +119,13 @@
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    Amount (Gh¢)
+                                    Contact
                                 </p>
                             </div>
                             <div class="col">
                                 <span>
                                     {{ $giving->amount }}
+                                    {{ $payment->contact }}
                                 </span>
                             </div>
                         </div>
@@ -132,6 +133,19 @@
                             <div class="col">
                                 <p>
                                     giving For
+                                    Amount
+                                </p>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    GHS {{ $payment->amount }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <p>
+                                    Reference
                                 </p>
                             </div>
                             <div class="col">
@@ -149,6 +163,9 @@
                             data-redirect_url="{{ route('giving.completion') }}/"
                             data-pay_button_text="Pay"
                             data-custom_description="Giving Using CEYC-AC Giving Platform" data-payment_method="both">
+                            data-redirect_url="http://127.0.0.1:8000/payments/confirmation/response/" 
+                            data-pay_button_text="Give"
+                            data-custom_description="Payment Using CEYC-AC Payment Platform" data-payment_method="both">
                         </a>
                     </div>
                 </div>

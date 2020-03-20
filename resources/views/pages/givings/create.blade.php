@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<<<<<<< HEAD:resources/views/pages/givings/create.blade.php
     <title>CEYC AIPORT-CITY | Online Giving</title>
+=======
+    <title>CEYC Airport City | Online Giving</title>
+>>>>>>> 369650d59ea6108ac5cc752bbf36d8d05c8df08e:resources/views/pages/payments/create.blade.php
 
         @include('panels/styles')
         <style>
@@ -42,23 +46,34 @@
         </div>
         @endif
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-5">            
             <div class="col-md-6 col-sm-12">
                 <div class="card">
+                <img src='http://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png'>
                     <div class="card-body">
-                        <h4 class="card-title font-weight-bold">
-                            PAYMENT
+                        <h4 class="card-title font-weight-bold justify-content-center">
+                            ONLINE GIVING
                         </h4>
                         <p class="card-text mt-2">
-                            Fill out the form to make a payment
+                            Kindly Fill Out The Form To Complete Your Giving
                         </p>
                         <form action=" {{ route('giving.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="fullname">
-                                    Full Name
+                                    Full Name*
                                 </label>
+<<<<<<< HEAD:resources/views/pages/givings/create.blade.php
                                 <input type="text" name="full_name" class="form-control" required>
+=======
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact">
+                                    Phone Number*
+                                </label>
+                                <input type="tel" name="contact" class="form-control" required>
+>>>>>>> 369650d59ea6108ac5cc752bbf36d8d05c8df08e:resources/views/pages/payments/create.blade.php
                             </div>
                             <div class="form-group">
                                 <label for="email">
@@ -72,27 +87,39 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount">
-                                    Amount
+                                    Amount (In GHS)*
                                 </label>
+<<<<<<< HEAD:resources/views/pages/givings/create.blade.php
                                 <input type="number" name="amount" class="form-control" required>
+=======
+                                <input type="text" name="amount" class="form-control" required>
+>>>>>>> 369650d59ea6108ac5cc752bbf36d8d05c8df08e:resources/views/pages/payments/create.blade.php
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Paymet For
+                                    Reference*
                                 </label>
+<<<<<<< HEAD:resources/views/pages/givings/create.blade.php
                                 <select name="giving_option" id="" class="form-control custom-select" required>
+=======
+                                <select name="payment_option" id="" class="form-control custom-select" required>
+>>>>>>> 369650d59ea6108ac5cc752bbf36d8d05c8df08e:resources/views/pages/payments/create.blade.php
                                     <option value="" selected disabled>
-                                        Select Payment Option
+                                        Select Option
                                     </option>
                                     <option value="Tithe">Tithe</option>
                                     <option value="Offering">Offering</option>
+<<<<<<< HEAD:resources/views/pages/givings/create.blade.php
                                     <option value="Seed Offering">Seed Offering</option>
                                     <option value="Special Seed Offering">Special Seed Offering</option>
+=======
+                                    <option value="Seed offering">Seed Offering</option>
+>>>>>>> 369650d59ea6108ac5cc752bbf36d8d05c8df08e:resources/views/pages/payments/create.blade.php
                                     <option value="Vow">Vow</option>
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-                            <button type="submit">PROCEED</button>
+                            <button type="submit">CONFIRM</button>
                         </form>
                     </div>
                 </div>
