@@ -94,6 +94,18 @@
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
+                                    Contact
+                                </p>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    {{ $payment->tel }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <p>
                                     Amount
                                 </p>
                             </div>
