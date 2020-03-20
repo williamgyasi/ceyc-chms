@@ -99,7 +99,7 @@
                             </div>
                             <div class="col">
                                 <span>
-                                    {{ $payment->tel }}
+                                    {{ $payment->contact }}
                                 </span>
                             </div>
                         </div>
