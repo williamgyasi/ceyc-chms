@@ -129,7 +129,7 @@ class PaymentController extends Controller
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
             "Cache-Control: no-cache",
-            "Merchant-Id: d4a2a2cf17fd760afd8c15b277dfaab4"
+            "Merchant-Id: TTM-00000086"
           ),
         ));
         
