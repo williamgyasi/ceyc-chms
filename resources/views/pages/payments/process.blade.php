@@ -62,7 +62,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold">
-                            KINDLY CONFIRM YOUR PAYMENT INFORMATION
+                            KINDLY CONFIRM THE PAYMENT DETAILS
                         </h4>
                         <p class="card-text mt-2">
                             Payment Details
@@ -88,6 +88,11 @@
                             <div class="col">
                                 <span>
                                     {{ $payment->email }}
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    {{ $payment->contact }}
                                 </span>
                             </div>
                         </div>
