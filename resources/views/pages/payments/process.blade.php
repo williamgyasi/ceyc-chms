@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>CEYC AIPORT-CITY | Payments</title>
+    <title>CEYC Airport City | Online Giving</title>
 
 
     @include('panels/styles')
@@ -88,11 +88,6 @@
                             <div class="col">
                                 <span>
                                     {{ $payment->email }}
-                                </span>
-                            </div>
-                            <div class="col">
-                                <span>
-                                    {{ $payment->contact }}
                                 </span>
                             </div>
                         </div>
