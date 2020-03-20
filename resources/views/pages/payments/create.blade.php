@@ -40,6 +40,11 @@
                 @endforeach
             </ul>
         </div>
+        <div class="alert alert-danger">
+        <a href="http://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png">
+         width=150" height="70">
+      </a>
+        </div>
         @endif
 
         <div class="row justify-content-center mt-5">
@@ -50,7 +55,7 @@
                             ONLINE GIVING
                         </h4>
                         <p class="card-text mt-2">
-                            Kindly Fill Out the Form to Complete Your Giving
+                            Kindly Fill Out The Form To Complete Your Giving
                         </p>
                         <form action=" {{ route('payments.store') }}" method="POST">
                             @csrf
@@ -93,7 +98,7 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-                            <button type="submit">PROCEED</button>
+                            <button type="submit">CONFIRM</button>
                         </form>
                     </div>
                 </div>
