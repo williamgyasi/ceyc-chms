@@ -95,18 +95,6 @@
                         <div class="row mb-2">
                             <div class="col">
                                 <p>
-                                    Email
-                                </p>
-                            </div>
-                            <div class="col">
-                                <span>
-                                    {{ $giving->email }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col">
-                                <p>
                                     Contact
                                 </p>
                             </div>
