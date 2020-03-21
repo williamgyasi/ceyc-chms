@@ -27,9 +27,10 @@ class GivingController extends Controller
 
     /**
      * Method to store a newly created giving resource to database
-     * 
-     * @param \Illuminate\Http\Request $request 
+     *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -44,6 +45,7 @@ class GivingController extends Controller
         $transactionId = random_int(10,100) .  bin2hex(random_bytes(5));
 
         $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
+
 
         $giving = Giving::create($attributes + ['transaction_id' => $transactionId, 'slug' => $slug]);
 
@@ -92,24 +94,24 @@ class GivingController extends Controller
         if ($request->status !== 'Approved') {
 
             $giving = Giving::whereTransactionId($transaction_id)
-            
+
                     ->update(['payment_status' => $status]);
-            
+
             request()->session()->flash('error', 'Looks Like Something Went Wrong Please Try Again!');
 
             return redirect()->route('giving.error');
-            
+
         } else {
 
             $giving = Giving::whereTransactionId($transaction_id)
-            
+
                     ->update(['payment_status' => $status]);
-            
+
             request()->session()->flash('success', 'Transaction Completed!');
 
             return redirect()->route('giving.successful');
         }
-  
+
     }
 
     public function successful()
