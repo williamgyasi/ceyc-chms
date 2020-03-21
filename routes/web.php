@@ -50,7 +50,7 @@ Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
 
-Route::get('payment/confirm', 'PaymentController@confirm')->name('payment.confirm');
+Route::get('payment/{payment}/confirm', 'PaymentController@confirm')->name('payment.confirm');
 
 Route::post('payment', 'PaymentController@store')->name('payment.store');
 

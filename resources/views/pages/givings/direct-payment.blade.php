@@ -52,6 +52,7 @@
                     <p class="card-text mt-2">
                         Kindly Fill Out The Form To Complete Your Giving
                     </p>
+
                     <form action=" {{ route('payment.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
@@ -104,11 +105,14 @@
                         </div>
                         <button type="submit">CONFIRM</button>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+
+<script src="{{ asset('js/app.js') }}"></script>
 
 </html>

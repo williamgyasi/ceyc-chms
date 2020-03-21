@@ -46,18 +46,20 @@ class PaymentController extends Controller
                     'slug' => $slug
                 ]);
 
-            $this->makePaymentApiRequest($payment);
+            //$this->makePaymentApiRequest($payment);
 
-            return redirect()->route('payment.confirm', compact('payment'));
+            return redirect()->route('payment.confirm',
+                compact('payment'));
 
         } catch (ValidationException $e) {
             $e->validator->errors()->getMessages();
         }
     }
 
-    public function confirm()
+    public function confirm(Payment $payment)
     {
-        return view('pages.givings.direct-confirm');
+        return view('pages.givings.direct-confirm',
+            compact('payment'));
     }
 
     /**
@@ -106,5 +108,15 @@ class PaymentController extends Controller
 
         dd($response->getBody()->getContents());
 
+    }
+
+    public function mobileMoneyPayment($payment)
+    {
+        //some code goes here
+    }
+
+    public function visaPayment($payment)
+    {
+        //some code here too
     }
 }
