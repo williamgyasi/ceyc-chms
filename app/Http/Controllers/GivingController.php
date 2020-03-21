@@ -89,7 +89,7 @@ class GivingController extends Controller
 
         curl_close($curl);
 
-        if ($request->status !== 'approved') {
+        if ($request->status !== 'Approved') {
 
             $giving = Giving::whereTransactionId($transaction_id)
             
