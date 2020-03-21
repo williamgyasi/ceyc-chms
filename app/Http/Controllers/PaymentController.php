@@ -36,7 +36,7 @@ class PaymentController extends Controller
                 'amount' => 'required',
                 'giving_option' => 'required'
             ]);
-            $transactionId = random_int(10, 100) . bin2hex(random_bytes(5));
+            $transactionId = sprintf("%'.012d", random_int(1, 1000) . $request->amount*100);
 
             $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
@@ -63,6 +63,7 @@ class PaymentController extends Controller
     /**
      * Method to send payload for payment
      * @param $payment
+     * @throws Exception
      */
     private function makePaymentApiRequest($payment)
     {
@@ -70,31 +71,40 @@ class PaymentController extends Controller
 
         $client = new Client();
 
-        $response = $client->request('POST', $baseURI,[
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => ['Basic ' . base64_encode('jumeni5b92c307c2861:ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM=')],
-                'Cache-Control' => 'no-cache',
-                'Accept' => 'Accept: */*',
-                'User-Agent' => 'guzzle/6.0',
-                'Accept-Charset' => '*',
-                'Accept-Encoding' => '*',
-                'Accept-Ranges' => 'none',
-                'Accept-Language' => '*',
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => [
+                'Basic ' . base64_encode('jumeni5b92c307c2861:ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM=')
             ],
-            'form_params' => [
-                'amount' => $payment->amount,
-                'processing_code' => '000200',
-                'transaction_id' => $payment->transaction_id,
-                'desc' => 'CEYC AC Giving',
-                'merchant_id' => 'TTM-00000086',
-                'subscriber_number' => $payment->contact,
-                'r-switch' => $payment->mobile_network
-            ]]);
+            'Cache-Control' => 'no-cache',
+            'Accept' => 'Accept: */*',
+            'User-Agent' => 'guzzle/6.0',
+            'Accept-Charset' => '*',
+            'Accept-Encoding' => '*',
+            'Accept-Ranges' => 'none',
+            'Accept-Language' => '*',
+        ];
+
+        $amount = sprintf("%'.012d", $payment->amount *100);
+
+        $body = [
+            'amount' => $amount,
+            'processing_code' => '000200',
+            'transaction_id' => $payment->transaction_id,
+            'desc' => 'CEYC AC Giving',
+            'merchant_id' => "TTM-00000086",
+            'subscriber_number' => $payment->contact,
+            'r-switch' => $payment->mobile_network
+        ];
+
+        $response = $client->request('POST', $baseURI, [
+            'headers' => $headers,
+            'body' => json_encode($body),
+        ]);
 
         $statusCode = $response->getStatusCode();
 
-        dd($statusCode);
+        dd($response->getBody()->getContents());
 
     }
 }
