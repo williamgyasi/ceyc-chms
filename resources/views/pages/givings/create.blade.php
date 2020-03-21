@@ -65,11 +65,11 @@
                                 <label for="email">
                                     Email
                                 </label>
-                                <input type="email" name="email" class="form-control" required>
+                                <input type="hidden" name="email" value="tech@ceycairportcity.org">
                             </div>
                             <div class="form-group">
-                                <label for="contact">Phone Number</label>
-                                <input type="text" name="contact" class="form-control" minlength="10" maxlength="10" required>
+                                <label for="contact">Phone Number*</label>
+                                <input type="tel" name="contact" class="form-control" minlength="10" maxlength="10" required>
                             </div>
                             <div class="form-group">
                                 <label for="amount">
