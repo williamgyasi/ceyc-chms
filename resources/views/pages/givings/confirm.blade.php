@@ -148,7 +148,7 @@
                             data-currency="GHS"
                             data-redirect_url="{{ route('giving.completion') }}/"
                             data-pay_button_text="PAY"
-                            data-custom_description="Giving Using CEYC-AC Giving Platform" data-payment_method="both">
+                            data-custom_description="CEYC Airport City" data-payment_method="both">
                         </a>
                     </div>
                 </div>
