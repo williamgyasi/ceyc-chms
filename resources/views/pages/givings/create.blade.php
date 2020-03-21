@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CEYC AIPORT-CITY | Online Giving</title>
+    <title>CEYC AIPORT CITY | Online Giving</title>
 
         @include('panels/styles')
         <style>
@@ -45,7 +45,7 @@
         <div class="row justify-content-center mt-5">            
             <div class="col-md-6 col-sm-12">
                 <div class="card">
-                <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png'>
+                <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=200 height=129>
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold justify-content-center">
                             ONLINE GIVING
