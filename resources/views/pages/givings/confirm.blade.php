@@ -141,13 +141,13 @@
                             </div>
                         </div>
                         <a class="ttlr_inline" 
-                            data-APIKey="OGZhMmM0Yzg3NmFiNTgzNjdlZTUyNjAxYzg2ZGVhMDA="
+                            data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="
                             data-transid="{{ $giving->transaction_id }}" 
                             data-amount="{{ $giving->amount }}"
                             data-customer_email="{{ $giving->email }}" 
                             data-currency="GHS"
                             data-redirect_url="{{ route('giving.completion') }}/"
-                            data-pay_button_text="Pay"
+                            data-pay_button_text="PAY"
                             data-custom_description="Giving Using CEYC-AC Giving Platform" data-payment_method="both">
                         </a>
                     </div>
@@ -156,15 +156,19 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="https://test.theteller.net/checkout/resource/api/inline/theteller_inline.js">
+<script type="text/javascript" src="https://prod.theteller.net/checkout/resource/api/inline/theteller_inline.js">
 </script>
 <script src="{{ asset('/js/app.js') }}"></script>
 <script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'https://prod.theteller.net',
+            'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Headers': '*',
+        },
+        xhrFields: {
+            withCredentials: true
         }
     });
 </script>

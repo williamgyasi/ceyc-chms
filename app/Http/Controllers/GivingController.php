@@ -70,7 +70,7 @@ class GivingController extends Controller
         $transaction_id = $request->transaction_id;
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://test.theteller.net/v1.1/users/transactions/".$transaction_id."/status",
+        CURLOPT_URL => "https://prod.theteller.net/v1.1/users/transactions/".$transaction_id."/status",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
