@@ -203,11 +203,33 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Expiry Month</label>
-                                            //get a list of all the months in the year and display them
-                                            // in the form of numbers eg: 03, 04, 05 etc)
+                                            <select>
+                                                <option value="01">January</option>
+                                                <option value="02">February </option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
                                             <label for="">Expiry Date</label>
-                                            //get a list of all the years in a particular range
-                                            // in the form of numbers eg: 18,19,21 etc)
+                                            <select>
+                                                <option value="20"> 2020</option>
+                                                <option value="21"> 2021</option>
+                                                <option value="22"> 2022</option>
+                                                <option value="23"> 2023</option>
+                                                <option value="24"> 2024</option>
+                                                <option value="25"> 2025</option>
+                                            </select>
+                                            <div class="form-group CVV">
+                                                <label for="cvv">CVV</label>
+                                                <input type="text" class="form-control" id="cvv">
+                                            </div>
                                         </div>
                                         <button class="button">PAY</button>
                                     </form>
