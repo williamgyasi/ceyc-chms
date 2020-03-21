@@ -42,10 +42,10 @@
         </div>
         @endif
 
-        <div class="row justify-content-center mt-5">            
+        <div class="row justify-content-center mt-5">  
+        <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=300 height=194>          
             <div class="col-md-6 col-sm-12">
                 <div class="card">
-                <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=200 height=129>
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold justify-content-center">
                             ONLINE GIVING
