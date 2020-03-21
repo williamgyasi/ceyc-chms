@@ -121,7 +121,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button class="button"  data-toggle="modal"
+                            <button class="button" data-toggle="modal"
                                     data-target="#momoModal">
                                 PAY WITH MoMo
                             </button>
@@ -146,13 +146,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="">
+                                    <form action="{{ route('payment.momo') }}" method="post">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="">MOBILE NETWORK</label>
                                             <select name="mobile_network" id="" class="form-control custom-select">
-{{--                                                <option value="{{ $payment->mobile_network }}" selected>--}}
-{{--                                                    {{ $payment->mobile_network }}--}}
-{{--                                                </option>--}}
                                                 <option value="MTN">MTN</option>
                                                 <option value="VDF">Vodafone</option>
                                                 <option value="ATL">Airtel</option>
@@ -164,6 +162,9 @@
                                             <input type="text" name="contact" value="{{$payment->contact}}"
                                                    class="form-control">
                                         </div>
+                                        <input type="text" name="transaction_id" value="{{ $payment->transaction_id
+                                        }}" hidden>
+                                        <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
                                         <div class="alert alert-warning mt-2 mb-2">
                                             <span class="font-weight-bold">
                                                 You Will receive a prompt once you click the pay bubtton to authorise
@@ -191,44 +192,68 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="">
+                                    <form action="{{ route('payment.card') }}" method="post">
+                                        @csrf
+                                        <input type="text" name="transaction_id" value="{{ $payment->transaction_id
+                                        }}" hidden>
+                                        <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
+                                        <input type="text" name="customer_email" value="{{ $payment->email }}" hidden>
+                                        <div class="form-group">
                                         <div class="form-group">
                                             <label for="">CARD NUMBER</label>
-                                            <input type="text" name="card_number" class="form-control">
+                                            <input type="text" name="pan" class="form-control" minlength="16"
+                                                   maxlength="16">
                                         </div>
                                         <div class="form-group">
                                             <label for="">CARD HOLDER NAME</label>
-                                            <input type="text" name="card_holder_name"
+                                            <input type="text" name="card_holder"
                                                    class="form-control" placeholder="Eg: Abena Abrefa">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Expiry Month</label>
-                                            <select>
-                                                <option value="01">January</option>
-                                                <option value="02">February </option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-
-                                            <label for="">Expiry Date</label>
-                                            <select>
-                                                <option value="16"> 2016</option>
-                                                <option value="17"> 2017</option>
-                                                <option value="18"> 2018</option>
-                                                <option value="19"> 2019</option>
-                                                <option value="20"> 2020</option>
-                                                <option value="21"> 2021</option>
-                                            </select>
-                                            //get a list of all the years in a particular range
-                                            // in the form of numbers eg: 18,19,21 etc)
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <label for="">Expiry Date</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select name="exp_month" class="form-control">
+                                                            <option value="" selected disabled>MM</option>
+                                                            <option value="01">January</option>
+                                                            <option value="02">February</option>
+                                                            <option value="03">March</option>
+                                                            <option value="04">April</option>
+                                                            <option value="05">May</option>
+                                                            <option value="06">June</option>
+                                                            <option value="07">July</option>
+                                                            <option value="08">August</option>
+                                                            <option value="09">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                    </div>
+                                                    /
+                                                    <div class="col">
+                                                        <select name="exp_year" class="form-control">
+                                                            <option value="" selected disabled>YY</option>
+                                                            <option value="20"> 2020</option>
+                                                            <option value="21"> 2021</option>
+                                                            <option value="22"> 2022</option>
+                                                            <option value="23"> 2023</option>
+                                                            <option value="24"> 2024</option>
+                                                            <option value="25"> 2025</option>
+                                                            <option value="26"> 2026</option>
+                                                            <option value="27"> 2027</option>
+                                                            <option value="28"> 2028</option>
+                                                            <option value="29"> 2029</option>
+                                                            <option value="30"> 2030</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label for="">CVV</label>
+                                                <input type="text" name="cvv" class="form-control" minlength="3"
+                                                       maxlength="5">
+                                            </div>
                                         </div>
                                         <button class="button">PAY</button>
                                     </form>

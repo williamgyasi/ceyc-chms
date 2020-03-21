@@ -62,17 +62,89 @@ class PaymentController extends Controller
             compact('payment'));
     }
 
-    /**
-     * Method to send payload for payment
-     * @param $payment
-     * @throws Exception
-     */
-    private function makePaymentApiRequest($payment)
+    public function mobileMoneyPayment(Request $request)
     {
-        $baseURI = 'https://prod.theteller.net/v1.1/transaction/process';
+        $uri = 'https://prod.theteller.net/v1.1/transaction/process';
+
+        $amount = sprintf("%'.012d", $request->amount *100);
+
+        $body = [
+            'amount' => $amount,
+            'processing_code' => '000200',
+            'transaction_id' => $request->transaction_id,
+            'desc' => 'CEYC AC Giving',
+            'merchant_id' => "TTM-00000086",
+            'subscriber_number' => $request->contact,
+            'r-switch' => $request->mobile_network
+        ];
 
         $client = new Client();
 
+        $response = $client->request('POST', $uri, [
+            'headers' => $this->headers(),
+            'body' => json_encode($body),
+            'timeout' => 30
+        ]);
+
+        $statusCode = $response->getStatusCode();
+
+        $responseBody = $response->getBody()->getContents();
+
+        if($responseBody !== '000') {
+            dd('Payment ' . $responseBody->status. 'Please try again');
+        }else{
+            dd('Payment ' . $responseBody->status );
+        }
+
+        dd($responseBody);
+    }
+
+    public function cardPayment(Request $request)
+    {
+        $uri = 'https://prod.theteller.net/v1.1/transaction/process';
+
+        $amount = sprintf("%'.012d", $request->amount *100);
+
+        $body = [
+            'amount' => $amount,
+            'processing_code' => '000000',
+            'transaction_id' => $request->transaction_id,
+            'desc' => 'CEYC AC Giving - Card Payment',
+            'merchant_id' => "TTM-00000086",
+            'subscriber_number' => $request->contact,
+            'r-switch' => 'VIS',
+            'pan' => $request->pan,
+            'cvv' => $request->cvv,
+            'exp_month' => $request->exp_month,
+            'exp_year' => $request->exp_year,
+            'card_holder' => $request->card_holder,
+            'currency' => 'GHS',
+            'customer_email' => $request->customer_email
+        ];
+
+        $client = new Client();
+
+        $response = $client->request('POST', $uri, [
+            'headers' => $this->headers(),
+            'body' => json_encode($body),
+        ]);
+
+        $statusCode = $response->getStatusCode();
+
+        $responseBody = $response->getBody()->getContents();
+
+        if($responseBody !== '000') {
+            dd('Payment ' . $responseBody->status. 'Please try again');
+        }else{
+            dd('Payment ' . $responseBody->status );
+        }
+
+        dd($responseBody);
+
+    }
+
+    public function headers() : array
+    {
         $headers = [
             'Content-Type' => 'application/json',
             'Authorization' => [
@@ -87,36 +159,6 @@ class PaymentController extends Controller
             'Accept-Language' => '*',
         ];
 
-        $amount = sprintf("%'.012d", $payment->amount *100);
-
-        $body = [
-            'amount' => $amount,
-            'processing_code' => '000200',
-            'transaction_id' => $payment->transaction_id,
-            'desc' => 'CEYC AC Giving',
-            'merchant_id' => "TTM-00000086",
-            'subscriber_number' => $payment->contact,
-            'r-switch' => $payment->mobile_network
-        ];
-
-        $response = $client->request('POST', $baseURI, [
-            'headers' => $headers,
-            'body' => json_encode($body),
-        ]);
-
-        $statusCode = $response->getStatusCode();
-
-        dd($response->getBody()->getContents());
-
-    }
-
-    public function mobileMoneyPayment($payment)
-    {
-        //some code goes here
-    }
-
-    public function visaPayment($payment)
-    {
-        //some code here too
+        return $headers;
     }
 }

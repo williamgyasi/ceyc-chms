@@ -50,6 +50,10 @@ Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
 
+Route::post('payment/mobile-money/process', 'PaymentController@mobileMoneyPayment')->name('payment.momo');
+
+Route::post('payment/card-payment/process', 'PaymentController@cardPayment')->name('payment.card');
+
 Route::get('payment/{payment}/confirm', 'PaymentController@confirm')->name('payment.confirm');
 
 Route::post('payment', 'PaymentController@store')->name('payment.store');
