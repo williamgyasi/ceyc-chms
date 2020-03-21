@@ -62,9 +62,6 @@
                                 <input type="text" name="full_name" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">
-                                    Email
-                                </label>
                                 <input type="hidden" name="email" value="tech@ceycairportcity.org">
                             </div>
                             <div class="form-group">
