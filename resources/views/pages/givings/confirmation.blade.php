@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Refresh" content="7; url=https://ceycairportcity.org/" />
+    <meta http-equiv="Refresh" content="5; url=https://ceycairportcity.org/"/>
     <title>CEYC AIPORT-CITY | Payments</title>
 
     @include('panels/styles')
@@ -26,8 +26,7 @@
                         </strong>
                     </div>
                     <p class="text-center">
-                        Click <a href="https://ceycairportcity.org/">Here</a> to go back to our website.
-                        Redirecting you back to our homepage
+                        Redirecting you back to our <a href="https://ceycairportcity.org/">homepage</a>
                     </p>   
                     @if (Session::has('success'))
                     @endif
