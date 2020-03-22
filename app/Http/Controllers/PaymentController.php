@@ -79,6 +79,10 @@ class PaymentController extends Controller
             'r-switch' => $request->mobile_network
         ];
 
+        if($request->mobile_network === 'VDF') {
+            $body = array_push($body, 'voucher_code', $request->mobile_network);
+        }
+
         $client = new Client();
 
         $response = $client->request('POST', $uri, [
