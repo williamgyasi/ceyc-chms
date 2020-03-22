@@ -7,6 +7,7 @@ use Exception;
 use GuzzleHttp\Client as Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -76,11 +77,11 @@ class PaymentController extends Controller
             'desc' => 'CEYC AC Giving',
             'merchant_id' => "TTM-00000086",
             'subscriber_number' => $request->contact,
-            'r-switch' => $request->mobile_network
+            'r-switch' => $request->mobile_network,
         ];
 
         if($request->mobile_network === 'VDF') {
-            $body = array_push($body, 'voucher_code', $request->voucher_code);
+            $body = Arr::add($body, 'voucher_code', $request->voucher_code);
         }
 
         $client = new Client();
@@ -96,7 +97,7 @@ class PaymentController extends Controller
         $responseBody = json_decode($response->getBody()->getContents());
 
         if ($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status . ' Please try again');
+            dd('Payment ' . $responseBody->status . ' ' . $responseBody->reason . ' Please try again');
         } else {
             dd('Payment ' . $responseBody->status);
         }
