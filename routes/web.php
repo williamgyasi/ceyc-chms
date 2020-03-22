@@ -44,11 +44,17 @@ Route::get('giving/error', 'GivingController@errorState')->name('giving.error');
 
 Route::get('giving/complete', 'GivingController@completion')->name('giving.completion');
 
+Route::post('giving/mobile-money/process', 'GivingController@mobileMoneyPayment')->name('giving.momo');
+
 Route::post('giving', 'GivingController@store')->name('giving.store');
 
 Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
+
+
+
+
 
 Route::post('payment/mobile-money/process', 'PaymentController@mobileMoneyPayment')->name('payment.momo');
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Giving;
 use Carbon\Carbon;
+use GuzzleHttp\Client as Client;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log as Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -31,6 +34,7 @@ class GivingController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -42,12 +46,16 @@ class GivingController extends Controller
             'giving_option' =>  'required',
         ]);
 
-        $transactionId = random_int(10,100) .  bin2hex(random_bytes(5));
+        $transactionId = sprintf("%'.012d", random_int(1, 1000) . $request->amount * 100);
 
         $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
 
-        $giving = Giving::create($attributes + ['transaction_id' => $transactionId, 'slug' => $slug]);
+        $giving = Giving::create($attributes +
+            [
+                'transaction_id' => $transactionId,
+                'slug' => $slug
+            ]);
 
         if($giving->save()) {
 
@@ -63,55 +71,81 @@ class GivingController extends Controller
        return view('pages.givings.confirm', compact('giving'));
     }
 
-    public function completion(Request $request)
+    public function mobileMoneyPayment(Request $request)
     {
-        $status = $request->status;
+        $uri = 'https://prod.theteller.net/v1.1/transaction/process';
 
-        $curl = curl_init();
+        $amount = sprintf("%'.012d", $request->amount * 100);
 
-        $transaction_id = $request->transaction_id;
+        $body = [
+            'amount' => $amount,
+            'processing_code' => '000200',
+            'transaction_id' => $request->transaction_id,
+            'desc' => 'CEYC AC Giving',
+            'merchant_id' => "TTM-00000086",
+            'subscriber_number' => $request->contact,
+            'r-switch' => $request->mobile_network,
+        ];
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://prod.theteller.net/v1.1/users/transactions/".$transaction_id."/status",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "Cache-Control: no-cache",
-            "Merchant-Id: TTM-00000086"
-        ),
-        ));
+        if($request->mobile_network === 'VDF') {
+            $body = Arr::add($body, 'voucher_code', $request->voucher_code);
+        }
 
-        $response = curl_exec($curl);
+        $client = new Client();
 
-        $err = curl_error($curl);
+        $response = $client->request('POST', $uri, [
+            'headers' => $this->headers(),
+            'body' => json_encode($body),
+            'timeout' => 60
+        ]);
 
-        curl_close($curl);
+        $statusCode = $response->getStatusCode();
 
-        if ($request->status !== 'Approved') {
+        $responseBody = json_decode($response->getBody()->getContents());
 
-            $giving = Giving::whereTransactionId($transaction_id)
+        if ($responseBody->code !== '000') {
 
-                    ->update(['payment_status' => $status]);
+            Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $responseBody->status]);
 
-            request()->session()->flash('error', 'Looks Like Something Went Wrong Please Try Again!');
+            request()->session()->flash('error', 'Looks Like Something Went Wrong. Please Try Again');
 
             return redirect()->route('giving.error');
 
         } else {
 
-            $giving = Giving::whereTransactionId($transaction_id)
-
-                    ->update(['payment_status' => $status]);
+            Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $responseBody->status]);
 
             request()->session()->flash('success', 'Transaction Completed!');
 
             return redirect()->route('giving.successful');
         }
+    }
+    
+    /**
+     * Builds the response headers to be used
+     * for making API calls (GET/POST)
+     *
+     * @return array
+     */
+    public function headers(): array
+    {
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => [
+                'Basic ' . base64_encode('jumeni5b92c307c2861:ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM=')
+            ],
+            'Cache-Control' => 'no-cache',
+            'Accept' => 'Accept: */*',
+            'User-Agent' => 'guzzle/6.0',
+            'Accept-Charset' => '*',
+            'Accept-Encoding' => '*',
+            'Accept-Ranges' => 'none',
+            'Accept-Language' => '*',
+        ];
 
+        return $headers;
     }
 
     public function successful()
