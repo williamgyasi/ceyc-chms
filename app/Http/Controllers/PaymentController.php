@@ -111,7 +111,6 @@ class PaymentController extends Controller
             'transaction_id' => $request->transaction_id,
             'desc' => 'CEYC AC Giving - Card Payment',
             'merchant_id' => "TTM-00000086",
-            'subscriber_number' => $request->contact,
             'r-switch' => 'VIS',
             'pan' => $request->pan,
             'cvv' => $request->cvv,
