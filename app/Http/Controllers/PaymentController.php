@@ -80,7 +80,7 @@ class PaymentController extends Controller
         ];
 
         if($request->mobile_network === 'VDF') {
-            $body = array_push($body, 'voucher_code', $request->mobile_network);
+            $body = array_push($body, 'voucher_code', $request->voucher_code);
         }
 
         $client = new Client();
