@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Giving;
 use App\Payment;
 use Exception;
 use GuzzleHttp\Client as Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Psr\Http\Message\ResponseInterface;
 
 class PaymentController extends Controller
 {
@@ -40,7 +43,8 @@ class PaymentController extends Controller
                 'amount' => 'required',
                 'giving_option' => 'required'
             ]);
-            $transactionId = sprintf("%'.012d", random_int(1, 1000) . $request->amount * 100);
+
+            $transactionId = $this->transactionId();
 
             $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
@@ -109,6 +113,7 @@ class PaymentController extends Controller
      * Method to send request to Payswitch Api Service
      *
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function cardPayment(Request $request)
     {
@@ -122,7 +127,7 @@ class PaymentController extends Controller
             'transaction_id' => $request->transaction_id,
             'desc' => 'CEYC AC Giving - Card Payment',
             'merchant_id' => "TTM-00000086",
-            'r-switch' => 'VIS',
+            'r-switch' => $request->r_switch,
             'pan' => $request->pan,
             'cvv' => $request->cvv,
             'exp_month' => $request->exp_month,
@@ -138,20 +143,25 @@ class PaymentController extends Controller
         $response = $client->request('POST', $uri, [
             'headers' => $this->headers(),
             'body' => json_encode($body),
+//            'timeout' => 400
         ]);
-
-        $statusCode = $response->getStatusCode();
 
         $responseBody = json_decode($response->getBody()->getContents());
 
-        if ($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status . ' Please try again');
+        if ($responseBody->code == '200' && $responseBody->status == 'vbv required') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => 'Pending']);
+            return redirect()->away($responseBody->reason);
+
+        } elseif ($responseBody->code === '000') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => 'Pending']);
+            return redirect()->route('giving.successful');
         } else {
-            dd('Payment ' . $responseBody->status);
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => 'Pending']);
+            return redirect()->route('giving.error');
         }
-
-        dd($responseBody);
-
     }
 
 
@@ -179,4 +189,19 @@ class PaymentController extends Controller
 
         return $headers;
     }
+
+    /**
+     * Method to generate  random transactionId
+     * of 12 digits
+     *
+     * @return string
+     */
+    public function transactionId(): string
+    {
+        $milliseconds = (String)round(microtime(true) * 568);
+        $shuffled = str_shuffle($milliseconds);
+        $transactionId = substr($shuffled, 0, 12);
+        return $transactionId;
+    }
+
 }

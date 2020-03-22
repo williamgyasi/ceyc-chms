@@ -102,20 +102,9 @@ class GivingController extends Controller
                 'timeout' => 60
             ]);
 
-            $statusCode = $response->getStatusCode();
-
             $responseBody = json_decode($response->getBody()->getContents());
 
-            if ($responseBody->code !== '000') {
-
-                Giving::whereTransactionId($request->transaction_id)
-                    ->update(['payment_status' => $responseBody->status]);
-
-                request()->session()->flash('error', 'Looks Like Something Went Wrong. Please Try Again');
-
-                return redirect()->route('giving.error');
-
-            } else {
+            if ($responseBody->code == '000') {
 
                 Giving::whereTransactionId($request->transaction_id)
                     ->update(['payment_status' => $responseBody->status]);
@@ -123,12 +112,20 @@ class GivingController extends Controller
                 request()->session()->flash('success', 'Transaction Completed!');
 
                 return redirect()->route('giving.successful');
+
+            } else {
+                Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $responseBody->status]);
+
+                request()->session()->flash('error', 'Looks Like Something Went Wrong. Please Try Again');
+
+                return redirect()->route('giving.error');
             }
 
         } catch (ConnectException $exception) {
             Log::critical($exception->getResponse());
             return redirect()->route('giving.error');
-            
+
         } catch (FatalErrorException $e) {
             Log::critical($e->getMessage());
             return redirect()->route('giving.error');

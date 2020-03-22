@@ -129,7 +129,7 @@
                         <div class="col">
                             <button class="button" data-toggle="modal"
                                     data-target="#visaModal">
-                                PAY WITH VISA
+                                PAY WITH CREDIT CARD
                             </button>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                                             <label for="vf_voucher_field">VODAFONE VOUCHER CODE</label>
                                             <input type="number" name="voucher_code" class="form-control"
                                                    id=otherField
-                                            placeholder="Vodafone Users Only">
+                                                   placeholder="Vodafone Users Only">
                                         </div>
 
                                         <input type="text" name="transaction_id" value="{{ $payment->transaction_id
@@ -207,63 +207,73 @@
                                         <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
                                         <input type="text" name="customer_email" value="{{ $payment->email }}" hidden>
                                         <div class="form-group">
-                                        <div class="form-group">
-                                            <label for="">CARD NUMBER</label>
-                                            <input type="text" name="pan" class="form-control" minlength="16"
-                                                   maxlength="16">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">CARD HOLDER NAME</label>
-                                            <input type="text" name="card_holder"
-                                                   class="form-control" placeholder="Eg: Abena Abrefa">
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col">
-                                                <label for="">Expiry Date</label>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <select name="exp_month" class="form-control">
-                                                            <option value="" selected disabled>MM</option>
-                                                            <option value="01">January</option>
-                                                            <option value="02">February</option>
-                                                            <option value="03">March</option>
-                                                            <option value="04">April</option>
-                                                            <option value="05">May</option>
-                                                            <option value="06">June</option>
-                                                            <option value="07">July</option>
-                                                            <option value="08">August</option>
-                                                            <option value="09">September</option>
-                                                            <option value="10">October</option>
-                                                            <option value="11">November</option>
-                                                            <option value="12">December</option>
-                                                        </select>
-                                                    </div>
-                                                    /
-                                                    <div class="col">
-                                                        <select name="exp_year" class="form-control">
-                                                            <option value="" selected disabled>YY</option>
-                                                            <option value="20"> 2020</option>
-                                                            <option value="21"> 2021</option>
-                                                            <option value="22"> 2022</option>
-                                                            <option value="23"> 2023</option>
-                                                            <option value="24"> 2024</option>
-                                                            <option value="25"> 2025</option>
-                                                            <option value="26"> 2026</option>
-                                                            <option value="27"> 2027</option>
-                                                            <option value="28"> 2028</option>
-                                                            <option value="29"> 2029</option>
-                                                            <option value="30"> 2030</option>
-                                                        </select>
+                                            <div class="form-group">
+                                                <label for="">CARD TYPE</label>
+                                                <select name="r_switch" id="" class="form-control" required>
+                                                    <option value="" selected disabled>
+                                                        Select Card Type - VISA/MasterCard
+                                                    </option>
+                                                    <option value="VIS">VISA</option>
+                                                    <option value="MAS">MasterCard</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">CARD NUMBER</label>
+                                                <input type="text" name="pan" class="form-control" minlength="16"
+                                                       maxlength="20" placeholder="Eg: 4545454545454545">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">CARD HOLDER NAME</label>
+                                                <input type="text" name="card_holder"
+                                                       class="form-control" placeholder="Eg: Abena Abrefa">
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <label for="">Expiry Date</label>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <select name="exp_month" class="form-control">
+                                                                <option value="" selected disabled>MM</option>
+                                                                <option value="01">January</option>
+                                                                <option value="02">February</option>
+                                                                <option value="03">March</option>
+                                                                <option value="04">April</option>
+                                                                <option value="05">May</option>
+                                                                <option value="06">June</option>
+                                                                <option value="07">July</option>
+                                                                <option value="08">August</option>
+                                                                <option value="09">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+                                                            </select>
+                                                        </div>
+                                                        /
+                                                        <div class="col">
+                                                            <select name="exp_year" class="form-control">
+                                                                <option value="" selected disabled>YY</option>
+                                                                <option value="20"> 2020</option>
+                                                                <option value="21"> 2021</option>
+                                                                <option value="22"> 2022</option>
+                                                                <option value="23"> 2023</option>
+                                                                <option value="24"> 2024</option>
+                                                                <option value="25"> 2025</option>
+                                                                <option value="26"> 2026</option>
+                                                                <option value="27"> 2027</option>
+                                                                <option value="28"> 2028</option>
+                                                                <option value="29"> 2029</option>
+                                                                <option value="30"> 2030</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <label for="">CVV</label>
+                                                    <input type="text" name="cvv" class="form-control" minlength="3"
+                                                           maxlength="5">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <label for="">CVV</label>
-                                                <input type="text" name="cvv" class="form-control" minlength="3"
-                                                       maxlength="5">
-                                            </div>
-                                        </div>
-                                        <button class="button">PAY</button>
+                                            <button class="button">PAY</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -295,35 +305,35 @@
 </script>
 
 <script>
-$("#seeAnotherField").change(function() {
-  if ($(this).val() == "VDF") {
-    $('#otherFieldDiv').show();
-    $('#otherField').attr('required', '');
-    $('#otherField').attr('data-error', 'This field is required.');
-  } else {
-    $('#otherFieldDiv').hide();
-    $('#otherField').removeAttr('required');
-    $('#otherField').removeAttr('data-error');
-  }
-});
-$("#seeAnotherField").trigger("change");
+    $("#seeAnotherField").change(function () {
+        if ($(this).val() == "VDF") {
+            $('#otherFieldDiv').show();
+            $('#otherField').attr('required', '');
+            $('#otherField').attr('data-error', 'This field is required.');
+        } else {
+            $('#otherFieldDiv').hide();
+            $('#otherField').removeAttr('required');
+            $('#otherField').removeAttr('data-error');
+        }
+    });
+    $("#seeAnotherField").trigger("change");
 
-$("#seeAnotherFieldGroup").change(function() {
-  if ($(this).val() == "yes") {
-    $('#otherFieldGroupDiv').show();
-    $('#otherField1').attr('required', '');
-    $('#otherField1').attr('data-error', 'This field is required.');
-    $('#otherField2').attr('required', '');
-    $('#otherField2').attr('data-error', 'This field is required.');
-  } else {
-    $('#otherFieldGroupDiv').hide();
-    $('#otherField1').removeAttr('required');
-    $('#otherField1').removeAttr('data-error');
-    $('#otherField2').removeAttr('required');
-    $('#otherField2').removeAttr('data-error');
-  }
-});
-$("#seeAnotherFieldGroup").trigger("change");
+    $("#seeAnotherFieldGroup").change(function () {
+        if ($(this).val() == "yes") {
+            $('#otherFieldGroupDiv').show();
+            $('#otherField1').attr('required', '');
+            $('#otherField1').attr('data-error', 'This field is required.');
+            $('#otherField2').attr('required', '');
+            $('#otherField2').attr('data-error', 'This field is required.');
+        } else {
+            $('#otherFieldGroupDiv').hide();
+            $('#otherField1').removeAttr('required');
+            $('#otherField1').removeAttr('data-error');
+            $('#otherField2').removeAttr('required');
+            $('#otherField2').removeAttr('data-error');
+        }
+    });
+    $("#seeAnotherFieldGroup").trigger("change");
 </script>
 
 </html>
