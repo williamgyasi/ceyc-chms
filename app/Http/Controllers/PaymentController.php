@@ -13,6 +13,9 @@ use Illuminate\Validation\ValidationException;
 
 class PaymentController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showForm()
     {
         return view('pages.givings.direct-payment');
@@ -36,7 +39,7 @@ class PaymentController extends Controller
                 'amount' => 'required',
                 'giving_option' => 'required'
             ]);
-            $transactionId = sprintf("%'.012d", random_int(1, 1000) . $request->amount*100);
+            $transactionId = sprintf("%'.012d", random_int(1, 1000) . $request->amount * 100);
 
             $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
@@ -45,8 +48,6 @@ class PaymentController extends Controller
                     'transaction_id' => $transactionId,
                     'slug' => $slug
                 ]);
-
-            //$this->makePaymentApiRequest($payment);
 
             return redirect()->route('payment.confirm',
                 compact('payment'));
@@ -66,7 +67,7 @@ class PaymentController extends Controller
     {
         $uri = 'https://prod.theteller.net/v1.1/transaction/process';
 
-        $amount = sprintf("%'.012d", $request->amount *100);
+        $amount = sprintf("%'.012d", $request->amount * 100);
 
         $body = [
             'amount' => $amount,
@@ -90,20 +91,25 @@ class PaymentController extends Controller
 
         $responseBody = json_decode($response->getBody()->getContents());
 
-        if($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status. ' Please try again');
-        }else{
-            dd('Payment ' . $responseBody->status );
+        if ($responseBody->code !== '000') {
+            dd('Payment ' . $responseBody->status . ' Please try again');
+        } else {
+            dd('Payment ' . $responseBody->status);
         }
 
         dd($responseBody);
     }
 
+    /**
+     * Method to send request to Payswitch Api Service
+     *
+     * @param Request $request
+     */
     public function cardPayment(Request $request)
     {
         $uri = 'https://prod.theteller.net/v1.1/transaction/process';
 
-        $amount = sprintf("%'.012d", $request->amount *100);
+        $amount = sprintf("%'.012d", $request->amount * 100);
 
         $body = [
             'amount' => $amount,
@@ -133,17 +139,24 @@ class PaymentController extends Controller
 
         $responseBody = json_decode($response->getBody()->getContents());
 
-        if($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status. ' Please try again');
-        }else{
-            dd('Payment ' . $responseBody->status );
+        if ($responseBody->code !== '000') {
+            dd('Payment ' . $responseBody->status . ' Please try again');
+        } else {
+            dd('Payment ' . $responseBody->status);
         }
 
         dd($responseBody);
 
     }
 
-    public function headers() : array
+
+    /**
+     * Builds the response headers to be used
+     * for making API calls (GET/POST)
+     *
+     * @return array
+     */
+    public function headers(): array
     {
         $headers = [
             'Content-Type' => 'application/json',
