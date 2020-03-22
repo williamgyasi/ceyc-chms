@@ -171,7 +171,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">MOBILE NUMBER (Eg:0240000000)</label>
+                                            <label for="">MOBILE NUMBER (Eg:0241223450)</label>
                                             <input type="text" name="contact" value="{{ $giving->contact}}"
                                                    class="form-control" required>
                                         </div>
