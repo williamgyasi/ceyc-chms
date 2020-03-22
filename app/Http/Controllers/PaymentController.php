@@ -91,7 +91,7 @@ class PaymentController extends Controller
         $responseBody = json_decode($response->getBody()->getContents());
 
         if($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status. 'Please try again');
+            dd('Payment ' . $responseBody->status. ' Please try again');
         }else{
             dd('Payment ' . $responseBody->status );
         }
@@ -118,7 +118,8 @@ class PaymentController extends Controller
             'exp_year' => $request->exp_year,
             'card_holder' => $request->card_holder,
             'currency' => 'GHS',
-            'customer_email' => $request->customer_email
+            'customer_email' => $request->customer_email,
+            "3d_url_response" => "https://app.ceycairportcity.org/",
         ];
 
         $client = new Client();
@@ -133,7 +134,7 @@ class PaymentController extends Controller
         $responseBody = json_decode($response->getBody()->getContents());
 
         if($responseBody->code !== '000') {
-            dd('Payment ' . $responseBody->status. 'Please try again');
+            dd('Payment ' . $responseBody->status. ' Please try again');
         }else{
             dd('Payment ' . $responseBody->status );
         }
