@@ -159,13 +159,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">MOBILE NUMBER (Eg:0240000000)</label>
+                                            <label for="">MOBILE NUMBER (Eg:0241123245)</label>
                                             <input type="text" name="contact" value="{{$payment->contact}}"
                                                    class="form-control" required>
                                         </div>
 
                                         <div class="form-group" id="otherFieldDiv">
                                             <label for="vf_voucher_field">VODAFONE VOUCHER CODE</label>
+                                            <label for="vf_voucher_field">Dial *110# -> Option 4 (Makes Sense) -> Option 4 (Generate Voucher)</label>
                                             <input type="number" name="voucher_code" class="form-control"
                                                    id=otherField
                                                    placeholder="Vodafone Users Only">
