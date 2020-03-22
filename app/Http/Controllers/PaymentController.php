@@ -88,9 +88,9 @@ class PaymentController extends Controller
 
         $statusCode = $response->getStatusCode();
 
-        $responseBody = $response->getBody()->getContents();
+        $responseBody = json_decode($response->getBody()->getContents());
 
-        if($responseBody !== '000') {
+        if($responseBody->code !== '000') {
             dd('Payment ' . $responseBody->status. 'Please try again');
         }else{
             dd('Payment ' . $responseBody->status );
@@ -111,6 +111,7 @@ class PaymentController extends Controller
             'transaction_id' => $request->transaction_id,
             'desc' => 'CEYC AC Giving - Card Payment',
             'merchant_id' => "TTM-00000086",
+            'subscriber_number' => $request->contact,
             'r-switch' => 'VIS',
             'pan' => $request->pan,
             'cvv' => $request->cvv,
@@ -118,8 +119,7 @@ class PaymentController extends Controller
             'exp_year' => $request->exp_year,
             'card_holder' => $request->card_holder,
             'currency' => 'GHS',
-            'customer_email' => $request->customer_email,
-            '3d_url_response' => 'https://google.com'
+            'customer_email' => $request->customer_email
         ];
 
         $client = new Client();
@@ -131,13 +131,16 @@ class PaymentController extends Controller
 
         $statusCode = $response->getStatusCode();
 
-        $responseBody = json_decode($response ->getBody()->getContents());
+        $responseBody = json_decode($response->getBody()->getContents());
 
-        if($responseBody->status !== '000') {
-            dd('Payment ' . $responseBody->status. ' Please try again');
+        if($responseBody->code !== '000') {
+            dd('Payment ' . $responseBody->status. 'Please try again');
         }else{
             dd('Payment ' . $responseBody->status );
         }
+
+        dd($responseBody);
+
     }
 
     public function headers() : array
