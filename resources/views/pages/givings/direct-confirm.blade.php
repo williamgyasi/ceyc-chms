@@ -150,24 +150,27 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">MOBILE NETWORK</label>
-                                            <select name="mobile_network" id="seeAnotherField" class="form-control custom-select">
+                                            <select name="mobile_network" id="seeAnotherField" class="form-control
+                                            custom-select" required>
                                                 <option value="MTN">MTN</option>
                                                 <option value="VDF">Vodafone</option>
                                                 <option value="ATL">Airtel</option>
                                                 <option value="TGO">Tigo</option>
                                             </select>
                                         </div>
-
-                                        <div class="form-group" id="otherFieldDiv">
-                                            <label for="vf_voucher_field">Vodafone Voucher Code</label>
-                                            <input type="number" name="voucher_code" class="form-control" id=otherField required>
-                                        </div>
-
                                         <div class="form-group">
                                             <label for="">MOBILE NUMBER (Eg:0240000000)</label>
                                             <input type="text" name="contact" value="{{$payment->contact}}"
-                                                   class="form-control">
+                                                   class="form-control" required>
                                         </div>
+
+                                        <div class="form-group" id="otherFieldDiv">
+                                            <label for="vf_voucher_field">VODAFONE VOUCHER CODE</label>
+                                            <input type="number" name="voucher_code" class="form-control"
+                                                   id=otherField
+                                            placeholder="Vodafone Users Only">
+                                        </div>
+
                                         <input type="text" name="transaction_id" value="{{ $payment->transaction_id
                                         }}" hidden>
                                         <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
