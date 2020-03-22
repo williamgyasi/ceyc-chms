@@ -77,8 +77,8 @@
                         <h4 class="card-title font-weight-bold">
                             KINDLY CONFIRM THE PAYMENT DETAILS
                         </h4>
-                        <p card-text>
-                        Kindly Complete Your Giving With <a href=https://brave.com target="_blank"> Brave Browser </a> if it Fails
+                        <p card-text warning>
+                        Please Complete Your Giving With <a href=https://brave.com target="_blank"> Brave Browser </a> if it Fails
                         </p>
                         <p class="card-text mt-2">
                             Payment Details
