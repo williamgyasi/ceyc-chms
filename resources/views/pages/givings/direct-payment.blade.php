@@ -68,13 +68,18 @@
                             <label for="mobile-network">
                                 Mobile Network
                             </label>
-                            <select name="mobile_network" id="" class="form-control custom-select">
+                            <select name="mobile_network" id="display_voucher_field" class="form-control custom-select">
                                 <option value="" selected disabled>Select Mobile Network</option>
                                 <option value="MTN">MTN</option>
                                 <option value="VDF">Vodafone</option>
                                 <option value="ATL">Airtel</option>
                                 <option value="TGO">Tigo</option>
                             </select>
+                        </div>
+
+                        <div class="form-group" id="voucher_field">
+                        <label for="vf_voucher_field">Vodafone Voucher Code</label>
+                            <input type="number" name="voucher_code" class="form-control" id=voucher_field required>
                         </div>
                         <div class="form-group">
                             <label for="contact">Phone Number*</label>
@@ -114,5 +119,35 @@
 </body>
 
 <script src="{{ asset('js/app.js') }}"></script>
+<script>
+$("#display_voucher_field").change(function() {
+  if ($(this).val() == "VDF") {
+    $('#voucher_field').show();
+    $('#vf_voucher_field').attr('required', '');
+    $('#vf_voucher_field').attr('data-error', 'This field is required.');
+  } else {
+    $('#voucher_field').hide();
+    $('#vf_voucher_field').removeAttr('required');
+    $('#vf_voucher_field').removeAttr('data-error');
+  }
+});
+$("#display_voucher_field").trigger("change");
 
+$("#display_voucher_fieldGroup").change(function() {
+  if ($(this).val() == "yes") {
+    $('#vf_voucher_fieldGroupDiv').show();
+    $('#vf_voucher_field1').attr('required', '');
+    $('#vf_voucher_field1').attr('data-error', 'This field is required.');
+    $('#vf_voucher_field2').attr('required', '');
+    $('#vf_voucher_field2').attr('data-error', 'This field is required.');
+  } else {
+    $('#vf_voucher_fieldGroupDiv').hide();
+    $('#vf_voucher_field1').removeAttr('required');
+    $('#vf_voucher_field1').removeAttr('data-error');
+    $('#vf_voucher_field2').removeAttr('required');
+    $('#vf_voucher_field2').removeAttr('data-error');
+  }
+});
+$("#display_voucher_fieldGroup").trigger("change");
+</script>
 </html>
