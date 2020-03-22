@@ -51,7 +51,7 @@
                             ONLINE GIVING
                         </h4>
                         <p class="card-text mt-2">
-                            Kindly Make Your Giving With <a href=https://brave.com> Brave Browser </a> if it Fails
+                            Kindly Complete Your Giving With <a href=https://brave.com target="_blank"> Brave Browser </a> if it Fails
                         </p>
                         <form action=" {{ route('giving.store') }}" method="POST">
                             @csrf
