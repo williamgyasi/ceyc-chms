@@ -173,7 +173,7 @@
                                         <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
                                         <div class="alert alert-warning mt-2 mb-2">
                                             <span class="font-weight-bold">
-                                            Kindly Approve Payment when prompted.
+                                            Kindly Approve Payment When Prompted.
                                             </span>
                                         </div>
                                         <button class="button">PAY</button>
