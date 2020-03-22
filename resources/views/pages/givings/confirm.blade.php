@@ -133,17 +133,25 @@
 
                     <div class="row">
                         <div class="col">
-                            <button class="button" data-toggle="modal"
-                                    data-target="#momoModal">
-                                PAY WITH MoMo
-                            </button>
+                            <div class="col">
+                                <button class="button" data-toggle="modal"
+                                        data-target="#momoModal">
+                                    PAY WITH MoMo
+                                </button>
+                            </div>
                         </div>
-                        <div class="col">
-                            <button class="button" data-toggle="modal"
-                                    data-target="#visaModal">
-                                PAY WITH VISA
-                            </button>
-                        </div>
+                        {{--                        <div class="col">--}}
+                        {{--                            <button class="button" data-toggle="modal"--}}
+                        {{--                                    data-target="#momoModal">--}}
+                        {{--                                PAY WITH MoMo--}}
+                        {{--                            </button>--}}
+                        {{--                        </div>--}}
+                        {{--                        <div class="col">--}}
+                        {{--                            <button class="button" data-toggle="modal"--}}
+                        {{--                                    data-target="#visaModal">--}}
+                        {{--                                PAY WITH VISA--}}
+                        {{--                            </button>--}}
+                        {{--                        </div>--}}
                     </div>
 
                     <!-- Pay with MobileMoney Modal -->
@@ -284,16 +292,16 @@
                         </div>
                     </div>
 
-{{--                    <a class="ttlr_inline"--}}
-{{--                       data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="--}}
-{{--                       data-transid="{{ $giving->transaction_id }}"--}}
-{{--                       data-amount="{{ $giving->amount }}"--}}
-{{--                       data-customer_email="{{ $giving->email }}"--}}
-{{--                       data-currency="GHS"--}}
-{{--                       data-redirect_url="{{ route('giving.completion') }}/"--}}
-{{--                       data-pay_button_text="PAY"--}}
-{{--                       data-custom_description="CEYC Airport City" data-payment_method="both">--}}
-{{--                    </a>--}}
+                    {{--                    <a class="ttlr_inline"--}}
+                    {{--                       data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="--}}
+                    {{--                       data-transid="{{ $giving->transaction_id }}"--}}
+                    {{--                       data-amount="{{ $giving->amount }}"--}}
+                    {{--                       data-customer_email="{{ $giving->email }}"--}}
+                    {{--                       data-currency="GHS"--}}
+                    {{--                       data-redirect_url="{{ route('giving.completion') }}/"--}}
+                    {{--                       data-pay_button_text="PAY"--}}
+                    {{--                       data-custom_description="CEYC Airport City" data-payment_method="both">--}}
+                    {{--                    </a>--}}
                 </div>
             </div>
         </div>
@@ -304,7 +312,7 @@
 </script>
 <script src="{{ asset('/js/app.js') }}"></script>
 <script>
-    $("#seeAnotherField").change(function() {
+    $("#seeAnotherField").change(function () {
         if ($(this).val() == "VDF") {
             $('#otherFieldDiv').show();
             $('#otherField').attr('required', '');
