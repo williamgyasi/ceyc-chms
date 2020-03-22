@@ -150,20 +150,21 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">MOBILE NETWORK</label>
-                                            <select name="mobile_network" id="display_voucher_field" class="form-control custom-select">
+                                            <select name="mobile_network" id="seeAnotherField" class="form-control custom-select">
                                                 <option value="MTN">MTN</option>
                                                 <option value="VDF">Vodafone</option>
                                                 <option value="ATL">Airtel</option>
                                                 <option value="TGO">Tigo</option>
                                             </select>
                                         </div>
-                                        
-                                        <div class="form-group" id="voucher_field">
-                        <label for="vf_voucher_field">Vodafone Voucher Code</label>
-                            <input type="number" name="voucher_code" class="form-control" id=voucher_field required>
-                        </div>
+
+                                        <div class="form-group" id="otherFieldDiv">
+                                            <label for="vf_voucher_field">Vodafone Voucher Code</label>
+                                            <input type="number" name="voucher_code" class="form-control" id=otherField required>
+                                        </div>
+
                                         <div class="form-group">
-                                            <label for="">MOBILE NUMBER (Eg:2232456789)</label>
+                                            <label for="">MOBILE NUMBER (Eg:0240000000)</label>
                                             <input type="text" name="contact" value="{{$payment->contact}}"
                                                    class="form-control">
                                         </div>
@@ -172,8 +173,7 @@
                                         <input type="text" name="amount" value="{{ $payment->amount }}" hidden>
                                         <div class="alert alert-warning mt-2 mb-2">
                                             <span class="font-weight-bold">
-                                                You Will receive a prompt once you click the pay bubtton to authorise
-                                                the payment.
+                                            Kindly Approve Payment when prompted.
                                             </span>
                                         </div>
                                         <button class="button">PAY</button>
@@ -292,35 +292,35 @@
 </script>
 
 <script>
-$("#display_voucher_field").change(function() {
+$("#seeAnotherField").change(function() {
   if ($(this).val() == "VDF") {
-    $('#voucher_field').show();
-    $('#vf_voucher_field').attr('required', '');
-    $('#vf_voucher_field').attr('data-error', 'This field is required.');
+    $('#otherFieldDiv').show();
+    $('#otherField').attr('required', '');
+    $('#otherField').attr('data-error', 'This field is required.');
   } else {
-    $('#voucher_field').hide();
-    $('#vf_voucher_field').removeAttr('required');
-    $('#vf_voucher_field').removeAttr('data-error');
+    $('#otherFieldDiv').hide();
+    $('#otherField').removeAttr('required');
+    $('#otherField').removeAttr('data-error');
   }
 });
-$("#display_voucher_field").trigger("change");
+$("#seeAnotherField").trigger("change");
 
-$("#display_voucher_fieldGroup").change(function() {
+$("#seeAnotherFieldGroup").change(function() {
   if ($(this).val() == "yes") {
-    $('#vf_voucher_fieldGroupDiv').show();
-    $('#vf_voucher_field1').attr('required', '');
-    $('#vf_voucher_field1').attr('data-error', 'This field is required.');
-    $('#vf_voucher_field2').attr('required', '');
-    $('#vf_voucher_field2').attr('data-error', 'This field is required.');
+    $('#otherFieldGroupDiv').show();
+    $('#otherField1').attr('required', '');
+    $('#otherField1').attr('data-error', 'This field is required.');
+    $('#otherField2').attr('required', '');
+    $('#otherField2').attr('data-error', 'This field is required.');
   } else {
-    $('#vf_voucher_fieldGroupDiv').hide();
-    $('#vf_voucher_field1').removeAttr('required');
-    $('#vf_voucher_field1').removeAttr('data-error');
-    $('#vf_voucher_field2').removeAttr('required');
-    $('#vf_voucher_field2').removeAttr('data-error');
+    $('#otherFieldGroupDiv').hide();
+    $('#otherField1').removeAttr('required');
+    $('#otherField1').removeAttr('data-error');
+    $('#otherField2').removeAttr('required');
+    $('#otherField2').removeAttr('data-error');
   }
 });
-$("#display_voucher_fieldGroup").trigger("change");
+$("#seeAnotherFieldGroup").trigger("change");
 </script>
 
 </html>

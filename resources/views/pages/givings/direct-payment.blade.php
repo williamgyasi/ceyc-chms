@@ -77,10 +77,11 @@
                             </select>
                         </div>
 
-                        <div class="form-group" id="voucher_field">
+                        <!-- <div class="form-group" id="voucher_field">
                         <label for="vf_voucher_field">Vodafone Voucher Code</label>
                             <input type="number" name="voucher_code" class="form-control" id=voucher_field required>
-                        </div>
+
+                        </div> -->
                         <div class="form-group">
                             <label for="contact">Phone Number*</label>
                             <input type="tel" name="contact" class="form-control" minlength="10" maxlength="15"
@@ -119,7 +120,7 @@
 </body>
 
 <script src="{{ asset('js/app.js') }}"></script>
-<script>
+<!-- <script>
 $("#display_voucher_field").change(function() {
   if ($(this).val() == "VDF") {
     $('#voucher_field').show();
@@ -149,5 +150,5 @@ $("#display_voucher_fieldGroup").change(function() {
   }
 });
 $("#display_voucher_fieldGroup").trigger("change");
-</script>
+</script> -->
 </html>
