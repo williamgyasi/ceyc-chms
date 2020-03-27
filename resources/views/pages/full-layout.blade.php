@@ -9,7 +9,6 @@
 
 @endsection
 
-
 @section('content')
 
 <section class="row flexbox-container">

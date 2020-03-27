@@ -1,11 +1,11 @@
 @isset($pageConfigs)
     @if(count($pageConfigs) > 0)
-        @foreach ($pageConfigs as $config => $val) 
+        @foreach ($pageConfigs as $config => $val)
             {{ Config::set('custom.custom.'.$config, $val) }}
         @endforeach
-    @endif    
+    @endif
 @endisset
- 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -27,10 +27,10 @@
     </head>
 
     {{-- {!! Helper::applClasses() !!} --}}
-    @php 
+    @php
     $configData = Helper::applClasses();
     @endphp
-    
+
     <body class="vertical-layout vertical-menu-modern 2-columns {{ $configData['bodyClass'] }} {{ $configData['theme'] }} {{ $configData['navbarType'] }} {{ $configData['sidebarClass'] }} {{ $configData['footerType'] }}  footer-light" data-menu="vertical-menu-modern" data-col="2-columns">
         {{-- Include Sidebar --}}
         @include('panels.sidebar')
@@ -47,7 +47,7 @@
             <div class="content-wrapper">
 
                 {{-- Include Breadcrumb --}}
-                @include('panels.breadcrumb')
+{{--                @include('panels.breadcrumb')--}}
 
                 <div class="content-body">
 

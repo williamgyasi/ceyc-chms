@@ -9,6 +9,7 @@
     "/css/themes/dark-layout.css": "/css/themes/dark-layout.css",
     "/css/themes/semi-dark-layout.css": "/css/themes/semi-dark-layout.css",
     "/css/pages/authentication.css": "/css/pages/authentication.css",
+    "/css/pages/dashboard-analytics.css": "/css/pages/dashboard-analytics.css",
     "/css/core/menu/menu-types/vertical-menu.css": "/css/core/menu/menu-types/vertical-menu.css",
     "/css/core/core.css": "/css/core/core.css",
     "/js/scripts/components.js": "/js/scripts/components.js",

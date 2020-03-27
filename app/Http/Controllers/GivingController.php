@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Giving;
+use App\Services\PaymentService;
 use Carbon\Carbon;
 use GuzzleHttp\Client as Client;
 use GuzzleHttp\Exception\ConnectException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log as Log;
 use Illuminate\Support\Str;
@@ -73,64 +75,53 @@ class GivingController extends Controller
         return view('pages.givings.confirm', compact('giving'));
     }
 
-    public function mobileMoneyPayment(Request $request)
+    /**
+     * @param Request $request
+     * @param PaymentService $paymentService
+     * @return RedirectResponse
+     */
+    public function mobileMoneyPayment(Request $request, PaymentService $paymentService)
     {
-        $uri = 'https://prod.theteller.net/v1.1/transaction/process';
+        $response = $paymentService->mobileMoneyPayment($request);
 
-        $amount = sprintf("%'.012d", $request->amount * 100);
+        if ($response->code == '000') {
 
-        $body = [
-            'amount' => $amount,
-            'processing_code' => '000200',
-            'transaction_id' => $request->transaction_id,
-            'desc' => 'CEYC AC Giving',
-            'merchant_id' => "TTM-00000086",
-            'subscriber_number' => $request->contact,
-            'r-switch' => $request->mobile_network,
-        ];
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.successful');
 
-        if ($request->mobile_network === 'VDF') {
-            $body = Arr::add($body, 'voucher_code', $request->voucher_code);
-        }
-
-        $client = new Client();
-
-        try {
-            $response = $client->request('POST', $uri, [
-                'headers' => $this->headers(),
-                'body' => json_encode($body),
-                'timeout' => 60
-            ]);
-
-            $responseBody = json_decode($response->getBody()->getContents());
-
-            if ($responseBody->code == '000') {
-
-                Giving::whereTransactionId($request->transaction_id)
-                    ->update(['payment_status' => $responseBody->status]);
-
-                request()->session()->flash('success', 'Transaction Completed!');
-
-                return redirect()->route('giving.successful');
-
-            } else {
-                Giving::whereTransactionId($request->transaction_id)
-                    ->update(['payment_status' => $responseBody->status]);
-
-                request()->session()->flash('error', 'Looks Like Something Went Wrong. Please Try Again');
-
-                return redirect()->route('giving.error');
-            }
-
-        } catch (ConnectException $exception) {
-            Log::critical($exception->getResponse());
-            return redirect()->route('giving.error');
-
-        } catch (FatalErrorException $e) {
-            Log::critical($e->getMessage());
+        } else {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.error');
         }
 
+    }
+
+    /**
+     * Method to send request to Payswitch Api Service
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function cardPayment(Request $request, PaymentService $paymentService)
+    {
+        $response = $paymentService->cardPayment($request);
+
+        if ($response->code == '200' && $response->status == 'vbv required') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => 'Pending']);
+            return redirect()->away($response->reason);
+
+        } elseif ($response->code === '000') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.successful');
+        } else {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.error');
+        }
     }
 
     /**
@@ -170,6 +161,24 @@ class GivingController extends Controller
         $shuffled = str_shuffle($milliseconds);
         $transactionId = substr($shuffled, 0, 12);
         return $transactionId;
+    }
+
+    public function validateCard(String $pan)
+    {
+        $cardTypes = [
+            'VISA' => "/^4[0-9]{12}(?:[0-9]{3})?$/",
+            'MAS'  => "/^5[1-5][0-9]{14}$/",
+        ];
+
+        if (preg_match($cardTypes['VISA'] , $pan)) {
+            return 'VIS';
+        }
+
+        if(preg_match($cardTypes['MAS'], $pan)) {
+            return 'MAS';
+        }
+
+        return redirect()->back();
     }
 
 

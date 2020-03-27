@@ -131,27 +131,38 @@
                         </div>
                     </div>
 
+                    {{--                    <a class="ttlr_inline"--}}
+                    {{--                       data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="--}}
+                    {{--                       data-transid="{{ $giving->transaction_id }}"--}}
+                    {{--                       data-amount="{{ $giving->amount }}"--}}
+                    {{--                       data-customer_email="{{ $giving->email }}"--}}
+                    {{--                       data-currency="GHS"--}}
+                    {{--                       data-redirect_url="{{ route('giving.completion') }}/"--}}
+                    {{--                       data-pay_button_text="PAY"--}}
+                    {{--                       data-custom_description="CEYC Airport City" data-payment_method="both">--}}
+                    {{--                    </a>--}}
+
                     <div class="row">
+                        {{--                        <div class="col">--}}
+                        {{--                            <div class="col">--}}
+                        {{--                                <button class="button" data-toggle="modal"--}}
+                        {{--                                        data-target="#momoModal">--}}
+                        {{--                                    PAY WITH MoMo--}}
+                        {{--                                </button>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                         <div class="col">
-                            <div class="col">
-                                <button class="button" data-toggle="modal"
-                                        data-target="#momoModal">
-                                    PAY WITH MoMo
-                                </button>
-                            </div>
+                            <button class="button" data-toggle="modal"
+                                    data-target="#momoModal">
+                                PAY WITH MoMo
+                            </button>
                         </div>
-                        {{--                        <div class="col">--}}
-                        {{--                            <button class="button" data-toggle="modal"--}}
-                        {{--                                    data-target="#momoModal">--}}
-                        {{--                                PAY WITH MoMo--}}
-                        {{--                            </button>--}}
-                        {{--                        </div>--}}
-                        {{--                        <div class="col">--}}
-                        {{--                            <button class="button" data-toggle="modal"--}}
-                        {{--                                    data-target="#visaModal">--}}
-                        {{--                                PAY WITH VISA--}}
-                        {{--                            </button>--}}
-                        {{--                        </div>--}}
+                        <div class="col">
+                            <button class="button" data-toggle="modal"
+                                    data-target="#visaModal">
+                                PAY WITH VISA
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Pay with MobileMoney Modal -->
@@ -208,7 +219,7 @@
                         </div>
                     </div>
 
-                    <!--Pay with VISA Modal-->
+                    <!--Pay with CARD Modal-->
                     <div class="modal fade" id="visaModal" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -220,7 +231,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('payment.card') }}" method="post">
+                                    <form action="{{ route('giving.card') }}" method="post">
                                         @csrf
                                         <input type="text" name="transaction_id" value="{{ $giving->transaction_id
                                         }}" hidden>
@@ -280,7 +291,7 @@
                                                 <div class="col">
                                                     <label for="">CVV</label>
                                                     <input type="text" name="cvv" class="form-control" minlength="3"
-                                                           maxlength="5">
+                                                           maxlength="5" placeholder="123">
                                                 </div>
                                             </div>
                                             <button class="button">PAY</button>
@@ -291,17 +302,6 @@
                             </div>
                         </div>
                     </div>
-
-                    {{--                    <a class="ttlr_inline"--}}
-                    {{--                       data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="--}}
-                    {{--                       data-transid="{{ $giving->transaction_id }}"--}}
-                    {{--                       data-amount="{{ $giving->amount }}"--}}
-                    {{--                       data-customer_email="{{ $giving->email }}"--}}
-                    {{--                       data-currency="GHS"--}}
-                    {{--                       data-redirect_url="{{ route('giving.completion') }}/"--}}
-                    {{--                       data-pay_button_text="PAY"--}}
-                    {{--                       data-custom_description="CEYC Airport City" data-payment_method="both">--}}
-                    {{--                    </a>--}}
                 </div>
             </div>
         </div>

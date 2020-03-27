@@ -815,7 +815,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\js\core\app.js */"./resources/js/core/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\js\core\app.js */"./resources/js/core/app.js");
 
 
 /***/ })

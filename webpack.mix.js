@@ -24,6 +24,7 @@ mix.js('resources/js/core/app-menu.js', 'public/js/core')
     .sass('resources/sass/themes/dark-layout.scss', 'public/css/themes')
     .sass('resources/sass/themes/semi-dark-layout.scss', 'public/css/themes')
     .sass('resources/sass/pages/authentication.scss', 'public/css/pages')
+    .sass('resources/sass/pages/dashboard-analytics.scss', 'public/css/pages')
     .sass('resources/sass/core/menu/menu-types/vertical-menu.scss', 'public/css/core/menu/menu-types')
     .sass('resources/sass/core/core.scss', 'public/css/core');
     // .browserSync('http://127.0.0.1:8000/');

@@ -21,10 +21,18 @@ class Cell extends Model
         return $this->belongsTo(Fellowship::class);
     }
 
+    /**
+     * Relationship between cells and members
+     */
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
      /**
      * This function Capitalises every word of the name
      * of the Cell. for example, if the user should enter 'cell two'as the cell name,
-     * the function will set the name of the fellowship to 'Cell' Two before 
+     * the function will set the name of the fellowship to 'Cell' Two before
      * saving to the DB
      */
     public function setNameAttribute($value)

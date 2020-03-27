@@ -54,7 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             // 'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password'              => ['required', 'string', 'min:8'],
+            //'password'              => ['required', 'string', 'min:8'],
             'fellowship_id'         =>  'required',
             'department_id'         =>  'nullable',
             'lastname'              =>  'required',
@@ -82,11 +82,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $role = Role::whereName('Member')->get();
-        
+
+        $randomPassword = bin2hex(random_bytes(5));
+
         $user = User::create([
             // 'name'              => $data['name'],
             'email'             => $data['email'],
-            'password'          => Hash::make('ceycp@ssword1234'),
+            'password'          => Hash::make($randomPassword),
             'fellowship_id'     => $data['fellowship_id'],
             'department_id'     => $data['department_id'],
             'lastname'          => $data['lastname'],
@@ -98,7 +100,7 @@ class RegisterController extends Controller
             'digital_address'   =>  $data['digital_address'],
             'school'            => $data['school'],
             'work'              => $data['work'],
-            'gender'            => $data['gender']
+            'gender'            => $data['gender'],
         ]);
 
         $user->roles()->attach($role);
@@ -112,6 +114,7 @@ class RegisterController extends Controller
 
         $departments = Department::all();
 
-        return view('auth.register', compact('fellowships', 'departments'));
+        return view('auth.register',
+            compact('fellowships', 'departments'));
     }
 }

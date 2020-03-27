@@ -18,8 +18,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        // 'name', 
-        'email', 
+        // 'name',
+        'email',
         'password',
         'fellowship_id',
         'department_id',
@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
 
      /**
-     * This gets both first and last names and concatenates them 
+     * This gets both first and last names and concatenates them
      *  to form the fullname attribute
      */
     public function getFullNameAttribute()
@@ -93,7 +93,7 @@ class User extends Authenticatable
 
     /**
      * Defines Relationship between the Members and a Fellowship.
-     * 
+     *
      * A member belongs to only one Fellowship
      */
     public function fellowship()
@@ -102,9 +102,9 @@ class User extends Authenticatable
     }
 
      /**
-     * Defines a relationship between the Department and 
+     * Defines a relationship between the Department and
      * Members.
-     * 
+     *
      * A member belongs to a department
      */
     public function department()
@@ -117,12 +117,14 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)
+
+                    ->withPivot('id', 'created_at');
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'role_user_table', 'user_id', 'role_id');
-    // }
-    
+    public function getFellowshipNameAttribute()
+    {
+        return $this->fellowship->name;
+    }
+
 }

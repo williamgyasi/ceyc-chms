@@ -12,7 +12,7 @@
         </div>
         @endif
 	</div>
-	
+
 	<h3 class="mb-2">
 		Cells
 	</h3>
@@ -49,7 +49,7 @@
 							<a href="{{ route('cells.edit', $cell->id) }}" class="mr-3">
 								<i class="fas fa-edit action-icon"></i>
 							</a>
-						</div> 
+						</div>
 					</td>
 	            </tr>
 	            @endforeach
@@ -64,5 +64,6 @@
 		$(document).ready(function () {
 			$('#cells-table').DataTable();
 		});
+        $('.toast').toast(option)
 	</script>
 @endsection

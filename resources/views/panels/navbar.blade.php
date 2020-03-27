@@ -17,13 +17,7 @@
                                 </div>
                             </li>
                             <li class="scrollable-container media-list">
-                                <!-- a(href='javascript:void(0)').d-flex.justify-content-between-->
-                                <!--   .d-flex.align-items-start-->
-                                <!--       i.feather.icon-plus-square-->
-                                <!--       .mx-1-->
-                                <!--         .font-medium.block.notification-title New Message-->
-                                <!--         small Are your going to meet me tonight?-->
-                                <!--   small 62 Days ago--><a class="d-flex justify-content-between" href="javascript:void(0)">
+                               <a class="d-flex justify-content-between" href="javascript:void(0)">
                                     <div class="media d-flex align-items-start">
                                         <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
                                         <div class="media-body">
@@ -68,11 +62,44 @@
                             <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">John Doe</span><span class="user-status">Available</span></div><span><img class="round" src="{{ asset('/images/portrait/small/avatar-s-11.png') }}" alt="avatar" height="40" width="40" /></span>
+
+                    <li class="dropdown dropdown-user nav-item">
+                        <a class="dropdown-toggle nav-link dropdown-user-link"
+                           href="#" data-toggle="dropdown" data-target="dropdown"
+                           aria-haspopup="true" role="button"
+                           aria-expanded="false" v-pre id="navbarDropdown">
+                            <div class="user-nav d-sm-flex d-none">
+                                <span class="user-name text-bold-600">
+{{--                                    {{ Auth::user()->full_name }}--}}
+                                </span>
+                                <span class="user-status">Available</span>
+                            </div>
+                            <span>
+                                <img class="round" src="{{ asset('/images/portrait/small/avatar-s-11.png') }}"
+                                     alt="avatar" height="40" width="40" />
+                            </span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="feather icon-power"></i> Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="feather icon-user"></i>
+                                Edit Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="feather icon-mail"></i>
+                                My Inbox</a>
+                            <a class="dropdown-item" href="#">
+                                <i class="feather icon-check-square"></i>
+                                Task
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="feather icon-message-square"></i>
+                                Chats
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <i class="feather icon-power"></i>
+                                Logout
+                            </a>
                         </div>
                     </li>
                 </ul>

@@ -55,7 +55,7 @@ class Member extends Model
     }
 
     /**
-     * This gets both first and last names and concatenates them 
+     * This gets both first and last names and concatenates them
      *  to form the fullname attribute
      */
     public function getFullNameAttribute()
@@ -64,8 +64,8 @@ class Member extends Model
     }
 
     /**
-     * Creates Relationship between the Members and a Fellowship.
-     * 
+     * Relationship between the Members and a Fellowship.
+     *
      * A member belongs to only one Fellowship
      */
     public function fellowship()
@@ -74,13 +74,21 @@ class Member extends Model
     }
 
     /**
-     * Creates a relationship between the Department and 
+     * Relationship between the Department and
      * Members.
-     * 
+     *
      * A member belongs to a department
      */
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Relationship Between Cells and Members
+     */
+    public function  cell()
+    {
+        return $this->belongsTo(Cell::class);
     }
 }

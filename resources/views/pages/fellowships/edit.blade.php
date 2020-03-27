@@ -30,11 +30,11 @@
             @method('PUT')
             <div class="form-group">
                 <label for="">Fellowship Name</label>
-                <input name="name" type="text" value="{{ $fellowship->name }}" class="form-control form-control-lg" required>
+                <input name="name" type="text" value="{{ $fellowship->name }}" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="">Leader</label>
-                <select name="leader" id="" class="form-control form-control-lg">
+                <select name="leader" class="custom-select select2">
                     <option value="{{ $fellowship->leader }}" selected>{{ $fellowship->leader }}</option>
                     @foreach ($members as $member)
                     <option value="{{ $member->full_name }}">
@@ -49,4 +49,12 @@
     </div>
 
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection

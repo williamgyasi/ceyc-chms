@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Cell;
 use App\Member;
 use App\Department;
 use App\Fellowship;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,12 +25,12 @@ class MemberController extends Controller
     }
 
     /**
-     * 
+     *
      * Show the form for creating a new resource.
      * Get all Fellowships and departments and pass
      *  them to the view
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function create()
     {
@@ -35,14 +38,18 @@ class MemberController extends Controller
 
         $departments = Department::all();
 
-        return view('pages.members.create', compact('fellowships', 'departments'));
+        $cells = Cell::all();
+
+        return view('pages.members.create',
+            compact('fellowships', 'departments', 'cells'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -65,22 +72,22 @@ class MemberController extends Controller
         $member = Member::create($validatedAttributes);
 
         if ($member->save()) {
-            
+
             $request->session()->flash('success', ' ' .$member->firstname.'  ' .$member->lastname . ' Details Successfully Added To Portal.');
 
             return redirect()->route('members.index');
 
         } else {
-            
-            return redirect()->back()->wthError()->withInput();
+
+            return redirect()->back()->withInput();
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Member  $member
-     * @return \Illuminate\Http\Response
+     * @param Member $member
+     * @return Response
      */
     public function show(Member $member)
     {
@@ -90,8 +97,8 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Member  $member
-     * @return \Illuminate\Http\Response
+     * @param Member $member
+     * @return Response
      */
     public function edit(Member $member)
     {
@@ -99,15 +106,19 @@ class MemberController extends Controller
 
         $departments = Department::all();
 
-        return view('pages.members.edit', compact('member', 'fellowships', 'departments'));
+        $cells = Cell::all();
+
+        return view('pages.members.edit',
+            compact('member', 'fellowships', 'departments', 'cells'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Member  $member
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Member $member
+     * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, Member $member)
     {
@@ -127,13 +138,13 @@ class MemberController extends Controller
         ]);
 
         if ($member->update($validatedAttributes)) {
-            
+
             $request->session()->flash('success', ' ' .$member->firstname.'  ' .$member->lastname . ' Details Successfully Edited.');
 
             return redirect()->route('members.index');
 
         } else {
-            
+
             return redirect()->back()->wthError()->withInput();
         }
     }
@@ -141,8 +152,8 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Member  $member
-     * @return \Illuminate\Http\Response
+     * @param Member $member
+     * @return Response
      */
     public function destroy(Member $member)
     {

@@ -8,11 +8,12 @@
     <title>CEYC AIPORT CITY | Online Giving</title>
 
         @include('panels/styles')
-        <style>
-            html body {
-                height: 0% !important;
-            }
-            button{
+    <style>
+        html body {
+            height: 0% !important;
+        }
+
+        button {
             display: block !important;
             width: 100% !important;
             border: 1px solid transparent !important;
@@ -26,7 +27,15 @@
             background-color: #0a2740 !important;
             color: white;
         }
-        </style>
+
+        .image {
+            background-image: url("https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png");
+            height: 200px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,14 +51,17 @@
         </div>
         @endif
 
-        <div class="row justify-content-center mt-5">  
+        <div class="row justify-content-center mt-2">
             <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                    <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=300 height=194 class=center>          
-                        <h4 class="card-title font-weight-bold justify-content-center">
-                            ONLINE GIVING
-                        </h4>
+{{--                        <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=300 height=194 class=center>--}}
+                        <div class="image mt-0 pt-0">
+
+                        </div>
+{{--                        <h4 class="card-title mt-2 font-weight-bold justify-content-center">--}}
+{{--                            ONLINE GIVING--}}
+{{--                        </h4>--}}
                         <p class="card-text mt-2">
                             Kindly Fill Out The Form To Complete Your Giving
                         </p>

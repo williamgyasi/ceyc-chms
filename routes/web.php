@@ -32,9 +32,15 @@ Route::resource('admin/services', 'ServiceController');
 
 Route::resource('admin/roles', 'RoleController');
 
-Route::resource('admin/users/user-roles', 'UserController');
+Route::resource('admin/users/', 'UserController');
 
 Auth::routes();
+
+Route::post('admin/users/roles', 'UserRoleController@assignRole')->name('user.roles.assign-role');
+
+Route::get('admin/users/roles', 'UserRoleController@index')->name('user.roles.index');
+
+Route::get('admin/users/roles/assign', 'UserRoleController@assignRoleForm')->name('user.roles.assign.form');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -46,6 +52,8 @@ Route::get('giving/complete', 'GivingController@completion')->name('giving.compl
 
 Route::post('giving/mobile-money/process', 'GivingController@mobileMoneyPayment')->name('giving.momo');
 
+Route::post('giving/credit-card/process', 'GivingController@cardPayment')->name('giving.card');
+
 Route::post('giving', 'GivingController@store')->name('giving.store');
 
 Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
@@ -53,8 +61,13 @@ Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
 
 
+/**
+ * Fellowship Leader's Routes
+ */
+Route::get('fellowship/{fellowship}/members', 'Leaders\Fellowships\FellowshipController@members')->name('fellowship.members');
 
 
+Route::get('payments/dashboard', 'PaymentController@dashboard')->name('payment.dashboard');
 
 Route::post('payment/mobile-money/process', 'PaymentController@mobileMoneyPayment')->name('payment.momo');
 

@@ -11,7 +11,7 @@
             <strong>{{ Session::get('success') }}</strong>
         </div>
         @endif
-    </div> 
+    </div>
 
     <h3 class="mb-2">
         Users and Roles
@@ -24,28 +24,30 @@
                     <th>No.</th>
                     <th>USER</th>
                     <th>ROLES</th>
-                    <th>ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
                     <tr>
                         <td>
-                            {{ $user->id }}
+                            {{ $loop->iteration }}
                         </td>
                         <td>
                             {{ $user->full_name }}
                         </td>
                         <td>
                             @if ($user->roles->count() > 0)
-                                @foreach ($user->roles as $roles)
-                                    {{ $roles->name }}
-                                @endforeach
+                                <a href="" class="primary" data-toggle="modal"
+                                    data-target="#roles-modal">
+                                    View Roles
+                                </a>
+                                @include('layouts._user-roles-modal')
                             @else
-                                N/A
+                                <span class="text-muted">
+                                    No Roles assigned
+                                </span>
                             @endif
                         </td>
-                        <td></td>
                     </tr>
                 @endforeach
             </tbody>

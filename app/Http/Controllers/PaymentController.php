@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Giving;
+use App\Jobs\MobileMoneyPayment;
 use App\Payment;
 use Exception;
 use GuzzleHttp\Client as Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
@@ -17,8 +19,15 @@ use Psr\Http\Message\ResponseInterface;
 
 class PaymentController extends Controller
 {
+
+    public function dashboard()
+    {
+        $payments = Giving::all();
+
+        return view('pages.givings.dashboard', compact('payments'));
+    }
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * shows payment form
      */
     public function showForm()
     {
@@ -70,6 +79,10 @@ class PaymentController extends Controller
 
     public function mobileMoneyPayment(Request $request)
     {
+//        MobileMoneyPayment::dispatch($request->all());
+//
+//        redirect()->route('giving.successful');
+
         $uri = 'https://prod.theteller.net/v1.1/transaction/process';
 
         $amount = sprintf("%'.012d", $request->amount * 100);
@@ -93,7 +106,6 @@ class PaymentController extends Controller
         $response = $client->request('POST', $uri, [
             'headers' => $this->headers(),
             'body' => json_encode($body),
-            'timeout' => 30
         ]);
 
         $statusCode = $response->getStatusCode();
@@ -113,7 +125,7 @@ class PaymentController extends Controller
      * Method to send request to Payswitch Api Service
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function cardPayment(Request $request)
     {

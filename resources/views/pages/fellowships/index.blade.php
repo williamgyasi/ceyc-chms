@@ -13,6 +13,8 @@
         @endif
     </div>
 
+
+
     <h3 class="mb-2">
         Fellowships
     </h3>
@@ -31,7 +33,7 @@
                 @foreach ($fellowships as $fellowship)
                 <tr>
                     <td>
-                        {{ $fellowship->id }}
+                        {{ $loop->iteration }}
                     </td>
                     <td>
                         {{ $fellowship->name }}
@@ -47,7 +49,7 @@
                              <a href="{{ route('fellowships.edit', $fellowship->id) }}" class="mr-3">
                                  <i class="fas fa-edit action-icon"></i>
                              </a>
-                         </div>                          
+                         </div>
                     </td>
                 </tr>
                 @endforeach

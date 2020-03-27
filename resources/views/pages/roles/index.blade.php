@@ -16,7 +16,7 @@
     </div>
 
     <h3 class="mb-2">
-        User Roles
+        Roles
     </h3>
 
     <div class="table-responsive">
@@ -24,7 +24,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ROLE</th>
+                    <th>NAME</th>
                     <th>ACTIONS</th>
                 </tr>
             </thead>
@@ -32,7 +32,7 @@
                 @foreach ($roles as $role)
                     <tr>
                         <td>
-                            {{ $role->id }}
+                            {{ $loop->iteration }}
                         </td>
                         <td>
                             {{ $role->name }}
