@@ -12,12 +12,22 @@ class Giving extends Model
         'contact',
         'amount',
         'giving_option',
+        'payment_status',
         'transaction_id',
         'slug'
     ];
 
-    public function getRouteKeyname()
+    public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Capitalise the first letter of the payment status attribute
+     * @param $value
+     */
+    public function setPaymentStatus($value)
+    {
+        $this->attributes['payment_status'] = ucwords($value);
     }
 }

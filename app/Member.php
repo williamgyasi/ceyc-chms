@@ -31,7 +31,7 @@ class Member extends Model
      *  This Capitalises the first letter of the value of the firstname
      *  attribute before saving to the database
      */
-    public function setFrstNameAttribute($value)
+    public function setFirstNameAttribute($value)
     {
         $this->attributes['firstname'] = ucwords($value);
     }

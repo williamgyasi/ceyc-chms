@@ -22,9 +22,27 @@ class PaymentController extends Controller
 
     public function dashboard()
     {
-        $payments = Giving::all();
+        $payments = Giving::get();
 
-        return view('pages.givings.dashboard', compact('payments'));
+        $currentDayPayments =Giving::whereDate('created_at', Carbon::today())
+                                ->get();
+
+        $approvedPayments = Giving::whereDate('created_at', Carbon::today())
+                                ->wherePaymentStatus('Approved')
+                                ->get();
+
+        $declinedPayments = Giving::whereDate('created_at', Carbon::today())
+                                ->wherePaymentStatus('Declined')
+                                ->get();
+
+        $otherPayments = Giving::wherePaymentStatus('error')
+                                ->where('payment_status',NULL)
+                                ->whereDate('created_at', Carbon::today())
+                                ->get();
+
+        return view('pages.givings.dashboard',
+            compact('payments', 'approvedPayments',
+                'declinedPayments', 'otherPayments', 'currentDayPayments'));
     }
     /**
      * shows payment form

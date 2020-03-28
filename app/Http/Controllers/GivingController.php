@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Giving;
 use App\Services\PaymentService;
 use Carbon\Carbon;
-use GuzzleHttp\Client as Client;
-use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log as Log;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Symfony\Component\Debug\Exception\FatalErrorException;
+use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
 {
@@ -35,9 +32,9 @@ class GivingController extends Controller
     /**
      * Method to store a newly created giving resource to database
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      * @throws \Exception
      */
     public function store(Request $request)
@@ -50,14 +47,12 @@ class GivingController extends Controller
             'giving_option' => 'required',
         ]);
 
-        $transactionId = $this->transactionId();
-
         $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
 
         $giving = Giving::create($attributes +
             [
-                'transaction_id' => $transactionId,
+                'transaction_id' => $this->transactionId(),
                 'slug' => $slug
             ]);
 
