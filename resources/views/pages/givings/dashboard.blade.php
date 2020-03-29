@@ -3,7 +3,6 @@
 @section('pageStyle')
 
     <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
-
     {{--    <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/datatables.min.css') }}">--}}
 
 @endsection
@@ -11,25 +10,23 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h6>
-                                Total Amount Today
-                            </h6>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <h1 class="text-bold-700">
-                                    GH¢ {{ $approvedPayments->sum('amount') }}
-                                </h1>
-                            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>
+                            Total Amount Today
+                        </h6>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <h1 class="text-bold-700">
+                                GH¢ {{ $approvedPayments->sum('amount') }}
+                            </h1>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h6>
@@ -46,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h6>
@@ -63,13 +60,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h6>
                             Failed
                         </h6>
-                        <i class="fa fa-circle text-secondary pb-1"></i>
+                        <i class="fa fa-circle text-danger pb-1"></i>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -177,7 +174,7 @@
                                         <a href="">Clear Filters</a>
                                     </div>
                                     <div class="row mt-1">
-                                        <div class="col">
+                                        <div class="col pb-1">
                                             <select name="status" id="pay" class="custom-select">
                                                 <option value="">
                                                     Payment Status
@@ -187,12 +184,17 @@
                                                 <option value="Failed">Failed</option>
                                             </select>
                                         </div>
-                                        <div class="col">
+                                        <div class="col pb-1">
                                             <input type="date" id="date"
                                                    name="date" class="form-control datepicker"
-                                                   placeholder="Date Filter">
+                                                   placeholder="Start Date">
                                         </div>
-                                        <div class="col">
+                                        <div class="col pb-1">
+                                            <input type="text" id="end-date"
+                                                   name="endDate" class="form-control datepicker"
+                                                   placeholder="End Date">
+                                        </div>
+                                        <div class="col pb-1">
                                             <select name="reference" id="reference" class="custom-select">
                                                 <option value="">
                                                     Reference

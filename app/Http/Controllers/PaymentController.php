@@ -19,31 +19,35 @@ use Psr\Http\Message\ResponseInterface;
 
 class PaymentController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('admin')->only('dashboard');
+//    }
 
     public function dashboard()
     {
-        $payments = Giving::get();
-
-        $currentDayPayments =Giving::whereDate('created_at', Carbon::today())
-                                ->get();
-
-        $approvedPayments = Giving::whereDate('created_at', Carbon::today())
-                                ->wherePaymentStatus('Approved')
-                                ->get();
-
-        $declinedPayments = Giving::whereDate('created_at', Carbon::today())
-                                ->wherePaymentStatus('Declined')
-                                ->get();
-
-        $otherPayments = Giving::whereDate('created_at', Carbon::today())
-                                ->wherePaymentStatus('error')
-                                ->orWhere('payment_status', NULL)
-                                ->whereDate('created_at', Carbon::today())
-                                ->get();
-
-        return view('pages.givings.dashboard',
-            compact('payments', 'approvedPayments',
-                'declinedPayments', 'otherPayments', 'currentDayPayments'));
+//        $payments = Giving::get();
+//
+//        $currentDayPayments =Giving::whereDate('created_at', Carbon::today())
+//                                ->get();
+//
+//        $approvedPayments = Giving::whereDate('created_at', Carbon::today())
+//                                ->wherePaymentStatus('Approved')
+//                                ->get();
+//
+//        $declinedPayments = Giving::whereDate('created_at', Carbon::today())
+//                                ->wherePaymentStatus('Declined')
+//                                ->get();
+//
+//        $otherPayments = Giving::whereDate('created_at', Carbon::today())
+//                                ->wherePaymentStatus('error')
+//                                ->orWhere('payment_status', NULL)
+//                                ->whereDate('created_at', Carbon::today())
+//                                ->get();
+//
+//        return view('pages.givings.dashboard',
+//            compact('payments', 'approvedPayments',
+//                'declinedPayments', 'otherPayments', 'currentDayPayments'));
     }
     /**
      * shows payment form

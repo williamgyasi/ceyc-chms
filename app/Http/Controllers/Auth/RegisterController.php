@@ -83,14 +83,14 @@ class RegisterController extends Controller
     {
         $role = Role::whereName('Member')->get();
 
-        $randomPassword = bin2hex(random_bytes(5));
+//        $randomPassword = bin2hex(random_bytes(5));
+        $randomPassword = 'ceycp@ssword1234';
 
         $user = User::create([
             // 'name'              => $data['name'],
             'email'             => $data['email'],
             'password'          => Hash::make($randomPassword),
             'fellowship_id'     => $data['fellowship_id'],
-            'department_id'     => $data['department_id'],
             'lastname'          => $data['lastname'],
             'firstname'         => $data['firstname'],
             'phone'             => $data['phone'],

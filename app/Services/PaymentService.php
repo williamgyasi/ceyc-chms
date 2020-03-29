@@ -72,6 +72,7 @@ class PaymentService
         } catch (FatalErrorException $e) {
             Log::critical($e->getMessage());
             return redirect()->route('giving.error');
+
         } catch (ErrorException $errorException) {
             Log::error($errorException->getMessage());
             return redirect()->route('giving.error');

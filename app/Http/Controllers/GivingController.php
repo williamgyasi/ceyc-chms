@@ -13,12 +13,38 @@ use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('index');
+    }
+
     /**
-     * Method to display a listing of all giivngs/contributions
+     * Method to display a listing of all givings/contributions
      */
     public function index()
     {
-        //code goes here
+        $payments = Giving::get();
+
+        $currentDayPayments =Giving::whereDate('created_at', \Illuminate\Support\Carbon::today())
+                                    ->get();
+
+        $approvedPayments = Giving::whereDate('created_at', Carbon::today())
+                                    ->wherePaymentStatus('Approved')
+                                    ->get();
+
+        $declinedPayments = Giving::whereDate('created_at', Carbon::today())
+                                ->wherePaymentStatus('Declined')
+                                ->get();
+
+        $otherPayments = Giving::whereDate('created_at', Carbon::today())
+                                ->wherePaymentStatus('error')
+                                ->orWhere('payment_status', NULL)
+                                ->whereDate('created_at', Carbon::today())
+                                ->get();
+
+        return view('pages.givings.dashboard',
+            compact('payments', 'approvedPayments',
+                'declinedPayments', 'otherPayments', 'currentDayPayments'));
     }
 
     /**

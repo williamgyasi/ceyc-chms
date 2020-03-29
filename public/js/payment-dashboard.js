@@ -30,17 +30,24 @@ $.fn.dataTable.ext.search.push(
  */
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
-        var dateValue =  $('#date').val();
-        console.log(dateValue);
+        var startDate =  $('#date').val();
+        var endDate =  $('#end-date').val();
         var dateColumn =  data[7] ; // use data for the age column
 
-        if ( dateValue == '' || ( dateValue == dateColumn ) )
-        {
-            return true;
+        if((endDate == '' && startDate == '') || (endDate == '' && startDate == dateColumn)
+            || (startDate <= dateColumn && endDate > startDate)) {
+            return true
         }
-        return  false;
+        return  false
+
+        // if ( dateValue == '' || ( dateValue == dateColumn ) )
+        // {
+        //     return true;
+        // }
+        // return  false;
     }
 );
+
 
 /**
  * Rerender table based on filtered values
@@ -53,6 +60,10 @@ $(document).ready(function() {
     } );
 
     $('#date').change( function() {
+        table.draw();
+    } );
+
+    $('#end-date').change( function() {
         table.draw();
     } );
 } );
