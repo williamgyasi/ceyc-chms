@@ -203,7 +203,7 @@
                                             Kindly Approve Payment When Prompted.
                                             </span>
                                         </div>
-                                        <button class="button">PAY</button>
+                                        <button id="trigger-momo-payment" class="button">PAY</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -287,7 +287,7 @@
                                                            maxlength="5" placeholder="123">
                                                 </div>
                                             </div>
-                                            <button class="button">PAY</button>
+                                            <button id="trigger-card-payment" class="button">PAY</button>
                                     </form>
                                 </div>
                             </div>
@@ -326,6 +326,30 @@
         xhrFields: {
             withCredentials: true
         }
+    });
+
+    $(document).ready(function() {
+        $("#trigger-card-payment").click(function() {
+            // disable button
+            $(this).prop("disabled", true);
+            // add spinner to button
+            $(this).html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                </span> Processing...`
+            );
+        });
+    });
+
+    $(document).ready(function() {
+        $("#trigger-momo-payment").click(function() {
+            // disable button
+            $(this).prop("disabled", true);
+            // add spinner to button
+            $(this).html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                </span> Processing...`
+            );
+        });
     });
 </script>
 
