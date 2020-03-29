@@ -152,7 +152,7 @@
                         <div class="col">
                             <button class="button" data-toggle="modal"
                                     data-target="#visaModal">
-                                PAY WITH VISA
+                                PAY WITH CARD
                             </button>
                         </div>
                     </div>
