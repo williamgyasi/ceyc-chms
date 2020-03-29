@@ -35,8 +35,9 @@ class PaymentController extends Controller
                                 ->wherePaymentStatus('Declined')
                                 ->get();
 
-        $otherPayments = Giving::wherePaymentStatus('error')
-                                ->where('payment_status',NULL)
+        $otherPayments = Giving::whereDate('created_at', Carbon::today())
+                                ->wherePaymentStatus('error')
+                                ->orWhere('payment_status', NULL)
                                 ->whereDate('created_at', Carbon::today())
                                 ->get();
 

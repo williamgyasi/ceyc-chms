@@ -52,7 +52,7 @@
                         <h6>
                             Total Declined
                         </h6>
-                        <i class="fa fa-circle text-danger pb-1"></i>
+                        <i class="fa fa-circle text-warning pb-1"></i>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -67,7 +67,7 @@
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h6>
-                            Others
+                            Failed
                         </h6>
                         <i class="fa fa-circle text-secondary pb-1"></i>
                     </div>
@@ -92,60 +92,64 @@
                         <hr class="font-weight-bolder">
                     </div>
                     <div class="card-content">
-                        <div class="table-responsive mt-1 p-1">
-                            <table class="table table-hover-animation mb-2 border-0">
-                                <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>NAME</th>
-                                    <th>CONTACT</th>
-                                    <th>AMOUNT (GH¢)</th>
-                                    <th>REFERENCE</th>
-                                    <th>STATUS</th>
-                                    <th>TRANSACTION ID</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($currentDayPayments as $payment)
+                        <div class="card-body">
+                            <div class="table-responsive mt-1 p-1">
+                                <table class="table table-hover-animation mb-2 border-0">
+                                    <thead>
                                     <tr>
-                                        <td>
-                                            {{ $loop->iteration }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->full_name }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->contact }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->amount }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->giving_option }}
-                                        </td>
-                                        <td>
-                                            @if($payment->payment_status == 'Approved' || $payment->payment_status ==
-                                             'approved')
-                                                <span class="text-success">
+                                        <th>No.</th>
+                                        <th>NAME</th>
+                                        <th>CONTACT</th>
+                                        <th>AMOUNT (GH¢)</th>
+                                        <th>REFERENCE</th>
+                                        <th>STATUS</th>
+                                        <th>TRANSACTION ID</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($currentDayPayments as $payment)
+                                        <tr>
+                                            <td>
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->full_name }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->contact }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->amount }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->giving_option }}
+                                            </td>
+                                            <td>
+                                                @if($payment->payment_status == 'Approved' || $payment->payment_status ==
+                                                 'approved')
+                                                    <span class="text-success">
                                                          {{ ucwords($payment->payment_status) }}
                                                     </span>
 
-                                            @elseif($payment->payment_status == 'Declined' ||
-                                                $payment->payment_status == 'declined')
-                                                <span class="text-danger">
+                                                @elseif($payment->payment_status == 'Declined' ||
+                                                    $payment->payment_status == 'declined')
+                                                    <span class="text-warning">
                                                         {{ ucwords($payment->payment_status) }}
-                                                    </span>
-                                            @else
-                                                {{ ucwords($payment->payment_status ?? 'N/A') }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $payment->transaction_id }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                                </span>
+                                                @else
+                                                    <span class="text-danger">
+                                                    Failed
+                                                </span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $payment->transaction_id }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,65 +161,112 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="mb-0 font-weight-bolder">
-                           All Payments
+                            All Payments
                         </h4>
                         <hr class="font-weight-bolder">
                     </div>
                     <div class="card-content">
-                        <div class="table-responsive mt-1 p-1">
-                            <table class="table table-hover-animation mb-2 border-0">
-                                <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>NAME</th>
-                                    <th>CONTACT</th>
-                                    <th>AMOUNT (GH¢)</th>
-                                    <th>REFERENCE</th>
-                                    <th>STATUS</th>
-                                    <th>TRANSACTION ID</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($payments as $payment)
+                        <div class="card-body">
+                            <div class="table-responsive mt-0 p-2">
+                                <div class="container-fluid bg-rgba-light height-90 p-2 rounded mb-3">
+                                    <div class="row justify-content-between">
+                                        <h6>
+                                            Filters
+                                            <i class="fa fa-filter pl-0"></i>
+                                        </h6>
+                                        <a href="">Clear Filters</a>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col">
+                                            <select name="status" id="pay" class="custom-select">
+                                                <option value="">
+                                                    Payment Status
+                                                </option>
+                                                <option value="Approved">Approved</option>
+                                                <option value="Declined">Declined</option>
+                                                <option value="Failed">Failed</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <input type="date" id="date"
+                                                   name="date" class="form-control datepicker"
+                                                   placeholder="Date Filter">
+                                        </div>
+                                        <div class="col">
+                                            <select name="reference" id="reference" class="custom-select">
+                                                <option value="">
+                                                    Reference
+                                                </option>
+                                                <option value="Tithe">Tithe</option>
+                                                <option value="Offering">Offering</option>
+                                                <option value="Seed Offering">Seed Offering</option>
+                                                <option value="Special Seed Offering">Special Seed Offering</option>
+                                                <option value="Vow">Vow</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="all-payments" class="table table-hover-animation mb-2 border-0">
+                                    <thead>
                                     <tr>
-                                        <td>
-                                            {{ $loop->iteration }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->full_name }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->contact }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->amount }}
-                                        </td>
-                                        <td>
-                                            {{ $payment->giving_option }}
-                                        </td>
-                                        <td>
-                                            @if($payment->payment_status == 'Approved' || $payment->payment_status ==
-                                             'approved')
-                                                <span class="text-success">
+                                        <th>No.</th>
+                                        <th>NAME</th>
+                                        <th>CONTACT</th>
+                                        <th>AMOUNT (GH¢)</th>
+                                        <th>REFERENCE</th>
+                                        <th>STATUS</th>
+                                        <th>TRANSACTION ID</th>
+                                        <th>DATE</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($payments as $payment)
+                                        <tr>
+                                            <td>
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->full_name }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->contact }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->amount }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->giving_option }}
+                                            </td>
+                                            <td>
+                                                @if($payment->payment_status == 'Approved' || $payment->payment_status ==
+                                                'approved')
+                                                    <span class="text-success">
                                                          {{ ucwords($payment->payment_status) }}
                                                     </span>
 
-                                            @elseif($payment->payment_status == 'Declined' ||
-                                                $payment->payment_status == 'declined')
-                                                <span class="text-danger">
+                                                @elseif($payment->payment_status == 'Declined' ||
+                                                    $payment->payment_status == 'declined')
+                                                    <span class="text-warning">
                                                         {{ ucwords($payment->payment_status) }}
-                                                    </span>
-                                            @else
-                                                {{ ucwords($payment->payment_status ?? 'N/A') }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $payment->transaction_id }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                                </span>
+                                                @else
+                                                    <span class="text-danger">
+                                                    Failed
+                                                </span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $payment->transaction_id }}
+                                            </td>
+                                            <td>
+                                                {{ $payment->created_at->format('d-M-Y') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,9 +276,15 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/payment-dashboard.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('.table').DataTable();
+        });
+
+        $('.datepicker').flatpickr({
+            enableTime: false,
+            dateFormat: "d-M-Y"
         });
     </script>
 @endsection

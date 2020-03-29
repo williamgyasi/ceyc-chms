@@ -90,16 +90,28 @@
                                 <label for="">
                                     Reference*
                                 </label>
-                                <select name="giving_option" id="" class="form-control custom-select" required>
+                                <select name="giving_option" id="showPartnershipArms" class="custom-select" required>
                                     <option value="" selected disabled>
                                         Select Option
                                     </option>
                                     <option value="Tithe">Tithe</option>
                                     <option value="Offering">Offering</option>
-                                    <option value="Seed Offering">Seed Offering</option>
-                                    <option value="Special Seed Offering">Special Seed Offering</option>
+                                    <option value="Seed Offering">Seed</option>
+                                    <option value="Special Seed Offering">Special Seed</option>
                                     <option value="Vow">Vow</option>
+                                    <option value="Partnership">Partnership</option>
                                     <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="partnershipArmsDiv">
+                                <label for="">Partnership Arms</label>
+                                <select name="partnership_arms" id="partnershipArms" class="custom-select">
+                                    <option value="" selected>Select Partnership Arm</option>
+                                    <option value="Rhapsody">Rhapsody</option>
+                                    <option value="Healing School">Healing School</option>
+                                    <option value="Inner City Missions">Inner City Missions</option>
+                                    <option value="IMM">IMM</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                             <button type="submit">CONFIRM</button>
@@ -110,6 +122,21 @@
         </div>
     </div>
 </body>
+<script src="{{ asset('/js/app.js') }}"></script>
+<script>
+    $("#showPartnershipArms").change(function () {
+        if ($(this).val() == "Partnership") {
+            $('#partnershipArmsDiv').show();
+            $('#partnershipArms').attr('required', '');
+            $('#partnershipArms').attr('data-error', 'This field is required.');
+        } else {
+            $('#partnershipArmsDiv').hide();
+            $('#partnershipArms').removeAttr('required');
+            $('#partnershipArms').removeAttr('data-error');
+        }
+    });
+    $("#showPartnershipArms").trigger("change");
 
+</script>
 </html>
 

@@ -45,10 +45,14 @@ class GivingController extends Controller
             'contact' => 'required',
             'amount' => 'required',
             'giving_option' => 'required',
+            'partnership_arms' => 'nullable'
         ]);
 
-        $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
+        if ($attributes['partnership_arms'] !== null) {
+            $attributes['giving_option'] = $attributes['giving_option'] .' - '. $attributes['partnership_arms'];
+        }
 
+        $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
         $giving = Giving::create($attributes +
             [
