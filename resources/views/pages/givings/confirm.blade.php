@@ -223,71 +223,73 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('giving.card') }}" method="post">
-                                    @csrf
-                                    <input type="text" name="transaction_id" value="{{ $giving->transaction_id
+                                <div class="modal-body">
+                                    <form action="{{ route('giving.card') }}" method="post">
+                                        @csrf
+                                        <input type="text" name="transaction_id" value="{{ $giving->transaction_id
                                         }}" hidden>
-                                    <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
-                                    <input type="text" name="customer_email" value="{{ $giving->email }}" hidden>
-                                    <div class="form-group">
+                                        <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
+                                        <input type="text" name="customer_email" value="{{ $giving->email }}" hidden>
                                         <div class="form-group">
-                                            <label for="">CARD NUMBER</label>
-                                            <input type="text" name="pan" class="form-control" minlength="16"
-                                                   maxlength="16">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">CARD HOLDER NAME</label>
-                                            <input type="text" name="card_holder"
-                                                   class="form-control" placeholder="Eg: Abena Abrefa">
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col">
-                                                <label for="">Expiry Date</label>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <select name="exp_month" class="form-control">
-                                                            <option value="" selected disabled>MM</option>
-                                                            <option value="01">January</option>
-                                                            <option value="02">February</option>
-                                                            <option value="03">March</option>
-                                                            <option value="04">April</option>
-                                                            <option value="05">May</option>
-                                                            <option value="06">June</option>
-                                                            <option value="07">July</option>
-                                                            <option value="08">August</option>
-                                                            <option value="09">September</option>
-                                                            <option value="10">October</option>
-                                                            <option value="11">November</option>
-                                                            <option value="12">December</option>
-                                                        </select>
-                                                    </div>
-                                                    /
-                                                    <div class="col">
-                                                        <select name="exp_year" class="form-control">
-                                                            <option value="" selected disabled>YY</option>
-                                                            <option value="20"> 2020</option>
-                                                            <option value="21"> 2021</option>
-                                                            <option value="22"> 2022</option>
-                                                            <option value="23"> 2023</option>
-                                                            <option value="24"> 2024</option>
-                                                            <option value="25"> 2025</option>
-                                                            <option value="26"> 2026</option>
-                                                            <option value="27"> 2027</option>
-                                                            <option value="28"> 2028</option>
-                                                            <option value="29"> 2029</option>
-                                                            <option value="30"> 2030</option>
-                                                        </select>
+                                            <div class="form-group">
+                                                <label for="">CARD NUMBER</label>
+                                                <input type="text" name="pan" class="form-control" minlength="16"
+                                                       maxlength="16">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">CARD HOLDER NAME</label>
+                                                <input type="text" name="card_holder"
+                                                       class="form-control" placeholder="Eg: Abena Abrefa">
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <label for="">Expiry Date</label>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <select name="exp_month" class="form-control">
+                                                                <option value="" selected disabled>MM</option>
+                                                                <option value="01">January</option>
+                                                                <option value="02">February</option>
+                                                                <option value="03">March</option>
+                                                                <option value="04">April</option>
+                                                                <option value="05">May</option>
+                                                                <option value="06">June</option>
+                                                                <option value="07">July</option>
+                                                                <option value="08">August</option>
+                                                                <option value="09">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+                                                            </select>
+                                                        </div>
+                                                        /
+                                                        <div class="col">
+                                                            <select name="exp_year" class="form-control">
+                                                                <option value="" selected disabled>YY</option>
+                                                                <option value="20"> 2020</option>
+                                                                <option value="21"> 2021</option>
+                                                                <option value="22"> 2022</option>
+                                                                <option value="23"> 2023</option>
+                                                                <option value="24"> 2024</option>
+                                                                <option value="25"> 2025</option>
+                                                                <option value="26"> 2026</option>
+                                                                <option value="27"> 2027</option>
+                                                                <option value="28"> 2028</option>
+                                                                <option value="29"> 2029</option>
+                                                                <option value="30"> 2030</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <label for="">CVV</label>
+                                                    <input type="text" name="cvv" class="form-control" minlength="3"
+                                                           maxlength="5" placeholder="123">
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <label for="">CVV</label>
-                                                <input type="text" name="cvv" class="form-control" minlength="3"
-                                                       maxlength="5" placeholder="123">
-                                            </div>
-                                        </div>
-                                        <button class="button">PAY</button>
-                                </form>
+                                            <button class="button">PAY</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
