@@ -150,31 +150,6 @@ class GivingController extends Controller
     }
 
     /**
-     * Builds the response headers to be used
-     * for making API calls (GET/POST)
-     *
-     * @return array
-     */
-    public function headers(): array
-    {
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => [
-                'Basic ' . base64_encode('jumeni5b92c307c2861:ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM=')
-            ],
-            'Cache-Control' => 'no-cache',
-            'Accept' => 'Accept: */*',
-            'User-Agent' => 'guzzle/6.0',
-            'Accept-Charset' => '*',
-            'Accept-Encoding' => '*',
-            'Accept-Ranges' => 'none',
-            'Accept-Language' => '*',
-        ];
-
-        return $headers;
-    }
-
-    /**
      * Method to generate  random transactionId
      * of 12 digits
      *
@@ -187,25 +162,6 @@ class GivingController extends Controller
         $transactionId = substr($shuffled, 0, 12);
         return $transactionId;
     }
-
-    public function validateCard(String $pan)
-    {
-        $cardTypes = [
-            'VISA' => "/^4[0-9]{12}(?:[0-9]{3})?$/",
-            'MAS'  => "/^5[1-5][0-9]{14}$/",
-        ];
-
-        if (preg_match($cardTypes['VISA'] , $pan)) {
-            return 'VIS';
-        }
-
-        if(preg_match($cardTypes['MAS'], $pan)) {
-            return 'MAS';
-        }
-
-        return redirect()->back();
-    }
-
 
     public function successful()
     {
