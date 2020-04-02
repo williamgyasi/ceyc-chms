@@ -26,9 +26,21 @@ class PaymentService
      */
     public $merchantId;
 
+    /**
+     * Payswitch Username
+     */
+    public $username;
+
+    /**
+     * Payswitch API Key
+     */
+    public $api_key;
+
     public function __construct()
     {
-        $this->merchantId = "TTM-00000086";
+        $this->merchantId = config('payswitch.merchant_id');
+        $this->username = config('payswitch.username');
+        $this->api_key = config('payswitch.api_key');
         $this->uri = 'https://prod.theteller.net/v1.1/transaction/process';
     }
 
@@ -129,14 +141,14 @@ class PaymentService
     }
 
     /**
-     * @return Array
+     * @return array
      */
     public function headers() : array
     {
         $headers = [
             'Content-Type' => 'application/json',
             'Authorization' => [
-                'Basic ' . base64_encode('jumeni5b92c307c2861:ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM=')
+                'Basic ' . base64_encode($this->username. ':' .$this->api_key)
             ],
             'Cache-Control' => 'no-cache',
             'Accept' => 'Accept: */*',
