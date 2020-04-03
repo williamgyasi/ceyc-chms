@@ -85,10 +85,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
-                return $this->response =  [
-                    'request' => $body,
-                    'response' => $response
-                ];
+                return $response;
             }
 
             $response = json_decode($response->getBody()->getContents());
@@ -164,10 +161,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
-                return $this->response =  [
-                    'request' => $body,
-                    'response' => $response
-                ];
+                return $response;
             }
 
             $response = json_decode($response->getBody()->getContents());
