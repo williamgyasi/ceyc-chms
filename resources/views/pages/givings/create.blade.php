@@ -114,7 +114,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            <button type="submit">CONFIRM</button>
+                            <button type="submit">CONTINUE</button>
                         </form>
                     </div>
                 </div>

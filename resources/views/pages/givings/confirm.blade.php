@@ -203,7 +203,7 @@
                                             Kindly Approve Payment When Prompted.
                                             </span>
                                         </div>
-                                        <button id="trigger-momo-payment" class="button">PAY</button>
+                                        <button class="button">PAY</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">

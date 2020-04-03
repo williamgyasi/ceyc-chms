@@ -6,11 +6,12 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log as Log;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Debug\Exception\FatalErrorException;
-use Whoops\Exception\ErrorException;
 
 class PaymentService
 {
@@ -65,29 +66,47 @@ class PaymentService
         try {
             $client = new Client();
 
-            $paymentResponse = $client->request('POST',
-                $this->uri, [
+            $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
                 'body' => json_encode($body)
-            ]);
+            ])->then(
+                function (ResponseInterface $response) {
+                    return $response;
+                },
+                function (RequestException $exception) {
+                    $requestMessage = $exception->getMessage();
+                    Log::critical($requestMessage);
+                    return $exception;
+                }
+            );
 
-            $response = json_decode(
-                $paymentResponse->getBody()
-                    ->getContents());
+            $response = $paymentPromise->wait();
 
+            if($response instanceof RequestException) {
+                $response = $response->getResponse()->getBody();
+                $response = json_decode($response);
+                return $this->response =  [
+                    'request' => $body,
+                    'response' => $response
+                ];
+            }
+
+            $response = json_decode($response->getBody()->getContents());
             return $response;
 
-        } catch (ConnectException $exception) {
-            Log::critical($exception->getMessage());
-            return redirect()->route('giving.error');
+        }catch (\Exception $exception) {
+            if($exception instanceof FatalErrorException){
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
 
-        } catch (FatalErrorException $e) {
-            Log::critical($e->getMessage());
-            return redirect()->route('giving.error');
+            }elseif ($exception instanceof ConnectException){
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
 
-        } catch (ErrorException $errorException) {
-            Log::error($errorException->getMessage());
-            return redirect()->route('giving.error');
+            }else{
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
         }
     }
 
@@ -115,40 +134,70 @@ class PaymentService
             "3d_url_response" => 'https://ceycairportcity.org/',
         ];
 
-        try{
+        try {
             $client = new CLient();
 
-            $paymentResponse = $client->request('POST' ,
-                $this->uri,[
-                    'headers' => $this->headers(),
-                    'body' => json_encode($body)
-                ]);
+            $paymentPromise = $client->postAsync($this->uri, [
+                'headers' => $this->headers(),
+                'body' => json_encode($body)
+            ])->then(
+                function (ResponseInterface $response) {
+                    return $response;
+                },
+                function (RequestException $exception) {
+                    $requestMessage = $exception->getMessage();
+                    Log::critical($requestMessage);
+                    return $exception;
+                }
+            );
 
-            $response = json_decode(
-                $paymentResponse->getBody()
-                    ->getContents());
+            $response = $paymentPromise->wait();
 
+            if($response instanceof RequestException) {
+                $response = $response->getResponse()->getBody();
+                $response = json_encode($response);
+                return  $response;
+            }
+
+            $response = $paymentPromise->wait();
+
+            if($response instanceof RequestException) {
+                $response = $response->getResponse()->getBody();
+                $response = json_decode($response);
+                return $this->response =  [
+                    'request' => $body,
+                    'response' => $response
+                ];
+            }
+
+            $response = json_decode($response->getBody()->getContents());
             return $response;
 
-        } catch (ConnectException $exception) {
-            Log::critical($exception->getMessage());
-            return redirect()->route('giving.error');
+        }catch (\Exception $exception) {
+            if($exception instanceof FatalErrorException){
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
 
-        } catch (FatalErrorException $e) {
-            Log::critical($e->getMessage());
-            return redirect()->route('giving.error');
+            }elseif ($exception instanceof ConnectException){
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+
+            }else{
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
         }
     }
 
     /**
      * @return array
      */
-    public function headers() : array
+    public function headers(): array
     {
         $headers = [
             'Content-Type' => 'application/json',
             'Authorization' => [
-                'Basic ' . base64_encode($this->username. ':' .$this->api_key)
+                'Basic ' . base64_encode($this->username . ':' . $this->api_key)
             ],
             'Cache-Control' => 'no-cache',
             'Accept' => 'Accept: */*',
@@ -180,14 +229,14 @@ class PaymentService
     {
         $cardTypes = [
             'VISA' => "/^4[0-9]{12}(?:[0-9]{3})?$/",
-            'MAS'  => "/^5[1-5][0-9]{14}$/",
+            'MAS' => "/^5[1-5][0-9]{14}$/",
         ];
 
-        if (preg_match($cardTypes['VISA'] , $pan)) {
+        if (preg_match($cardTypes['VISA'], $pan)) {
             return 'VIS';
         }
 
-        if(preg_match($cardTypes['MAS'], $pan)) {
+        if (preg_match($cardTypes['MAS'], $pan)) {
             return 'MAS';
         }
 
