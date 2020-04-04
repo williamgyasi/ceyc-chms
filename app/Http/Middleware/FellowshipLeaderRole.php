@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class FellowshipLeaderRole
 {
@@ -15,6 +16,10 @@ class FellowshipLeaderRole
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::user()->roles()->pluck('name') === 'Fellowship Leader') {
+            return redirect()->intended();
+        }
+
         return $next($request);
     }
 }

@@ -61,7 +61,8 @@
                                         </div>
                                     </div>
                                     <a href="/" class="btn btn-outline-primary float-left btn-inline mb-50">Back</a>
-                                    <button type="submit" class="btn btn-primary float-right btn-inline mb-50">Register</a>
+                                    <button type="submit" class="btn btn-primary float-right btn-inline
+                                    mb-50">Register</button>
                                 </form>
                             </div>
                         </div>

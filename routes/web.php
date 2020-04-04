@@ -12,7 +12,7 @@
 */
 
 // Route content layout
-Route::get('/', 'LayoutController@content');
+Route::get('/', 'Auth\LoginController@showLoginForm');
 
 // Route full layout
 Route::get('full', 'LayoutController@full');
@@ -68,6 +68,15 @@ Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.
  */
 Route::get('fellowship/{fellowship}/members', 'Leaders\Fellowships\FellowshipController@members')->name('fellowship.members');
 
+Route::post('fellowship/cells', 'Leaders\Fellowships\FellowshipController@cell')->name('fellowship.cell.store');
+
+Route::get('fellowship/{fellowship}/cells', 'Leaders\Fellowships\FellowshipController@cells')->name('fellowship.cells');
+
+
+/**
+ * Cell leader's Route
+ */
+Route::get('cell/{cell}/members', 'Leaders\Cells\CellController@members')->name('cell.members');
 
 Route::get('payments/dashboard', 'PaymentController@dashboard')->name('payment.dashboard');
 

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class UserRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     /**
      * Display a listing of all users and their roles
      */

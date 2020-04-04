@@ -38,7 +38,7 @@
                         <td>
                             @if ($user->roles->count() > 0)
                                 <a href="" class="primary" data-toggle="modal"
-                                    data-target="#roles-modal">
+                                    data-target="#roles-modal{{ $user->id }}">
                                     View Roles
                                 </a>
                                 @include('layouts._user-roles-modal')

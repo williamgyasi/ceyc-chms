@@ -8,12 +8,6 @@
             </h3>
         </div>
 
-        <div class="d-flex justify-content-end mb-3">
-            <a href="" class="btn btn-primary">
-                New Member
-            </a>
-        </div>
-
         <div class="table-responsive">
             <table id="members-table" class="table">
                 <thead>

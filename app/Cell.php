@@ -29,6 +29,14 @@ class Cell extends Model
         return $this->hasMany(Member::class);
     }
 
+    /**
+     * Relationship between cells and members
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
      /**
      * This function Capitalises every word of the name
      * of the Cell. for example, if the user should enter 'cell two'as the cell name,

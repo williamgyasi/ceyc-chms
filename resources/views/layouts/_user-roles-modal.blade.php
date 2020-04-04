@@ -1,4 +1,4 @@
-<div class="modal fade" id="roles-modal" role="dialog" aria-hidden="true">
+<div class="modal fade" id="roles-modal{{ $user->id }}" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

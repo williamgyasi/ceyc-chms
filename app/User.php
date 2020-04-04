@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Department;
-use App\Fellowship;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,7 +31,8 @@ class User extends Authenticatable
         'digital_address',
         'school',
         'work',
-        'gender'
+        'gender',
+        'cell_id'
     ];
 
     /**
@@ -99,6 +98,16 @@ class User extends Authenticatable
     public function fellowship()
     {
         return $this->belongsTo(Fellowship::class);
+    }
+
+    /**
+     * Defines Relationship between the Members(users) and a Cell
+     *
+     * A Member belongs to only one cell
+     */
+    public function cell()
+    {
+        return $this->belongsTo(Cell::class);
     }
 
      /**
