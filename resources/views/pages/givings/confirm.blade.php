@@ -201,7 +201,7 @@
                                                     Kindly Approve Payment When Prompted.
                                                 </span>
                                             </div>
-                                            <button class="button" id="trigger-momo-payment">PAY</button>
+                                            <button class="button">PAY</button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -286,7 +286,7 @@
                                                             maxlength="5" placeholder="123">
                                                     </div>
                                                 </div>
-                                                <button id="trigger-card-payment" class="button">PAY</button>
+                                                <button class="button">PAY</button>
                                         </form>
                                     </div>
                                 </div>
