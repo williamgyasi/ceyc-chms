@@ -29,24 +29,19 @@ $.fn.dataTable.ext.search.push(
  * Datatable filter for filtering by date column
  */
 $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var startDate =  $('#date').val();
-        var endDate =  $('#end-date').val();
-        var dateColumn =  data[7] ; // use data for the age column
-
-        if((endDate == '' && startDate == '') || (endDate == '' && startDate == dateColumn)
-            || (startDate <= dateColumn && endDate > startDate)) {
-            return true
-        }
-        return  false
-
-        // if ( dateValue == '' || ( dateValue == dateColumn ) )
-        // {
-        //     return true;
-        // }
-        // return  false;
-    }
+    // function( settings, data, dataIndex ) {
+    //     var startDate =  $('#date').val();
+    //     var endDate =  $('#end-date').val();
+    //     var dateColumn =  data[7] ; // use data for the age column
+    //
+    //     if((endDate === '' && startDate === '') || (endDate === '' && startDate === dateColumn)
+    //         || (startDate <= dateColumn && endDate > startDate)) {
+    //         return true
+    //     }
+    //     return  false;
+    // }
 );
+
 
 
 /**
