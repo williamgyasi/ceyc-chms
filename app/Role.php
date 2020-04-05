@@ -14,7 +14,7 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class)
 
-                    ->withPivot('id', 'created_at');
+                    ->withTimestamps();
     }
 
     /**

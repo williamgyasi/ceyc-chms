@@ -17,8 +17,8 @@ class PastoralAssistantRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->roles()->pluck('name') === 'Pastoral Assistant') {
-            return redirect()->intended();
+        if (!Auth::user()->hasRole('Pastoral Assistant')) {
+            return redirect()->back();
         }
 
         return $next($request);

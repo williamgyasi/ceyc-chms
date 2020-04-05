@@ -10,12 +10,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class FellowshipController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'fellowship-leader']);
+        $this->middleware('auth', [
+            'fellowship-leader'
+        ]);
     }
 
     public function getFellowshipName($fellowship)
@@ -30,6 +33,7 @@ class FellowshipController extends Controller
     /**
      * Get's a list of all Members belong to the particular fellowship
      * @param $fellowship
+     * @return View
      */
     public function members($fellowship)
     {
@@ -44,6 +48,7 @@ class FellowshipController extends Controller
     /**
      * Displays a list of all the cells that belong to the particular fellowship
      * @param $fellowship
+     * @return View
      */
     public function cells($fellowship)
     {

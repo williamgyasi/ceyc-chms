@@ -12,7 +12,7 @@ class FellowshipController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware('admin');
     }
 
     /**
@@ -24,7 +24,8 @@ class FellowshipController extends Controller
     {
         $fellowships = Fellowship::all();
 
-        return view('pages.fellowships.index', compact('fellowships'));
+        return view('pages.fellowships.index',
+            compact('fellowships'));
     }
 
     /**
@@ -36,7 +37,8 @@ class FellowshipController extends Controller
     {
         $members = Member::all();
 
-        return view('pages.fellowships.create', compact('members'));
+        return view('pages.fellowships.create',
+            compact('members'));
     }
 
     /**

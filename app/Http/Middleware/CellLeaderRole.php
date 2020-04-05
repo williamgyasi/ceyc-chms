@@ -17,8 +17,8 @@ class CellLeaderRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->roles()->pluck('name') === 'Cell Leader') {
-            return redirect()->intended();
+        if (!Auth::user()->hasRole('Cell Leader')) {
+            return redirect()->back();
         }
 
         return $next($request);

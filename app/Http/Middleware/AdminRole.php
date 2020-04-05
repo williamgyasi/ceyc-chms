@@ -17,8 +17,8 @@ class AdminRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->roles()->pluck('name') === 'Admin') {
-            return redirect()->intended();
+        if (!Auth::user()->hasRole('Admin')) {
+            return redirect()->back();
         }
 
         return $next($request);

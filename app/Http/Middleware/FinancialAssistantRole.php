@@ -16,8 +16,8 @@ class FinancialAssistantRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->roles()->pluck('name') === 'Financial Assistant') {
-            return redirect()->intended();
+        if(!Auth::user()->hasRole('Financial Assistant')) {
+            return redirect()->back();
         }
 
         return $next($request);

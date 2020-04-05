@@ -128,12 +128,26 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class)
 
-                    ->withPivot('id', 'created_at');
+                    ->withTimestamps();
     }
 
     public function getFellowshipNameAttribute()
     {
         return $this->fellowship->name;
+    }
+
+    /**
+     * Checks if the current user has the particular role
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+
+        return false;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FellowshipLeaderRole
@@ -10,16 +11,16 @@ class FellowshipLeaderRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->roles()->pluck('name') === 'Fellowship Leader') {
-            return redirect()->intended();
-        }
+        if (!Auth::user()->hasRole('Fellowship Leader')) {
+            return redirect()->back();
 
+        }
         return $next($request);
     }
 }

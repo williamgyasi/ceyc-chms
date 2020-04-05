@@ -201,7 +201,7 @@
                                                     Kindly Approve Payment When Prompted.
                                                 </span>
                                             </div>
-                                            <button class="button">PAY</button>
+                                            <button class="button" id="trigger-momo-payment">PAY</button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -298,8 +298,8 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="https://prod.theteller.net/checkout/resource/api/inline/theteller_inline.js">
-</script>
+{{--<script type="text/javascript" src="https://prod.theteller.net/checkout/resource/api/inline/theteller_inline.js">--}}
+{{--</script>--}}
 <script src="{{ asset('/js/app.js') }}"></script>
 <script>
     $("#seeAnotherField").change(function () {

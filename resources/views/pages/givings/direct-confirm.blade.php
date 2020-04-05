@@ -121,6 +121,16 @@
                                 </span>
                         </div>
                     </div>
+                    <a class="ttlr_inline"
+                       data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="
+                       data-transid="{{ $payment->transaction_id }}"
+                       data-amount="{{ $payment->amount }}"
+                       data-customer_email="{{ $payment->email }}"
+                       data-currency="GHS"
+                       data-redirect_url="{{ route('giving.completion') }}/"
+                       data-pay_button_text="PAY"
+                       data-custom_description="CEYC Airport City" data-payment_method="both">
+                    </a>
                     <div class="row">
                         <div class="col">
                             <button class="button" data-toggle="modal"
