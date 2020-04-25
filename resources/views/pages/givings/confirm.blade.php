@@ -16,7 +16,7 @@
             height: 0% !important;
         }
 
-        a.ttlr_inline > button {
+        .button {
             display: block !important;
             width: 100% !important;
             border: 1px solid transparent !important;
@@ -143,16 +143,8 @@
                                 </span>
                             </div>
                         </div>
-                        
-                        <a class="ttlr_inline" 
-                            data-APIKey="ZGFkZGRiYWNkMzUzY2JhZTdjYTRhY2NkOTM2MTNiNjM="
-                            data-transid="{{ $giving->transaction_id }}" data-amount="{{ $giving->amount }}"
-                            data-customer_email="{{ $giving->email }}" data-currency="GHS" --}}
-                            data-redirect_url="{{ route('giving.completion') }}" data-pay_button_text="PAY"
-                            data-custom_description="CEYC Airport-City Givings" data-payment_method="both">
-                        </a>
 
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col">
                                 <button class="button" data-toggle="modal" data-target="#momoModal">
                                     PAY WITH MoMo
@@ -163,7 +155,7 @@
                                     PAY WITH CARD
                                 </button>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <!-- Pay with MobileMoney Modal -->
                         <div class="modal fade" id="momoModal" tabindex="-1" role="dialog"
@@ -307,8 +299,8 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="https://prod.theteller.net/checkout/resource/api/inline/theteller_inline.js">
-</script>
+{{-- <script type="text/javascript" src="https://prod.theteller.net/checkout/resource/api/inline/theteller_inline.js">
+</script> --}}
 <script src="{{ asset('/js/app.js') }}"></script>
 <script>
     $("#seeAnotherField").change(function () {
