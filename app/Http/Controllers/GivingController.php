@@ -138,18 +138,19 @@ class GivingController extends Controller
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => 'Pending']);
             return redirect()->away($response->reason);
-
-        } elseif ($response->code === '000') {
+        } 
+        
+        if ($response->code === '000') {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
-        } else {
-            Giving::whereTransactionId($request->transaction_id)
+        }
+
+        Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.error');
-        }
     }
-
+    
     /**
      * Method to generate  random transactionId
      * of 12 digits
@@ -175,19 +176,20 @@ class GivingController extends Controller
     }
 
     /**
+     * Method to handle redirection after VBV processing
+     * for card payments.
      * @param Request $request
      */
-    public function completion(Request $request)
+    public function vbvConfirmation(Request $request)
     {
         if ($request->code === '000') {
-            # code...
             Giving::whereTransactionId($request->transaction_id)
                     ->update(['payment_status' => $request->status]);
             return redirect()->route('giving.successful');
-        }else {
-            Giving::whereTransactionId($request->transaction_id)
+        }
+
+        Giving::whereTransactionId($request->transaction_id)
                     ->update(['payment_status' => $request->status]);
             return redirect()->route('giving.error');
-        }
     }
 }

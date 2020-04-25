@@ -128,7 +128,7 @@ class PaymentService
             'card_holder' => $request->card_holder,
             'currency' => 'GHS',
             'customer_email' => $request->customer_email,
-            "3d_url_response" => 'https://ceycairportcity.org/',
+            "3d_url_response" => route('giving.vbv.confirmation'),
         ];
 
         try {

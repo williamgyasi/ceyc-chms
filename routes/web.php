@@ -56,6 +56,8 @@ Route::post('giving/mobile-money/process', 'GivingController@mobileMoneyPayment'
 
 Route::post('giving/credit-card/process', 'GivingController@cardPayment')->name('giving.card');
 
+Route::get('giving/credit-card/vbv-confirmation', 'GivingController@vbvConfirmation')->name('giving.vbv.confirmation');
+
 Route::post('giving', 'GivingController@store')->name('giving.store');
 
 Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
