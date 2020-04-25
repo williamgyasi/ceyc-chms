@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Giving;
 use App\Services\PaymentService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class GivingController extends Controller
     {
         $payments = Giving::get();
 
-        $currentDayPayments =Giving::whereDate('created_at', \Illuminate\Support\Carbon::today())
+        $currentDayPayments =Giving::whereDate('created_at', Carbon::today())
                                     ->get();
 
         $approvedPayments = Giving::whereDate('created_at', Carbon::today())
@@ -61,7 +62,7 @@ class GivingController extends Controller
      * @param Request $request
      * @return Response
      * @throws ValidationException
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(Request $request)
     {
@@ -110,7 +111,6 @@ class GivingController extends Controller
         $response = $paymentService->mobileMoneyPayment($request);
 
         if ($response->code == '000') {
-
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
@@ -127,6 +127,7 @@ class GivingController extends Controller
      * Method to send request to Payswitch Api Service
      *
      * @param Request $request
+     * @param PaymentService $paymentService
      * @return RedirectResponse
      */
     public function cardPayment(Request $request, PaymentService $paymentService)
@@ -171,5 +172,22 @@ class GivingController extends Controller
     public function errorState()
     {
         return view('pages.givings.declined');
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function completion(Request $request)
+    {
+        if ($request->code === '000') {
+            # code...
+            Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $request->status]);
+            return redirect()->route('giving.successful');
+        }else {
+            Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $request->status]);
+            return redirect()->route('giving.error');
+        }
     }
 }

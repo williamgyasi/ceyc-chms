@@ -152,14 +152,6 @@ class PaymentService
 
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
-                $response = json_encode($response);
-                return  $response;
-            }
-
-            $response = $paymentPromise->wait();
-
-            if($response instanceof RequestException) {
-                $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
                 return $response;
             }
