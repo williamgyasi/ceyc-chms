@@ -40,7 +40,6 @@ class GivingController extends Controller
         $otherPayments = Giving::whereDate('created_at', Carbon::today())
                                 ->wherePaymentStatus('error')
                                 ->orWhere('payment_status', NULL)
-                                ->whereDate('created_at', Carbon::today())
                                 ->get();
 
         return view('pages.givings.dashboard',
@@ -133,7 +132,7 @@ class GivingController extends Controller
     public function cardPayment(Request $request, PaymentService $paymentService)
     {
         $response = $paymentService->cardPayment($request);
-
+     
         if ($response->code == '200' && $response->status == 'vbv required') {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => 'Pending']);
