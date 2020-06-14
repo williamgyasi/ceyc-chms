@@ -26,21 +26,14 @@ class GivingController extends Controller
     {
         $payments = Giving::get();
 
-        $currentDayPayments =Giving::whereDate('created_at', Carbon::today())
+        $currentDayPayments = Giving::whereDate('created_at', Carbon::today())
                                     ->get();
 
-        $approvedPayments = Giving::whereDate('created_at', Carbon::today())
-                                    ->wherePaymentStatus('Approved')
-                                    ->get();
+        $approvedPayments = Giving::approvedGivings()->get();
 
-        $declinedPayments = Giving::whereDate('created_at', Carbon::today())
-                                ->wherePaymentStatus('Declined')
-                                ->get();
+        $declinedPayments = Giving::declinedGivings()->get();
 
-        $otherPayments = Giving::whereDate('created_at', Carbon::today())
-                                ->wherePaymentStatus('error')
-                                ->orWhere('payment_status', NULL)
-                                ->get();
+        $otherPayments = Giving::failedGivings()->get();
 
         return view('pages.givings.dashboard',
             compact('payments', 'approvedPayments',
@@ -86,13 +79,7 @@ class GivingController extends Controller
                 'slug' => $slug
             ]);
 
-        if ($giving->save()) {
-
-            return redirect()->route('giving.confirm', compact('giving'));
-
-        } else {
-            return redirect()->back();
-        }
+        return redirect()->route('giving.confirm', compact('giving'));
     }
 
     public function confirm(Giving $giving)

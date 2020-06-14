@@ -278,8 +278,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/range_dates.js') }}"></script>
     <script src="{{ asset('js/payment-dashboard.js') }}"></script>
+    <script src="{{ asset('js/range_dates.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('.table').DataTable();
