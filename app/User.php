@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Department;
-use App\Fellowship;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,8 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        // 'name', 
-        'email', 
+        // 'name',
+        'email',
         'password',
         'fellowship_id',
         'department_id',
@@ -33,7 +31,8 @@ class User extends Authenticatable
         'digital_address',
         'school',
         'work',
-        'gender'
+        'gender',
+        'cell_id'
     ];
 
     /**
@@ -83,7 +82,7 @@ class User extends Authenticatable
     }
 
      /**
-     * This gets both first and last names and concatenates them 
+     * This gets both first and last names and concatenates them
      *  to form the fullname attribute
      */
     public function getFullNameAttribute()
@@ -93,7 +92,7 @@ class User extends Authenticatable
 
     /**
      * Defines Relationship between the Members and a Fellowship.
-     * 
+     *
      * A member belongs to only one Fellowship
      */
     public function fellowship()
@@ -101,10 +100,20 @@ class User extends Authenticatable
         return $this->belongsTo(Fellowship::class);
     }
 
+    /**
+     * Defines Relationship between the Members(users) and a Cell
+     *
+     * A Member belongs to only one cell
+     */
+    public function cell()
+    {
+        return $this->belongsTo(Cell::class);
+    }
+
      /**
-     * Defines a relationship between the Department and 
+     * Defines a relationship between the Department and
      * Members.
-     * 
+     *
      * A member belongs to a department
      */
     public function department()
@@ -117,12 +126,28 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)
+
+                    ->withTimestamps();
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'role_user_table', 'user_id', 'role_id');
-    // }
-    
+    public function getFellowshipNameAttribute()
+    {
+        return $this->fellowship->name;
+    }
+
+    /**
+     * Checks if the current user has the particular role
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

@@ -3,18 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Giving;
+use App\Services\PaymentService;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('index');
+    }
+
     /**
-     * Method to display a listing of all giivngs/contributions
+     * Method to display a listing of all givings/contributions
      */
     public function index()
     {
-        //code goes here
+        $payments = Giving::get();
+
+        $currentDayPayments = Giving::whereDate('created_at', Carbon::today())
+                                    ->get();
+
+        $approvedPayments = Giving::approvedGivings()->get();
+
+        $declinedPayments = Giving::declinedGivings()->get();
+
+        $otherPayments = Giving::failedGivings()->get();
+
+        return view('pages.givings.dashboard',
+            compact('payments', 'approvedPayments',
+                'declinedPayments', 'otherPayments', 'currentDayPayments'));
     }
 
     /**
@@ -27,89 +50,105 @@ class GivingController extends Controller
 
     /**
      * Method to store a newly created giving resource to database
-     * 
-     * @param \Illuminate\Http\Request $request 
-     * @return \Illuminate\Http\Response
+     *
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
+     * @throws Exception
      */
     public function store(Request $request)
     {
         $attributes = $this->validate($request, [
-            'full_name'     =>  'required',
-            'email'         =>  'required',
-            'contact'       =>  'required',
-            'amount'        =>  'required',
-            'giving_option' =>  'required',
+            'full_name' => 'required',
+            'email' => 'required',
+            'contact' => 'required',
+            'amount' => 'required',
+            'giving_option' => 'required',
+            'partnership_arms' => 'nullable'
         ]);
 
-        $transactionId = random_int(10,100) .  bin2hex(random_bytes(5));
+        if ($attributes['partnership_arms'] !== null) {
+            $attributes['giving_option'] = $attributes['giving_option'] .' - '. $attributes['partnership_arms'];
+        }
 
         $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
 
-        $giving = Giving::create($attributes + ['transaction_id' => $transactionId, 'slug' => $slug]);
+        $giving = Giving::create($attributes +
+            [
+                'transaction_id' => $this->transactionId(),
+                'slug' => $slug
+            ]);
 
-        if($giving->save()) {
-
-            return redirect()->route('giving.confirm', compact('giving'));
-
-        }else {
-            return redirect()->back();
-        }
+        return redirect()->route('giving.confirm', compact('giving'));
     }
 
     public function confirm(Giving $giving)
     {
-       return view('pages.givings.confirm', compact('giving'));
+        return view('pages.givings.confirm', compact('giving'));
     }
 
-    public function completion(Request $request)
+    /**
+     * @param Request $request
+     * @param PaymentService $paymentService
+     * @return RedirectResponse
+     */
+    public function mobileMoneyPayment(Request $request, PaymentService $paymentService)
     {
-        $status = $request->status;
+        $response = $paymentService->mobileMoneyPayment($request);
 
-        $curl = curl_init();
+        if ($response->code == '000') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.successful');
 
-        $transaction_id = $request->transaction_id;
-
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://prod.theteller.net/v1.1/users/transactions/".$transaction_id."/status",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "Cache-Control: no-cache",
-            "Merchant-Id: TTM-00000086"
-        ),
-        ));
-
-        $response = curl_exec($curl);
-
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($request->status !== 'Approved') {
-
-            $giving = Giving::whereTransactionId($transaction_id)
-            
-                    ->update(['payment_status' => $status]);
-            
-            request()->session()->flash('error', 'Looks Like Something Went Wrong Please Try Again!');
-
-            return redirect()->route('giving.error');
-            
         } else {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.error');
+        }
 
-            $giving = Giving::whereTransactionId($transaction_id)
-            
-                    ->update(['payment_status' => $status]);
-            
-            request()->session()->flash('success', 'Transaction Completed!');
+    }
 
+    /**
+     * Method to send request to Payswitch Api Service
+     *
+     * @param Request $request
+     * @param PaymentService $paymentService
+     * @return RedirectResponse
+     */
+    public function cardPayment(Request $request, PaymentService $paymentService)
+    {
+        $response = $paymentService->cardPayment($request);
+     
+        if ($response->code == '200' && $response->status == 'vbv required') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => 'Pending']);
+            return redirect()->away($response->reason);
+        } 
+        
+        if ($response->code === '000') {
+            Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
         }
-  
+
+        Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.error');
+    }
+    
+    /**
+     * Method to generate  random transactionId
+     * of 12 digits
+     *
+     * @return string
+     */
+    public function transactionId(): string
+    {
+        $milliseconds = (String)round(microtime(true) * 568);
+        $shuffled = str_shuffle($milliseconds);
+        $transactionId = substr($shuffled, 0, 12);
+        return $transactionId;
     }
 
     public function successful()
@@ -117,8 +156,26 @@ class GivingController extends Controller
         return view('pages.givings.confirmation');
     }
 
-     public function errorState()
+    public function errorState()
     {
         return view('pages.givings.declined');
+    }
+
+    /**
+     * Method to handle redirection after VBV processing
+     * for card payments.
+     * @param Request $request
+     */
+    public function vbvConfirmation(Request $request)
+    {
+        if ($request->code === '000') {
+            Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $request->status]);
+            return redirect()->route('giving.successful');
+        }
+
+        Giving::whereTransactionId($request->transaction_id)
+                    ->update(['payment_status' => $request->status]);
+            return redirect()->route('giving.error');
     }
 }

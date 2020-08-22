@@ -6,13 +6,20 @@ use App\Cell;
 use App\Member;
 use App\Fellowship;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class CellController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -23,11 +30,11 @@ class CellController extends Controller
 
     /**
      * Show the form for creating a new Cell.
-     * 
+     *
      * Get all fellowships form the database and pass to the view
      * to allow user to attach a cell to a fellowship
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function create()
     {
@@ -41,8 +48,9 @@ class CellController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -52,16 +60,16 @@ class CellController extends Controller
             'leader'        =>  'required',
         ]);
 
-        $cell = Cell::create($validateAttributes);
+        $cell = Cel +l::create($validateAttributes);
 
         if ($cell->save()) {
-            
+
             $request->session()->flash('success', ' ' .$cell->name.' Cell Successfully Added To Portal.');
 
             return redirect()->route('cells.index');
 
         } else {
-            
+
             return redirect()->back()->wthError()->withInput();
         }
     }
@@ -69,8 +77,8 @@ class CellController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cell  $cell
-     * @return \Illuminate\Http\Response
+     * @param Cell $cell
+     * @return void
      */
     public function show(Cell $cell)
     {
@@ -80,8 +88,8 @@ class CellController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cell  $cell
-     * @return \Illuminate\Http\Response
+     * @param Cell $cell
+     * @return Response
      */
     public function edit(Cell $cell)
     {
@@ -95,9 +103,10 @@ class CellController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cell  $cell
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Cell $cell
+     * @return Response
+     * @throws ValidationException
      */
     public function update(Request $request, Cell $cell)
     {
@@ -108,13 +117,13 @@ class CellController extends Controller
         ]);
 
         if ($cell->update($validateAttributes)) {
-            
+
             $request->session()->flash('success', ' ' .$cell->name.' Cell Successfully Updated.');
 
             return redirect()->route('cells.index');
 
         } else {
-            
+
             return redirect()->back()->wthError()->withInput();
         }
     }
@@ -122,8 +131,8 @@ class CellController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cell  $cell
-     * @return \Illuminate\Http\Response
+     * @param Cell $cell
+     * @return Response
      */
     public function destroy(Cell $cell)
     {

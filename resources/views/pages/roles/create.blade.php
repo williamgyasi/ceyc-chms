@@ -22,14 +22,14 @@
     <div class="col-md-6 col-sm-12 offset-3">
 
         <h3 class="mb-2">
-            New User Roles
+            New  Role
         </h3>
 
         <form action="{{ route('roles.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="">Role Name</label>
-                <input type="text" name="name" class="form-control form-control-lg">
+                <input type="text" name="name" class="form-control">
             </div>
 
             <button class="btn btn-primary btn-block">SAVE</button>

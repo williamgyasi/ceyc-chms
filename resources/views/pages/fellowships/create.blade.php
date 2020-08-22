@@ -26,11 +26,11 @@
             @csrf
             <div class="form-group">
                 <label for="">Fellowship Name</label>
-                <input name="name" type="text" class="form-control form-control-lg" required>
+                <input name="name" type="text" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="">Leader</label>
-                <select name="leader" id="" class="form-control form-control-lg">
+                <select name="leader" id="" class="custom-select select2">
                     <option value="" selected disabled>Select A Leader</option>
                     @foreach ($members as $member)
                         <option value="{{ $member->full_name }}">
@@ -43,4 +43,12 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection

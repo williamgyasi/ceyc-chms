@@ -1032,6 +1032,17 @@
 
 /***/ }),
 
+/***/ "./resources/sass/pages/dashboard-analytics.scss":
+/*!*******************************************************!*\
+  !*** ./resources/sass/pages/dashboard-analytics.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/themes/dark-layout.scss":
 /*!************************************************!*\
   !*** ./resources/sass/themes/dark-layout.scss ***!
@@ -1055,23 +1066,24 @@
 /***/ }),
 
 /***/ 0:
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/core/app-menu.js ./resources/sass/app.scss ./resources/sass/bootstrap.scss ./resources/sass/bootstrap-extended.scss ./resources/sass/colors.scss ./resources/sass/components.scss ./resources/sass/themes/dark-layout.scss ./resources/sass/themes/semi-dark-layout.scss ./resources/sass/pages/authentication.scss ./resources/sass/core/menu/menu-types/vertical-menu.scss ./resources/sass/core/core.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/core/app-menu.js ./resources/sass/app.scss ./resources/sass/bootstrap.scss ./resources/sass/bootstrap-extended.scss ./resources/sass/colors.scss ./resources/sass/components.scss ./resources/sass/themes/dark-layout.scss ./resources/sass/themes/semi-dark-layout.scss ./resources/sass/pages/authentication.scss ./resources/sass/pages/dashboard-analytics.scss ./resources/sass/core/menu/menu-types/vertical-menu.scss ./resources/sass/core/core.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\js\core\app-menu.js */"./resources/js/core/app-menu.js");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\bootstrap.scss */"./resources/sass/bootstrap.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\bootstrap-extended.scss */"./resources/sass/bootstrap-extended.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\colors.scss */"./resources/sass/colors.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\components.scss */"./resources/sass/components.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\themes\dark-layout.scss */"./resources/sass/themes/dark-layout.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\themes\semi-dark-layout.scss */"./resources/sass/themes/semi-dark-layout.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\pages\authentication.scss */"./resources/sass/pages/authentication.scss");
-__webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\core\menu\menu-types\vertical-menu.scss */"./resources/sass/core/menu/menu-types/vertical-menu.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\sass\core\core.scss */"./resources/sass/core/core.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\js\core\app-menu.js */"./resources/js/core/app-menu.js");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\bootstrap.scss */"./resources/sass/bootstrap.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\bootstrap-extended.scss */"./resources/sass/bootstrap-extended.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\colors.scss */"./resources/sass/colors.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\components.scss */"./resources/sass/components.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\themes\dark-layout.scss */"./resources/sass/themes/dark-layout.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\themes\semi-dark-layout.scss */"./resources/sass/themes/semi-dark-layout.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\pages\authentication.scss */"./resources/sass/pages/authentication.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\pages\dashboard-analytics.scss */"./resources/sass/pages/dashboard-analytics.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\core\menu\menu-types\vertical-menu.scss */"./resources/sass/core/menu/menu-types/vertical-menu.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\sass\core\core.scss */"./resources/sass/core/core.scss");
 
 
 /***/ })

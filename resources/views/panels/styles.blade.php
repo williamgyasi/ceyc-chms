@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{{ asset(mix('css/components.css')) }}">
 
 {{-- {!! Helper::applClasses() !!} --}}
-@php 
+@php
 $configData = Helper::applClasses();
 @endphp
 
@@ -46,5 +46,5 @@ $configData = Helper::applClasses();
 
 <!-- Font Awesome-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
+integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
 crossorigin="anonymous">

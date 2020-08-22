@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -16,13 +16,19 @@
 
                     You are logged in as {{ Auth::user()->full_name }} with Email {{ Auth::user()->email }}
 
-                    <p>Your Role(s) : </p>
+                    <div class="row pt-3">
+                        <div class="">
+                            <p>Your Role(s) : </p>
+                        </div>
 
-                    @foreach (Auth::user()->roles as $role)
-                        <p>
-                            {{ $role->name }}
-                        </p>
-                    @endforeach
+                        @foreach (Auth::user()->roles as $role)
+                           <ul>
+                               <li>
+                                   {{ $role->name }}
+                               </li>
+                           </ul>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

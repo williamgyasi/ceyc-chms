@@ -1,11 +1,11 @@
 @isset($pageConfigs)
     @if(count($pageConfigs) > 0)
-        @foreach ($pageConfigs as $config => $val) 
+        @foreach ($pageConfigs as $config => $val)
             {{ Config::set('custom.custom.'.$config, $val) }}
         @endforeach
-    @endif    
+    @endif
 @endisset
- 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -14,7 +14,9 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield('title') - Vuesax HTML Laravel admin dashboard template</title>
+        <title>
+            CEYC PORTAL - Login
+        </title>
         <link rel="shortcut icon" type="image/x-icon" href="../images/logo/favicon.ico">
 
         {{-- Include core + vendor Styles --}}
@@ -26,10 +28,10 @@
     </head>
 
     {{-- {!! Helper::applClasses() !!} --}}
-    @php 
+    @php
     $configData = Helper::applClasses();
     @endphp
-    
+
     <body class="vertical-layout vertical-menu-modern 1-column blank-page {{ $configData['bodyClass'] }} {{ $configData['theme'] }}" data-menu="vertical-menu-modern" data-col="1-column">
 
         <!-- BEGIN: Content-->
@@ -44,7 +46,7 @@
             </div>
         </div>
         <!-- End: Content-->
-        
+
         {{-- include default scripts --}}
         @include('panels/scripts')
 

@@ -33,8 +33,10 @@ class CreateUsersTable extends Migration
             $table->string('school')->nullable();
             $table->string('work')->nullable();
             $table->string('gender');
+            $table->foreign('cell_id');
             $table->foreign('fellowship_id')->references('id')->on('fellowships');
             $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('cell_id')->references('id')->on('cells');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -12,7 +12,9 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+
+                    ->withTimestamps();
     }
 
     /**
@@ -20,8 +22,7 @@ class Role extends Model
      */
     public function setNameAttribute($value)
     {
-        // $this->attributes['name'] = ucwords($value);
-        $this->attributes['name'] = strtolower($value);
+         $this->attributes['name'] = ucwords($value);
     }
-    
+
 }

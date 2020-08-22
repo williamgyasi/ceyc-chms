@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,7 +29,7 @@ class RoleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -32,8 +39,9 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -44,13 +52,13 @@ class RoleController extends Controller
         $role = Role::create($validateAttibutes);
 
         if ($role->save()) {
-            
+
             $request->session()->flash('success', ' Role, ' .$role->name.'  Successfully Created.');
 
             return redirect()->route('roles.index');
 
         } else {
-            
+
             return redirect()->back()->wthError()->withInput();
         }
     }
@@ -58,8 +66,8 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return Response
      */
     public function show(Role $role)
     {
@@ -69,8 +77,8 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return Response
      */
     public function edit(Role $role)
     {
@@ -80,9 +88,9 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Role $role
+     * @return Response
      */
     public function update(Request $request, Role $role)
     {
@@ -92,8 +100,8 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return Response
      */
     public function destroy(Role $role)
     {

@@ -17,6 +17,7 @@ class CreateMembersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('fellowship_id');
             $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('cell_id');
             $table->string('lastname');
             $table->string('firstname');
             $table->string('othernames')->nullable();
@@ -31,6 +32,7 @@ class CreateMembersTable extends Migration
             $table->string('gender');
             $table->foreign('fellowship_id')->references('id')->on('fellowships');
             $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('cell_id')->references('id')->on('cells');
             $table->timestamps();
         });
     }

@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -23,20 +30,21 @@ class ServiceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         $users = User::all();
-        
+
         return view('pages.services.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -51,13 +59,13 @@ class ServiceController extends Controller
         $service = Service::create($validatedAttributes);
 
         if ($service->save()) {
-            
+
             $request->session()->flash('success', ' ' .$service->name.' Service Successfully Added To Portal.');
 
             return redirect()->route('services.index');
 
         } else {
-            
+
             return redirect()->back()->wthError()->withInput();
         }
     }
@@ -65,8 +73,8 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param Service $service
+     * @return Response
      */
     public function show(Service $service)
     {
@@ -76,8 +84,8 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param Service $service
+     * @return Response
      */
     public function edit(Service $service)
     {
@@ -87,9 +95,9 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Service $service
+     * @return Response
      */
     public function update(Request $request, Service $service)
     {
@@ -99,8 +107,8 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param Service $service
+     * @return Response
      */
     public function destroy(Service $service)
     {

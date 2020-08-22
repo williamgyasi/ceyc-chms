@@ -128,7 +128,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\vuesax\resources\js\scripts\footer.js */"./resources/js/scripts/footer.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\js\scripts\footer.js */"./resources/js/scripts/footer.js");
 
 
 /***/ })
