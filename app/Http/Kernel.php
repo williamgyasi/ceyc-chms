@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\HasResetDefaultPasswordMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -35,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            //HasResetDefaultPasswordMiddleware::class
         ],
 
         'api' => [
@@ -65,6 +67,7 @@ class Kernel extends HttpKernel
         'fellowship-leader' => \App\Http\Middleware\FellowshipLeaderRole::class,
         'financial-assistant' => \App\Http\Middleware\FinancialAssistantRole::class,
         'pastoral-assistant' => \App\Http\Middleware\PastoralAssistantRole::class,
+        'has-reset-default-password' => HasResetDefaultPasswordMiddleware::class
     ];
 
     /**

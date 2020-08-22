@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -52,9 +53,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            // 'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            //'password'              => ['required', 'string', 'min:8'],
             'fellowship_id'         =>  'required',
             'department_id'         =>  'nullable',
             'lastname'              =>  'required',
@@ -81,15 +80,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $role = Role::whereName('Member')->get();
-
-//        $randomPassword = bin2hex(random_bytes(5));
-        $randomPassword = 'ceycp@ssword1234';
-
         $user = User::create([
-            // 'name'              => $data['name'],
             'email'             => $data['email'],
-            'password'          => Hash::make($randomPassword),
+            'password'          => Hash::make(bin2hex(random_bytes(5))),
             'fellowship_id'     => $data['fellowship_id'],
             'lastname'          => $data['lastname'],
             'firstname'         => $data['firstname'],
@@ -103,18 +96,18 @@ class RegisterController extends Controller
             'gender'            => $data['gender'],
         ]);
 
-        $user->roles()->attach($role);
+        $user->roles()->attach(
+            Role::whereName('Member')->first()
+        );
 
         return $user;
     }
 
     public function showRegistrationForm()
     {
-        $fellowships = Fellowship::all();
-
-        $departments = Department::all();
-
-        return view('auth.register',
-            compact('fellowships', 'departments'));
+        return view('auth.register', [
+            'fellowships' => Fellowship::all(),
+            'departments' => Department::all()
+        ]);
     }
 }

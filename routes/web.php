@@ -36,6 +36,12 @@ Route::resource('admin/users/', 'UserController');
 
 Auth::routes();
 
+Route::get('user/update/password', 'Auth\SetPasswordAfterRegisterController@showUpdatePasswordForm')
+    ->name('password-update-form');
+
+Route::post('user/update/password', 'Auth\SetPasswordAfterRegisterController@updatePassword')
+    ->name('password.update');
+
 Route::post('admin/users/roles', 'UserRoleController@assignRole')->name('user.roles.assign-role');
 
 Route::get('admin/users/roles', 'UserRoleController@index')->name('user.roles.index');
