@@ -32,6 +32,11 @@ class Giving extends Model
         $this->attributes['payment_status'] = ucwords($value);
     }
 
+    public static function scopeMadeOnCurrentDay($query)
+    {
+        $query->whereDate('created_at', Carbon::today());
+    }
+
     /**
      * Method to get all approved givings for the current day.
      */

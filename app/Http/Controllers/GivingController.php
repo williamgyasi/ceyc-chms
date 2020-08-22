@@ -24,20 +24,13 @@ class GivingController extends Controller
      */
     public function index()
     {
-        $payments = Giving::get();
-
-        $currentDayPayments = Giving::whereDate('created_at', Carbon::today())
-                                    ->get();
-
-        $approvedPayments = Giving::approvedGivings()->get();
-
-        $declinedPayments = Giving::declinedGivings()->get();
-
-        $otherPayments = Giving::failedGivings()->get();
-
-        return view('pages.givings.dashboard',
-            compact('payments', 'approvedPayments',
-                'declinedPayments', 'otherPayments', 'currentDayPayments'));
+        return view('pages.givings.dashboard', [
+            'givings' => Giving::get(),
+            'currentDayGivings' => Giving::madeOnCurrentDay()->get(),
+            'approvedGivings' => Giving::approvedGivings()->get(),
+            'declinedGivings' => Giving::declinedGivings()->get(),
+            'failedGivings' => Giving::failedGivings()->get()
+        ]);
     }
 
     /**
