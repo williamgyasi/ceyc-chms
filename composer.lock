@@ -2429,6 +2429,7 @@
             },
             "require-dev": {
                 "egulias/email-validator": "^2.1.10",
+
                 "symfony/dependency-injection": "^4.4|^5.0"
             },
             "type": "library",
@@ -2600,6 +2601,7 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
+
             "version": "v1.14.0",
             "source": {
                 "type": "git",
