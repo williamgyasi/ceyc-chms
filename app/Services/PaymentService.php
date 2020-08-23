@@ -92,18 +92,20 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
+            if($exception instanceof FatalErrorException)
+            {
                 Log::critical($exception->getMessage());
                 return redirect()->route('giving.error');
             }
+
+            if($exception instanceof ConnectException)
+            {
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
+
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 
@@ -160,18 +162,20 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
+            if($exception instanceof FatalErrorException)
+            {
                 Log::critical($exception->getMessage());
                 return redirect()->route('giving.error');
             }
+
+            if($exception instanceof ConnectException)
+            {
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
+            
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 

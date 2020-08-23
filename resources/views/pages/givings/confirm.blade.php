@@ -90,11 +90,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold">
-                            KINDLY CONFIRM THE PAYMENT DETAILS
+                            KINDLY CONFIRM YOUR PAYMENT DETAILS
                         </h4>
-                        <p card-text warn>
-                        Please Try Giving With <a href=https://brave.com target="_blank"> Another Browser </a> if it This Fails
-                        </p>
                         <p class="card-text mt-2">
                             Payment Details
                         </p>
