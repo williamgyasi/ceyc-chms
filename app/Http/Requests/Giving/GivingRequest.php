@@ -33,15 +33,23 @@ class GivingRequest extends FormRequest
         ];
     }
 
-    public function all($keys = null)
+    /**
+     * Manipulates the validated object to change the giving option
+     * if the partnership arm parameter is present in the validated object
+     *
+     * @return array
+     */
+    public function validated()
     {
-        $requestData = parent::all();
+        $data = $this->validator->validated();
 
-        if ($requestData['partnership_arms']) 
-        {
-            $requestData['giving_option'] = $requestData['giving_option'] . ' - ' 
-                . $requestData['partnership_arms'];
+        if ($data['partnership_arms']) {
+            return array_merge($data, [
+                'giving_option' 
+                    => $data['giving_option'] . ' - '. $data['partnership_arms']
+            ]);
         }
-        return $requestData;
+
+        return $data;
     }
 }

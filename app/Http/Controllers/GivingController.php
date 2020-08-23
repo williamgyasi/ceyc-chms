@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Giving;
-use App\Http\Requests\GivingRequest;
+use App\Http\Requests\Giving\GivingRequest;
 use App\Services\PaymentService;
 use Carbon\Carbon;
 use Exception;
@@ -80,12 +80,11 @@ class GivingController extends Controller
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
+        }
 
-        } else {
-            Giving::whereTransactionId($request->transaction_id)
+        Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.error');
-        }
     }
 
     /**
