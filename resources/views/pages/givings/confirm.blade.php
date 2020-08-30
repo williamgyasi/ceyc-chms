@@ -195,7 +195,7 @@
                                             </div>
 
                                             <input type="text" name="transaction_id" value="{{ $giving->transaction_id
-                                        }}" hidden>
+                                                 }}" hidden>
                                             <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
                                             <div class="alert alert-warning mt-2 mb-2">
                                                 <span class="font-weight-bold">
@@ -226,7 +226,7 @@
                                         <form action="{{ route('giving.card') }}" method="post">
                                             @csrf
                                             <input type="text" name="transaction_id" value="{{ $giving->transaction_id
-                                        }}" hidden>
+                                                }}" hidden>
                                             <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
                                             <input type="text" name="customer_email" value="{{ $giving->email }}"
                                                 hidden>

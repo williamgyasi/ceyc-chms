@@ -5,12 +5,12 @@ namespace App\Services;
 
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log as Log;
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
 class PaymentService
