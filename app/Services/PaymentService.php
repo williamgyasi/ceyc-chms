@@ -117,7 +117,6 @@ class PaymentService
      */
     public function cardPayment(Request $request)
     {
-        dd($request->all());
         $body = [
             'amount' => $this->serializeAmount($request->amount),
             'processing_code' => '000000',
