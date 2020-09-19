@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Giving;
-use App\Services\PaymentService;
-use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use App\Giving;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Services\PaymentService;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Giving\GivingRequest;
 use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
@@ -24,20 +25,13 @@ class GivingController extends Controller
      */
     public function index()
     {
-        $payments = Giving::get();
-
-        $currentDayPayments = Giving::whereDate('created_at', Carbon::today())
-                                    ->get();
-
-        $approvedPayments = Giving::approvedGivings()->get();
-
-        $declinedPayments = Giving::declinedGivings()->get();
-
-        $otherPayments = Giving::failedGivings()->get();
-
-        return view('pages.givings.dashboard',
-            compact('payments', 'approvedPayments',
-                'declinedPayments', 'otherPayments', 'currentDayPayments'));
+        return view('pages.givings.dashboard', [
+            'givings' => Giving::get(),
+            'currentDayGivings' => Giving::madeOnCurrentDay()->get(),
+            'approvedGivings' => Giving::approvedGivings()->get(),
+            'declinedGivings' => Giving::declinedGivings()->get(),
+            'failedGivings' => Giving::failedGivings()->get()
+        ]);
     }
 
     /**
@@ -56,35 +50,21 @@ class GivingController extends Controller
      * @throws ValidationException
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(GivingRequest $request)
     {
-        $attributes = $this->validate($request, [
-            'full_name' => 'required',
-            'email' => 'required',
-            'contact' => 'required',
-            'amount' => 'required',
-            'giving_option' => 'required',
-            'partnership_arms' => 'nullable'
-        ]);
-
-        if ($attributes['partnership_arms'] !== null) {
-            $attributes['giving_option'] = $attributes['giving_option'] .' - '. $attributes['partnership_arms'];
-        }
-
-        $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
-
-        $giving = Giving::create($attributes +
-            [
+        return redirect()->route('giving.confirm', [
+            'giving' => Giving::create($request->validated() + [
                 'transaction_id' => $this->transactionId(),
-                'slug' => $slug
-            ]);
-
-        return redirect()->route('giving.confirm', compact('giving'));
+                'slug' => $this->createSlug($request->validated()['full_name'])
+            ])
+        ]);
     }
 
     public function confirm(Giving $giving)
     {
-        return view('pages.givings.confirm', compact('giving'));
+        return view('pages.givings.confirm', [
+            'giving' => $giving
+        ]);
     }
 
     /**
@@ -100,13 +80,11 @@ class GivingController extends Controller
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
-
-        } else {
-            Giving::whereTransactionId($request->transaction_id)
-                ->update(['payment_status' => $response->status]);
-            return redirect()->route('giving.error');
         }
 
+        Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.error');
     }
 
     /**
@@ -177,5 +155,11 @@ class GivingController extends Controller
         Giving::whereTransactionId($request->transaction_id)
                     ->update(['payment_status' => $request->status]);
             return redirect()->route('giving.error');
+    }
+
+    protected function createSlug($fullName)
+    {
+        return Carbon::today()->format('dmyg') . 
+            bin2hex(random_bytes(5)) . Str::slug($fullName);
     }
 }

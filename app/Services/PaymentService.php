@@ -5,12 +5,12 @@ namespace App\Services;
 
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log as Log;
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 
 class PaymentService
@@ -85,6 +85,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 
@@ -92,18 +93,20 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
+            if($exception instanceof FatalErrorException)
+            {
                 Log::critical($exception->getMessage());
                 return redirect()->route('giving.error');
             }
+
+            if($exception instanceof ConnectException)
+            {
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
+
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 
@@ -114,6 +117,7 @@ class PaymentService
      */
     public function cardPayment(Request $request)
     {
+        dd($request->all());
         $body = [
             'amount' => $this->serializeAmount($request->amount),
             'processing_code' => '000000',
@@ -153,6 +157,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 
@@ -160,18 +165,20 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
+            if($exception instanceof FatalErrorException)
+            {
                 Log::critical($exception->getMessage());
                 return redirect()->route('giving.error');
             }
+
+            if($exception instanceof ConnectException)
+            {
+                Log::critical($exception->getMessage());
+                return redirect()->route('giving.error');
+            }
+            
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 
