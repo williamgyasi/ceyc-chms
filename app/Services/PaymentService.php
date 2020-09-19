@@ -85,6 +85,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 
@@ -116,6 +117,7 @@ class PaymentService
      */
     public function cardPayment(Request $request)
     {
+        dd($request->all());
         $body = [
             'amount' => $this->serializeAmount($request->amount),
             'processing_code' => '000000',
@@ -155,6 +157,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 
