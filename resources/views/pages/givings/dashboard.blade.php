@@ -3,11 +3,23 @@
 @section('pageStyle')
 
     <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
-    {{--    <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/datatables.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/datatables.min.css') }}">
 
 @endsection
 
 @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div id="chart-apex"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -280,14 +292,4 @@
 @section('scripts')
     <script src="{{ asset('js/payment-dashboard.js') }}"></script>
     <script src="{{ asset('js/range_dates.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('.table').DataTable();
-        });
-
-        $('.datepicker').flatpickr({
-            enableTime: false,
-            dateFormat: "d-M-Y"
-        });
-    </script>
 @endsection
