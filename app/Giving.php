@@ -59,7 +59,7 @@ class Giving extends Model
     {
         return $query->whereDate('created_at', Carbon::today())
                     ->where(function($query) {
-                        $query->wherePaymentStatus('Error')
+                        $query->wherePaymentStatus('Failed')
                             ->orWhereNull('payment_status');
                     });
     }
