@@ -1,17 +1,15 @@
 <?php
 
-
 namespace App\Services;
 
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log as Log;
-use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\Debug\Exception\FatalErrorException;
 
 class PaymentService
 {
@@ -42,7 +40,7 @@ class PaymentService
         $this->merchantId = config('payswitch.merchant_id');
         $this->username = config('payswitch.username');
         $this->api_key = config('payswitch.api_key');
-        $this->uri = 'https://prod.theteller.net/v1.1/transaction/process';
+        $this->uri = 'https://test.theteller.net/v1.1/transaction/process';
     }
 
     /**
@@ -68,7 +66,7 @@ class PaymentService
 
             $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
-                'body' => json_encode($body)
+                'body' => json_encode($body),
             ])->then(
                 function (ResponseInterface $response) {
                     return $response;
@@ -92,51 +90,41 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-            }
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 
     /**
      * Process Credit Card Payments
-     * @param Request $request
+     * @param array $request
      * @return RedirectResponse|mixed
      */
-    public function cardPayment(Request $request)
+    public function cardPayment(array $request)
     {
         $body = [
-            'amount' => $this->serializeAmount($request->amount),
+            'amount' => $this->serializeAmount($request['amount']),
             'processing_code' => '000000',
-            'transaction_id' => $request->transaction_id,
+            'transaction_id' => $request['transaction_id'],
             'desc' => 'CEYC AC Giving - Card Payment',
             'merchant_id' => $this->merchantId,
-            'r-switch' => $this->validateCard($request->pan),
-            'pan' => $request->pan,
-            'cvv' => $request->cvv,
-            'exp_month' => $request->exp_month,
-            'exp_year' => $request->exp_year,
-            'card_holder' => $request->card_holder,
+            'r-switch' => $this->validateCard($request['pan']),
+            'pan' => $request['pan'],
+            'cvv' => $request['cvv'],
+            'exp_month' => $request['exp_month'],
+            'exp_year' => $request['exp_year'],
+            'card_holder' => $request['card_holder'],
             'currency' => 'GHS',
-            'customer_email' => $request->customer_email,
+            'customer_email' => $request['customer_email'],
             "3d_url_response" => route('giving.vbv.confirmation'),
         ];
 
         try {
-            $client = new CLient();
+            $client = new Client();
 
             $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
-                'body' => json_encode($body)
+                'body' => json_encode($body),
             ])->then(
                 function (ResponseInterface $response) {
                     return $response;
@@ -160,18 +148,8 @@ class PaymentService
             return $response;
 
         }catch (\Exception $exception) {
-            if($exception instanceof FatalErrorException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }elseif ($exception instanceof ConnectException){
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-
-            }else{
-                Log::critical($exception->getMessage());
-                return redirect()->route('giving.error');
-            }
+            Log::critical($exception->getMessage());
+            return redirect()->route('giving.error');
         }
     }
 

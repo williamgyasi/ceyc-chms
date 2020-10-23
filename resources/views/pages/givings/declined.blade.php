@@ -28,8 +28,6 @@
                 <p class="text-center">
                     Click <a href="https://app.ceycairportcity.org/giving">Here</a> to try again.
                 </p>
-                @if (Session::has('success'))
-                @endif
             </div>
         </div>
     </div>

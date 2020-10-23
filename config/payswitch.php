@@ -15,5 +15,5 @@ return [
     /**
      * Payswitch Username
      */
-    'username' => env('PAYSWITCH_USERNAME')
+    'username' => env('PAYSWITCH_USERNAME'),
 ];
