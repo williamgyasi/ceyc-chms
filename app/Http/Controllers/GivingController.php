@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
-use App\Http\Requests\Payment\MobileMoneyPaymentRequest;
 
 class GivingController extends Controller
 {
@@ -73,12 +72,10 @@ class GivingController extends Controller
             $attributes['giving_option'] = $attributes['giving_option'] .' - '. $attributes['partnership_arms'];
         }
 
-        $slug = Carbon::today()->format('dmyg') . bin2hex(random_bytes(5)) . Str::slug($request->full_name);
-
         $giving = Giving::create($attributes +
             [
                 'transaction_id' => $this->transactionId(),
-                'slug' => $slug
+                'slug' => $this->slug($request)
             ]);
 
         return redirect()->route('giving.confirm', compact('giving'));
@@ -114,38 +111,28 @@ class GivingController extends Controller
      * Method to send request to Payswitch Api Service
      *
      * @param CardPaymentRequest $request
+     * @param PaymentService $paymentService
      * @return RedirectResponse
      */
     public function cardPayment(CardPaymentRequest $request, PaymentService $paymentService)
     {
-        $transactionId = $this->transactionId();
-
-        Giving::create($request->validated() + [
-            'transaction_id' => $transactionId,
-            'slug' => $this->slug($request)
-            ]);
-
-        $response = $paymentService->cardPayment($request->validated() + [
-            'transaction_id' => $transactionId
-        ]);
-
-        if ($response->code === 200 && $response->status == 'vbv required') {
-            Giving::whereTransactionId($response->transaction_id)
+        $response = $paymentService->cardPayment($request->validated());
+     
+        if ($response->code == '200' && $response->status == 'vbv required') {
+            Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => 'Pending']);
             return redirect()->away($response->reason);
-        }
-
-        if ($response->code === 000) {
-            Giving::whereTransactionId($response->transaction_id)
+        } 
+        
+        if ($response->code === '000') {
+            Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
-            return redirect()->away($response->reason);
+            return redirect()->route('giving.successful');
         }
 
-        Log::error("Giving failed with code of {$response->code}, Status {$response->status} and Reason {$response->reason}");
-        Giving::whereTransactionId($response->transaction_id)
-            ->update(['payment_status' => $response->status]);
-
-        return redirect()->route('giving.error');
+        Giving::whereTransactionId($request->transaction_id)
+                ->update(['payment_status' => $response->status]);
+            return redirect()->route('giving.error');
     }
 
     /**

@@ -29,7 +29,7 @@ class Giving extends Model
      */
     public function setPaymentStatus($value)
     {
-        $this->attributes['payment_status'] = ucwords($value);
+        $this->attributes['payment_status'] = ucfirst($value);
     }
 
     /**
