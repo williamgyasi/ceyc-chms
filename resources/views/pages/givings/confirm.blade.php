@@ -90,11 +90,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title font-weight-bold">
-                            KINDLY CONFIRM THE PAYMENT DETAILS
+                            KINDLY CONFIRM YOUR PAYMENT DETAILS
                         </h4>
-                        <p card-text warn>
-                        Please Try Giving With <a href=https://brave.com target="_blank"> Another Browser </a> if it This Fails
-                        </p>
                         <p class="card-text mt-2">
                             Payment Details
                         </p>
@@ -198,7 +195,7 @@
                                             </div>
 
                                             <input type="text" name="transaction_id" value="{{ $giving->transaction_id
-                                        }}" hidden>
+                                                 }}" hidden>
                                             <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
                                             <div class="alert alert-warning mt-2 mb-2">
                                                 <span class="font-weight-bold">
@@ -207,8 +204,6 @@
                                             </div>
                                             <button class="button">PAY</button>
                                         </form>
-                                    </div>
-                                    <div class="modal-footer">
                                     </div>
                                 </div>
                             </div>
@@ -229,27 +224,27 @@
                                         <form action="{{ route('giving.card') }}" method="post">
                                             @csrf
                                             <input type="text" name="transaction_id" value="{{ $giving->transaction_id
-                                        }}" hidden>
+                                                }}" hidden>
                                             <input type="text" name="amount" value="{{ $giving->amount }}" hidden>
                                             <input type="text" name="customer_email" value="{{ $giving->email }}"
                                                 hidden>
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <label for="">CARD NUMBER</label>
-                                                    <input type="text" name="pan" class="form-control" minlength="16"
-                                                        maxlength="16">
+                                                    <input type="text" name="pan" class="form-control" minlength="14"
+                                                        maxlength="16" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">CARD HOLDER NAME</label>
                                                     <input type="text" name="card_holder" class="form-control"
-                                                        placeholder="Eg: Abena Abrefa">
+                                                        placeholder="Eg: Abena Abrefa" required>
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col">
                                                         <label for="">Expiry Date</label>
                                                         <div class="row">
                                                             <div class="col">
-                                                                <select name="exp_month" class="form-control">
+                                                                <select name="exp_month" class="form-control" required>
                                                                     <option value="" selected disabled>MM</option>
                                                                     <option value="01">January</option>
                                                                     <option value="02">February</option>
@@ -267,7 +262,7 @@
                                                             </div>
                                                             /
                                                             <div class="col">
-                                                                <select name="exp_year" class="form-control">
+                                                                <select name="exp_year" class="form-control" required>
                                                                     <option value="" selected disabled>YY</option>
                                                                     <option value="20"> 2020</option>
                                                                     <option value="21"> 2021</option>
@@ -287,7 +282,7 @@
                                                     <div class="col">
                                                         <label for="">CVV</label>
                                                         <input type="text" name="cvv" class="form-control" minlength="3"
-                                                            maxlength="5" placeholder="123">
+                                                            maxlength="5" placeholder="123" required>
                                                     </div>
                                                 </div>
                                                 <button class="button">PAY</button>

@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Giving;
-use App\Http\Requests\CardPaymentRequest;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
@@ -25,20 +24,13 @@ class GivingController extends Controller
      */
     public function index()
     {
-        $payments = Giving::get();
-
-        $currentDayPayments = Giving::whereDate('created_at', Carbon::today())
-                                    ->get();
-
-        $approvedPayments = Giving::approvedGivings()->get();
-
-        $declinedPayments = Giving::declinedGivings()->get();
-
-        $otherPayments = Giving::failedGivings()->get();
-
-        return view('pages.givings.dashboard',
-            compact('payments', 'approvedPayments',
-                'declinedPayments', 'otherPayments', 'currentDayPayments'));
+        return view('pages.givings.dashboard', [
+            'givings' => Giving::get(),
+            'currentDayGivings' => Giving::madeOnCurrentDay()->get(),
+            'approvedGivings' => Giving::approvedGivings()->get(),
+            'declinedGivings' => Giving::declinedGivings()->get(),
+            'failedGivings' => Giving::failedGivings()->get()
+        ]);
     }
 
     /**
@@ -57,9 +49,9 @@ class GivingController extends Controller
      * @throws ValidationException
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(GivingRequest $request)
     {
-        $attributes = $this->validate($request, [
+       $attributes = $this->validate($request, [
             'full_name' => 'required',
             'email' => 'required',
             'contact' => 'required',
@@ -83,7 +75,9 @@ class GivingController extends Controller
 
     public function confirm(Giving $giving)
     {
-        return view('pages.givings.confirm', compact('giving'));
+        return view('pages.givings.confirm', [
+            'giving' => $giving
+        ]);
     }
 
     /**
@@ -93,7 +87,7 @@ class GivingController extends Controller
      */
     public function mobileMoneyPayment(Request $request, PaymentService $paymentService)
     {
-        $response = $paymentService->mobileMoneyPayment($request);
+        $$response = $paymentService->mobileMoneyPayment($request);
 
         if ($response->code == 000) {
             Giving::whereTransactionId($request->transaction_id)
@@ -181,5 +175,11 @@ class GivingController extends Controller
         Giving::whereTransactionId($request->transaction_id)
                     ->update(['payment_status' => $request->status]);
             return redirect()->route('giving.error');
+    }
+
+    protected function createSlug($fullName)
+    {
+        return Carbon::today()->format('dmyg') . 
+            bin2hex(random_bytes(5)) . Str::slug($fullName);
     }
 }
