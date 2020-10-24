@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Giving\GivingRequest;
 use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
@@ -46,18 +45,32 @@ class GivingController extends Controller
      * Method to store a newly created giving resource to database
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      * @throws ValidationException
      * @throws Exception
      */
     public function store(GivingRequest $request)
     {
-        return redirect()->route('giving.confirm', [
-            'giving' => Giving::create($request->validated() + [
-                'transaction_id' => $this->transactionId(),
-                'slug' => $this->createSlug($request->validated()['full_name'])
-            ])
+       $attributes = $this->validate($request, [
+            'full_name' => 'required',
+            'email' => 'required',
+            'contact' => 'required',
+            'amount' => 'required',
+            'giving_option' => 'required',
+            'partnership_arms' => 'nullable'
         ]);
+
+        if ($attributes['partnership_arms'] !== null) {
+            $attributes['giving_option'] = $attributes['giving_option'] .' - '. $attributes['partnership_arms'];
+        }
+
+        $giving = Giving::create($attributes +
+            [
+                'transaction_id' => $this->transactionId(),
+                'slug' => $this->slug($request)
+            ]);
+
+        return redirect()->route('giving.confirm', compact('giving'));
     }
 
     public function confirm(Giving $giving)
@@ -74,29 +87,30 @@ class GivingController extends Controller
      */
     public function mobileMoneyPayment(Request $request, PaymentService $paymentService)
     {
-        $response = $paymentService->mobileMoneyPayment($request);
+        $$response = $paymentService->mobileMoneyPayment($request);
 
-        if ($response->code == '000') {
+        if ($response->code == 000) {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
+
         }
 
         Giving::whereTransactionId($request->transaction_id)
-                ->update(['payment_status' => $response->status]);
-            return redirect()->route('giving.error');
+            ->update(['payment_status' => $response->status]);
+        return redirect()->route('giving.error');
     }
 
     /**
      * Method to send request to Payswitch Api Service
      *
-     * @param Request $request
+     * @param CardPaymentRequest $request
      * @param PaymentService $paymentService
      * @return RedirectResponse
      */
-    public function cardPayment(Request $request, PaymentService $paymentService)
+    public function cardPayment(CardPaymentRequest $request, PaymentService $paymentService)
     {
-        $response = $paymentService->cardPayment($request);
+        $response = $paymentService->cardPayment($request->validated());
      
         if ($response->code == '200' && $response->status == 'vbv required') {
             Giving::whereTransactionId($request->transaction_id)
@@ -114,19 +128,25 @@ class GivingController extends Controller
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.error');
     }
-    
+
     /**
      * Method to generate  random transactionId
      * of 12 digits
      *
      * @return string
      */
-    public function transactionId(): string
+    protected function transactionId(): string
     {
-        $milliseconds = (String)round(microtime(true) * 568);
-        $shuffled = str_shuffle($milliseconds);
-        $transactionId = substr($shuffled, 0, 12);
-        return $transactionId;
+        $shuffled = str_shuffle((String)round(microtime(true) * 568));
+        return substr($shuffled, 0, 12);
+    }
+
+    protected function  slug(Request $request) : string
+    {
+        return
+            Carbon::today()->format('dmyg')
+            . bin2hex(random_bytes(5))
+            . Str::slug($request->full_name);
     }
 
     public function successful()

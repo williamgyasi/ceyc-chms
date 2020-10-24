@@ -314,18 +314,6 @@
     });
     $("#seeAnotherField").trigger("change");
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Access-Control-Allow-Origin': 'https://prod.theteller.net',
-            'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Headers': '*',
-        },
-        xhrFields: {
-            withCredentials: true
-        }
-    });
-
     $(document).ready(function () {
         $("#trigger-card-payment").click(function () {
             // disable button

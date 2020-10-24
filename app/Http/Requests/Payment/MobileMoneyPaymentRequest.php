@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CardPaymentRequest extends FormRequest
+class MobileMoneyPaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,16 @@ class CardPaymentRequest extends FormRequest
      */
     public function rules()
     {
-       return [
+        return [
             'full_name' => ['required', 'string'],
             'email' => ['required', 'string'],
             'contact' => ['required', 'string'],
             'amount' => ['required', 'string'],
             'giving_option' => ['required', 'string'],
             'partnership_arms' => ['nullable', 'string'],
-            'pan' => ['required', 'string'],
-            'card_holder' => ['required',  'string'],
-            'exp_month' => ['required', 'string'],
-            'exp_year' => ['required', 'string'],
-            'cvv' => ['required', 'string']
+            'mobile_money_number' => ['required', 'string'],
+            'mobile_network' => ['required', 'string'],
+            'voucher_code' => ['nullable', 'string']
         ];
     }
 }

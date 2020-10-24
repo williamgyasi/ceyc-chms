@@ -1,40 +1,25 @@
 <?php
 
+
 namespace App\Services;
 
-
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Support\Facades\Log as Log;
+use Throwable;
 
-
-class PaymentService
+class PayswitchPaymentService
 {
-    /**
-     * Payswitch Payment Endpoint
-     * @var string
-     */
-    public $uri;
+    protected $merchantId;
 
-    /**
-     * Merchant ID
-     * @var string
-     */
-    public $merchantId;
+    protected $api_key;
 
-    /**
-     * Payswitch Username
-     */
-    public $username;
+    protected $username;
 
-    /**
-     * Payswitch API Key
-     */
-    public $api_key;
+    protected $uri;
 
     public function __construct()
     {
@@ -44,23 +29,21 @@ class PaymentService
         $this->uri = 'https://test.theteller.net/v1.1/transaction/process';
     }
 
-    /**
-     * Process Mobile Money Payment
-     * @param Request $request
-     * @return RedirectResponse|mixed
-     */
-    public function mobileMoneyPayment(Request $request)
+    public function mobileMoneyPayment(Array $request)
     {
         $body = [
-            'amount' => $this->serializeAmount($request->amount),
+            'amount' => $this->serializeAmount($request['amount']),
             'processing_code' => '000200',
-            'transaction_id' => $request->transaction_id,
+            'transaction_id' => $request['transaction_id'],
             'desc' => 'CEYC AC Giving',
             'merchant_id' => $this->merchantId,
-            'subscriber_number' => $request->contact,
-            'r-switch' => $request->mobile_network,
-            'voucher_code' => $request->voucher_code
+            'subscriber_number' => $request['mobile_money_number'],
+            'r-switch' => $request['mobile_network'],
         ];
+
+        if($request['mobile_network'] === 'VDF') {
+            $body = array_push($body, 'voucher_code', $request['voucher_code']);
+        }
 
         try {
             $client = new Client();
@@ -68,6 +51,7 @@ class PaymentService
             $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
                 'body' => json_encode($body),
+                // 'verify' => false
             ])->then(
                 function (ResponseInterface $response) {
                     return $response;
@@ -84,25 +68,19 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
-                Log::critical($response);
                 return $response;
             }
-
+            //dd($response);
             $response = json_decode($response->getBody()->getContents());
             return $response;
 
-        }catch (\Exception $exception) {
-            Log::critical($exception->getMessage());
-            return redirect()->route('giving.error');
+        } catch (Throwable $th) {
+            Log::critical($th->getMessage());
+            return Redirect::route('giving.error');
         }
     }
 
-    /**
-     * Process Credit Card Payments
-     * @param array $request
-     * @return RedirectResponse|mixed
-     */
-    public function cardPayment(array $request)
+    public function cardPayment($request)
     {
         $body = [
             'amount' => $this->serializeAmount($request['amount']),
@@ -117,8 +95,8 @@ class PaymentService
             'exp_year' => $request['exp_year'],
             'card_holder' => $request['card_holder'],
             'currency' => 'GHS',
-            'customer_email' => $request['customer_email'],
-            "3d_url_response" => route('giving.vbv.confirmation'),
+            'customer_email' => $request['email'],
+            '3d_url_response' => route('giving.vbv.confirmation'),
         ];
 
         try {
@@ -127,6 +105,7 @@ class PaymentService
             $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
                 'body' => json_encode($body),
+                'verify' => false
             ])->then(
                 function (ResponseInterface $response) {
                     return $response;
@@ -143,25 +122,22 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
-                Log::critical($response);
                 return $response;
             }
 
             $response = json_decode($response->getBody()->getContents());
             return $response;
 
-        }catch (\Exception $exception) {
-            Log::critical($exception->getMessage());
+        } catch (Throwable $th) {
+            Log::critical($th->getMessage());
             return redirect()->route('giving.error');
+            //return Redirect::route('giving.error');
         }
     }
 
-    /**
-     * @return array
-     */
-    public function headers(): array
+    protected function headers() : array
     {
-        $headers = [
+        return [
             'Content-Type' => 'application/json',
             'Authorization' => [
                 'Basic ' . base64_encode($this->username . ':' . $this->api_key)
@@ -174,39 +150,37 @@ class PaymentService
             'Accept-Ranges' => 'none',
             'Accept-Language' => '*',
         ];
-
-        return $headers;
     }
 
-    /**
-     * Method to serialize amount to 12 digits
-     * @param $amount
-     * @return string
-     */
-    public function serializeAmount($amount)
+    protected function serializeAmount($amount)
     {
         return sprintf("%'.012d", $amount * 100);
+
     }
 
     /**
-     * @param String $pan
-     * @return RedirectResponse|string
+     * @param string $pan
+     * @return RedirectResponse
      */
-    public function validateCard(String $pan)
+    protected function validateCard(string $pan)
     {
-        $cardTypes = [
+        //TODO: this implementation will me moved to the card payment request class
+        $cards = [
             'VISA' => "/^4[0-9]{12}(?:[0-9]{3})?$/",
             'MAS' => "/^5[1-5][0-9]{14}$/",
         ];
 
-        if (preg_match($cardTypes['VISA'], $pan)) {
+        if (preg_match($cards['VISA'], $pan)) {
             return 'VIS';
         }
 
-        if (preg_match($cardTypes['MAS'], $pan)) {
+        if (preg_match($cards['MAS'], $pan)) {
             return 'MAS';
         }
 
-        return redirect()->back();
+        return redirect()->back()->withErrors([
+            'Improper Card Format, Please check your card number and try again'
+        ]);
     }
+
 }

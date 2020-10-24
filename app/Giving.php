@@ -29,7 +29,7 @@ class Giving extends Model
      */
     public function setPaymentStatus($value)
     {
-        $this->attributes['payment_status'] = ucwords($value);
+        $this->attributes['payment_status'] = ucfirst($value);
     }
 
     public static function scopeMadeOnCurrentDay($query)
@@ -64,7 +64,7 @@ class Giving extends Model
     {
         return $query->whereDate('created_at', Carbon::today())
                     ->where(function($query) {
-                        $query->wherePaymentStatus('Error')
+                        $query->wherePaymentStatus('Failed')
                             ->orWhereNull('payment_status');
                     });
     }
