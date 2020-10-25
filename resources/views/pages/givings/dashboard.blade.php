@@ -32,7 +32,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <h1 class="text-bold-700">
-                                GH¢ {{ $approvedPayments->sum('amount') }}
+                                GH¢ {{ $approvedGivings->sum('amount') }}
                             </h1>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <h2 class="text-bold-700">
-                                {{ $approvedPayments->count() }}
+                                {{ $approvedGivings->count() }}
                             </h2>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <h2 class="text-bold-600">
-                                {{ $declinedPayments->count() }}
+                                {{ $declinedGivings->count() }}
                             </h2>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <h2 class="text-bold-700">
-                                {{ $otherPayments->count() }}
+                                {{ $failedGivings->count() }}
                             </h2>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($currentDayPayments as $payment)
+                                    @foreach($currentDayGivings as $payment)
                                         <tr>
                                             <td>
                                                 {{ $loop->iteration }}
@@ -235,7 +235,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($payments as $payment)
+                                    @foreach($givings as $payment)
                                         <tr>
                                             <td>
                                                 {{ $loop->iteration }}

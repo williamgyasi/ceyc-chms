@@ -11,6 +11,7 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log as Log;
 
+
 class PaymentService
 {
     /**
@@ -83,6 +84,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 
@@ -141,6 +143,7 @@ class PaymentService
             if($response instanceof RequestException) {
                 $response = $response->getResponse()->getBody();
                 $response = json_decode($response);
+                Log::critical($response);
                 return $response;
             }
 

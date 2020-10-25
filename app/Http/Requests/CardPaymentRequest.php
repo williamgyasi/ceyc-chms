@@ -23,7 +23,7 @@ class CardPaymentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+       return [
             'full_name' => ['required', 'string'],
             'email' => ['required', 'string'],
             'contact' => ['required', 'string'],

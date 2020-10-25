@@ -56,13 +56,8 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-{{--                        <img src='https://ceycairportcity.org/wp-content/uploads/2020/03/Untitled-1.png' width=300 height=194 class=center>--}}
                         <div class="image mt-0 pt-0">
-
                         </div>
-{{--                        <h4 class="card-title mt-2 font-weight-bold justify-content-center">--}}
-{{--                            ONLINE GIVING--}}
-{{--                        </h4>--}}
                         <p class="card-text mt-2">
                             Kindly Fill Out The Form To Complete Your Giving
                         </p>
