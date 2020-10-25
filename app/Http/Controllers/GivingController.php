@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Giving;
+use App\Http\Requests\CardPaymentRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class GivingController extends Controller
      * @throws ValidationException
      * @throws Exception
      */
-    public function store(GivingRequest $request)
+    public function store(Request $request)
     {
        $attributes = $this->validate($request, [
             'full_name' => 'required',
