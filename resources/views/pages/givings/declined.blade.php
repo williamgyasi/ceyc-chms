@@ -26,7 +26,7 @@
                     </strong>
                 </div>
                 <p class="text-center">
-                    Click <a href="https://app.ceycairportcity.org/giving">Here</a> to try again.
+                    Click <a href="https://give.ceycairportcity.org/giving/">Here</a> to try again.
                 </p>
             </div>
         </div>
