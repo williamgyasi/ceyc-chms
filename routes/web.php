@@ -23,11 +23,6 @@ Route::get('full', 'LayoutController@full');
 /**
  * Admin Resource Routes
  */
-Route::resource('admin/cells', 'CellController');
-Route::resource('admin/fellowships', 'FellowshipController');
-Route::resource('admin/members', 'MemberController');
-Route::resource('admin/departments', 'DepartmentController');
-Route::resource('admin/services', 'ServiceController');
 Route::resource('admin/roles', 'RoleController');
 Route::resource('admin/users/', 'UserController');
 
@@ -52,25 +47,6 @@ Route::post('giving', 'GivingController@store')->name('giving.store');
 Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
 
-
-/**
- * Fellowship Leader's Routes
- */
-Route::get('fellowship/{fellowship}/members', 'Leaders\Fellowships\FellowshipController@members')->name('fellowship.members');
-Route::post('fellowship/cells', 'Leaders\Fellowships\FellowshipController@cell')->name('fellowship.cell.store');
-Route::get('fellowship/{fellowship}/cells', 'Leaders\Fellowships\FellowshipController@cells')->name('fellowship.cells');
-
-
-/**
- * Cell leader's Route
- */
-Route::get('cell/{cell}/members', 'Leaders\Cells\CellController@members')->name('cell.members');
-Route::get('payments/dashboard', 'PaymentController@dashboard')->name('payment.dashboard');
-Route::post('payment/mobile-money/process', 'PaymentController@mobileMoneyPayment')->name('payment.momo');
-Route::post('payment/card-payment/process', 'PaymentController@cardPayment')->name('payment.card');
-Route::get('payment/{payment}/confirm', 'PaymentController@confirm')->name('payment.confirm');
-Route::post('payment', 'PaymentController@store')->name('payment.store');
-Route::get('payment', 'PaymentController@showForm')->name('payment.create');
 
 Route::get('v2-payment', function () {
     return view('pages.givings.v2.step-1');
