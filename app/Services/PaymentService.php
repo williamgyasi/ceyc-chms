@@ -68,6 +68,7 @@ class PaymentService
             $paymentPromise = $client->postAsync($this->uri, [
                 'headers' => $this->headers(),
                 'body' => json_encode($body),
+                'verify' => false
             ])->then(
                 function (ResponseInterface $response) {
                     return $response;
