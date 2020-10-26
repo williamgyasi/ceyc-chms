@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Giving;
-use App\Http\Requests\CardPaymentRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\CardPaymentRequest;
 use Illuminate\Validation\ValidationException;
 
 class GivingController extends Controller
@@ -88,13 +87,12 @@ class GivingController extends Controller
      */
     public function mobileMoneyPayment(Request $request, PaymentService $paymentService)
     {
-        $$response = $paymentService->mobileMoneyPayment($request);
+        $response = $paymentService->mobileMoneyPayment($request);
 
-        if ($response->code == 000) {
+        if ($response->code == '000') {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
             return redirect()->route('giving.successful');
-
         }
 
         Giving::whereTransactionId($request->transaction_id)
@@ -127,7 +125,7 @@ class GivingController extends Controller
 
         Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
-            return redirect()->route('giving.error');
+        return redirect()->route('giving.error');
     }
 
     /**
