@@ -2,6 +2,7 @@
 
 /** @var Factory $factory */
 
+use App\User;
 use Faker\Generator as Faker;
 
 /*
