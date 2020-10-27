@@ -39,7 +39,7 @@ html{
 
 
 .inner__container{
-    background: linear-gradient(to right,#db9a18,#fcb103);
+    background: linear-gradient(to right bottom,#3baa53,#03fce7);
     width: 100%;
     height: 100%;
     display: flex;
@@ -57,11 +57,25 @@ html{
     justify-content: flex-start;
     padding: 2rem;
 }
-.info__container form{
+/* .info__container form{
 background-color: blue;
 padding: 1.2rem 2rem;  
 border-radius: 2rem;
 font-size: 2.1rem;  
+} */
+
+.card__container{
+    width: 60%;
+    padding: 1rem;
+    /* background-color: blue; */
+}
+.card__container h2 {
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 2.1rem;
+    text-align: center;
+    padding: 2rem;
+
 }
 
 
