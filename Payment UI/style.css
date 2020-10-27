@@ -33,7 +33,7 @@ html{
     width: 70%;
     box-shadow: 0 2rem 3rem #777;
     border-radius: 2rem;
-    height: 80%;
+    height: 90%;
     overflow: hidden;
 }
 
@@ -88,6 +88,44 @@ font-size: 2.1rem;
 label{
     font-family: sans-serif;
     font-size: 1.7rem;
+}
+
+.card__component{
+    position: relative;
+    width: 90%;
+    height:30%;
+    margin: 2rem auto;
+    -moz-perspective: 150rem;
+    perspective: 150rem;
+}
+
+.card__component__visa{
+  width: 100%;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background-color: yellow;
+  transition: all 1s ease;
+  backface-visibility: hidden;
+  border-radius: 6px;
+}
+.card__component__visa.card__component__visa--front{
+    background-color: black;
+}
+.card__component:hover .card__component__visa--front{
+    transform: rotateY(-180deg);
+}
+
+
+.card__component__visa.card__component__visa--back{
+    transform: rotateY(180deg);
+}
+
+.card__component:hover .card__component__visa--back{
+    transform: rotateY(0);
 }
 
 
