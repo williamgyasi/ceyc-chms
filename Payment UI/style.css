@@ -10,122 +10,56 @@ html{
     font-size: 64%;
 }
 
-/* .row{
-    max-width: 114rem;
-    margin: 0 auto;
-}
-.clearfix::after{
-    clear: both;
-    content: " ";
-    display: table;
-} */
-
 .wrapper{
-    /* background-color: red; */
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.container{
-    /* background-color: blue; */
+.payment__container{
     width: 70%;
-    box-shadow: 0 2rem 3rem #777;
-    border-radius: 2rem;
-    height: 90%;
+    background-color: yellowgreen;
+    height: 85%;
+    border-radius: 1rem;
+    box-shadow: 0 1rem 3rem #777;
     overflow: hidden;
 }
 
 
-.inner__container{
-    background: linear-gradient(to right bottom,#3baa53,#03fce7);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.info__container{
-    width: 50%;
-    clip-path: polygon(0 0 , 100% 0, 75% 100% , 0 100% );
+.payment__infoDetails{
+    width: 35%;
     background-color: red;
-    transition: all 1s;
+}
+
+
+.payment__selector{
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 2rem;
-}
-/* .info__container form{
-background-color: blue;
-padding: 1.2rem 2rem;  
-border-radius: 2rem;
-font-size: 2.1rem;  
-} */
-
-.card__container{
-    width: 60%;
+    justify-content: center;
     padding: 1rem;
-    /* background-color: blue; */
 }
-.card__container h2 {
-    font-family: sans-serif;
-    font-weight: 700;
-    font-size: 2.1rem;
-    text-align: center;
-    padding: 2rem;
-}
-
-.options__payment{
-    padding: 1rem;
-    /* background-color: red; */
-    padding: .6rem .8rem;
-    font-family: sans-serif;
-    font-weight: 300;
-}
-
-label{
-    font-family: sans-serif;
-    font-size: 1.7rem;
-}
-
-.card__component{
+.payment__button{
+    padding:10px 20px;
+    border-radius: 6px;
+    font-size:1.6rem;
+    border: none;
     position: relative;
-    width: 90%;
-    height:30%;
-    margin: 2rem auto;
-    -moz-perspective: 150rem;
-    perspective: 150rem;
+    box-shadow: 0 1rem 5rem #777;
+    
 }
 
-.card__component__visa{
-  width: 100%;
-  cursor: pointer;
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  background-color: yellow;
-  transition: all 1s ease;
-  backface-visibility: hidden;
-  border-radius: 6px;
+
+
+.payment__button:not(:last-child){
+    margin-right: 3rem;
 }
-.card__component__visa.card__component__visa--front{
+
+
+.payment__cardDetails{
+    width: 65%;
     background-color: black;
-}
-.card__component:hover .card__component__visa--front{
-    transform: rotateY(-180deg);
-}
 
-
-.card__component__visa.card__component__visa--back{
-    transform: rotateY(180deg);
-}
-
-.card__component:hover .card__component__visa--back{
-    transform: rotateY(0);
 }
 
 
