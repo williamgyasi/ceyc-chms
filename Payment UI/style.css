@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after{
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 64%;
+}
+
+/* .row{
+    max-width: 114rem;
+    margin: 0 auto;
+}
+.clearfix::after{
+    clear: both;
+    content: " ";
+    display: table;
+} */
+
+.wrapper{
+    /* background-color: red; */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    /* background-color: blue; */
+    width: 70%;
+    box-shadow: 0 2rem 3rem #777;
+    border-radius: 2rem;
+    height: 80%;
+    overflow: hidden;
+}
+
+
+.inner__container{
+    background: linear-gradient(to right,#db9a18,#fcb103);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info__container{
+    width: 50%;
+    clip-path: polygon(0 0 , 100% 0, 75% 100% , 0 100% );
+    background-color: red;
+    transition: all 1s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+}
+.info__container form{
+background-color: blue;
+padding: 1.2rem 2rem;  
+border-radius: 2rem;
+font-size: 2.1rem;  
+}
+
+
+
+
+
+
