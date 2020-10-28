@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Role;
 use App\User;
-use App\Department;
-use App\Fellowship;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -56,9 +52,6 @@ class RegisterController extends Controller
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'lastname'              =>  'required',
             'firstname'             =>  'required',
-            'othernames'            =>  'nullable',
-            'phone'                 =>  'required',
-            'email'                 =>  'required',
             'password' => ['required', 'min:8']
         ]);
     }
@@ -76,8 +69,7 @@ class RegisterController extends Controller
             'password'          => Hash::make($data['password']),
             'lastname'          => $data['lastname'],
             'firstname'         => $data['firstname'],
-            'othernames'        => $data['othernames'],
-            'phone'             => $data['phone'],
+            'approved' => 0
         ]);
 
         return $user;
@@ -85,6 +77,6 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register-old');
+        return view('auth.register');
     }
 }

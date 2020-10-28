@@ -1,165 +1,78 @@
-@extends('layouts.no-sidebar-master')
+<!-- Description -->
+@extends('layouts/fullLayoutMaster')
 
-@include('panels/register')
+@section('title', 'Full Layout')
 
-<div class="jumbotron text-center">
-    <div class="pb-1">
-        <h1 class="display-4 animated fadeIn delay-1s">CEYC AIRPORT-CITY</h1>
-        <h2>
-            MEMBERSHIP PORTAL
-        </h2>
-    </div>
-    <span class="animated fadeIn delay-1s slogans">
-        ILLUMINATION | LEADERSHIP | EMPOWERMENT | SIGNS & SEASONS
-    </span>
-</div>
+@section('pageStyle')
+
+    <link rel="stylesheet" href="{{ asset(mix('css/pages/authentication.css')) }}">
+
+@endsection
 
 @section('content')
 
-<div class="container mb-4">
-
-    <div class="row">
-        <div class="col-md-6 col-sm-12 offset-md-2">
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
-            <h3 class="text-center pb-1">
-                Fill the form below to register.
-            </h3>
-
-            <p class="text-center pb-1">
-                All fields mark with <span class="asterisks">*</span> are required fields
-            </p>
-
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Last Name
-                    </label>
-                    <input type="text" name="lastname" class="form-control" required>
-                    @error('lastname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+<section class="row flexbox-container">
+    <div class="col-xl-8 col-10 d-flex justify-content-center">
+        <div class="card bg-authentication rounded-0 mb-0">
+            <div class="row m-0">
+                <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
+                    <img src="{{ asset('/images/pages/register.jpg') }}" alt="branding-logo">
                 </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        First Name
-                    </label>
-                    <input type="text" name="firstname" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Other Name</label>
-                    <input type="text" name="othernames" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Mobile Number
-                    </label>
-                    <input type="text" name="phone" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Other Number</label>
-                    <input type="text" name="alt_phone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Email
-                    </label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Date of Birth
-                    </label>
-                    <input type="date" name="dob" class="form-control" id="datepicker" required
-                        placeholder="YYYY-MM-DD">
-                </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Gender
-                    </label>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="male" name="gender" value="Male" required>
-                        <label for="male" class="form-check-label">Male</label><br>
-                        <input type="radio" class="form-check-input" id="female" name="gender" value="Female" required>
-                        <label for="female" class="form-check-label">Female</label>
+                <div class="col-lg-6 col-12 p-0">
+                    <div class="card rounded-0 mb-0 p-2">
+                        <div class="card-header pt-50 pb-1">
+                            <div class="card-title">
+                                <h4 class="mb-0">Create Account</h4>
+                            </div>
+                        </div>
+                        <p class="px-2">Fill the below form to create a new account.</p>
+                        <div class="card-content mt-2">
+                            @if ($errors->any())
+                                <div class="alert alert-danger" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>
+                                                {{ $error }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <div class="card-body pt-0">
+                                <form action="{{ route('register') }}" method="POST">
+                                    @csrf
+                                    <div class="form-label-group">
+                                        <input type="text" id="inputName" name="firstname" class="form-control" placeholder="First Name" required>
+                                        <label for="inputName">First Name</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required>
+                                        <label for="lastname">Last Name</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required>
+                                        <label for="inputEmail">Email</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                                        <label for="inputPassword">Password</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="password" id="inputConfPassword" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+                                        <label for="inputConfPassword">Confirm Password</label>
+                                    </div>
+                                    <a href="/" class="btn btn-outline-primary float-left btn-inline mb-50">Back</a>
+                                    <button type="submit" class="btn btn-primary float-right btn-inline
+                                    mb-50">Register</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for=""><span class="asterisks">*</span>Residential Address</label>
-                    <input type="text" name="residential_address" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Digital Address</label>
-                    <input type="text" name="digital_address" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">School</label>
-                    <input type="text" name="school" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Workplace/Organisation</label>
-                    <input type="text" name="work" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">
-                        <span class="asterisks">*</span>
-                        Fellowship
-                    </label>
-                    <select name="fellowship_id" id="" class="custom-select" required>
-                        <option value="" selected disabled>
-                            Select Fellowship
-                        </option>
-                        @foreach ($fellowships as $fellowship)
-                        <option value="{{ $fellowship->id }}">
-                            {{ $fellowship->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Department</label>
-                    <select name="department_id" id="" class="custom-select">
-                        <option value="" selected disabled>Select Department</option>
-                        @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">
-                            {{ $department->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                <button class="btn btn-primary btn-block">SAVE</button>
-            </form>
+            </div>
         </div>
-
     </div>
-</div>
-@endsection
+</section>
+<!--/ HTML Markup -->
 
-@section('scripts')
-    <script>
-        $(function () {
-            $('#datepicker').flatpickr({
-                enableTime: false,
-                dateFormat: "Y-m-d"
-            });
-        });
-    </script>
 @endsection

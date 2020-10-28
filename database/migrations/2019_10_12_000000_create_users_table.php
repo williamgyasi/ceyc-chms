@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('lastname');
             $table->string('firstname');
-            $table->string('phone');
             $table->timestamp('default_password_reset_at')->nullable();
             $table->boolean('approved')->default(0);
             $table->rememberToken();

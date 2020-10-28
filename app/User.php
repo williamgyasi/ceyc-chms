@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const APPROVED = 1;
+    const UNAPPROVED = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,8 +23,6 @@ class User extends Authenticatable
         'password',
         'lastname',
         'firstname',
-        'phone',
-        'default_password_reset_at'
     ];
 
     /**
