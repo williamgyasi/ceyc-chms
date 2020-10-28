@@ -187,7 +187,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ceyc\resources\js\scripts\components.js */"./resources/js/scripts/components.js");
+module.exports = __webpack_require__(/*! /Users/delaakakpo/Projects/ceyc-chms/resources/js/scripts/components.js */"./resources/js/scripts/components.js");
 
 
 /***/ })

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Role;
 use App\User;
-use App\Department;
-use App\Fellowship;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -54,21 +50,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'fellowship_id'         =>  'required',
-            'department_id'         =>  'nullable',
             'lastname'              =>  'required',
             'firstname'             =>  'required',
-            'othernames'            =>  'nullable',
-            'phone'                 =>  'required',
-            'alt_phone'             =>  'nullable',
-            'email'                 =>  'required',
-            'dob'                   =>  'required',
-            'gender'                =>  'required',
-            'residential_address'   =>  'required',
-            'digital_address'       =>  'nullable',
-            'fellowship_id'         =>  'required',
-            'department_id'         =>  'nullable',
-            'school'                =>  'nullable',
+            'password' => ['required', 'min:8']
         ]);
     }
 
@@ -82,32 +66,17 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'email'             => $data['email'],
-            'password'          => Hash::make(bin2hex(random_bytes(5))),
-            'fellowship_id'     => $data['fellowship_id'],
+            'password'          => Hash::make($data['password']),
             'lastname'          => $data['lastname'],
             'firstname'         => $data['firstname'],
-            'phone'             => $data['phone'],
-            'alt_phone'         => $data['alt_phone'],
-            'dob'               => $data['dob'],
-            'residential_address' => $data['residential_address'],
-            'digital_address'   =>  $data['digital_address'],
-            'school'            => $data['school'],
-            'work'              => $data['work'],
-            'gender'            => $data['gender'],
+            'approved' => 0
         ]);
-
-        $user->roles()->attach(
-            Role::whereName('Member')->first()
-        );
 
         return $user;
     }
 
     public function showRegistrationForm()
     {
-        return view('auth.register', [
-            'fellowships' => Fellowship::all(),
-            'departments' => Department::all()
-        ]);
+        return view('auth.register');
     }
 }

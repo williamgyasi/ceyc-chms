@@ -106,8 +106,7 @@
 .btn-relief-white:active,
 .btn-relief-white:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-white {
@@ -247,7 +246,6 @@ input:focus ~ .bg-white {
 .custom-switch-white .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #FFFFFF !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -364,8 +362,7 @@ input:focus ~ .bg-white {
 .btn-relief-black:active,
 .btn-relief-black:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-black {
@@ -505,7 +502,6 @@ input:focus ~ .bg-black {
 .custom-switch-black .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #000000 !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -622,8 +618,7 @@ input:focus ~ .bg-black {
 .btn-relief-dark:active,
 .btn-relief-dark:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-dark {
@@ -763,7 +758,6 @@ input:focus ~ .bg-dark {
 .custom-switch-dark .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #1e1e1e !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -943,8 +937,7 @@ input:focus ~ .bg-dark {
 .btn-relief-light:active,
 .btn-relief-light:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-light {
@@ -1084,7 +1077,6 @@ input:focus ~ .bg-light {
 .custom-switch-light .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #babfc7 !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -1642,8 +1634,7 @@ input:focus ~ .bg-primary {
 .btn-relief-primary:active,
 .btn-relief-primary:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-primary {
@@ -1783,7 +1774,6 @@ input:focus ~ .bg-primary {
 .custom-switch-primary .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #3f7ccd !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -2845,8 +2835,7 @@ input:focus ~ .bg-secondary {
 .btn-relief-secondary:active,
 .btn-relief-secondary:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-secondary {
@@ -2986,7 +2975,6 @@ input:focus ~ .bg-secondary {
 .custom-switch-secondary .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #b8c2cc !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -3796,8 +3784,7 @@ input:focus ~ .bg-success {
 .btn-relief-success:active,
 .btn-relief-success:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-success {
@@ -3937,7 +3924,6 @@ input:focus ~ .bg-success {
 .custom-switch-success .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #28c76f !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -4999,8 +4985,7 @@ input:focus ~ .bg-info {
 .btn-relief-info:active,
 .btn-relief-info:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-info {
@@ -5140,7 +5125,6 @@ input:focus ~ .bg-info {
 .custom-switch-info .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #00cfe8 !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -6202,8 +6186,7 @@ input:focus ~ .bg-warning {
 .btn-relief-warning:active,
 .btn-relief-warning:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-warning {
@@ -6343,7 +6326,6 @@ input:focus ~ .bg-warning {
 .custom-switch-warning .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #ff9f43 !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -7405,8 +7387,7 @@ input:focus ~ .bg-danger {
 .btn-relief-danger:active,
 .btn-relief-danger:focus {
   outline: none;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn-outline-danger {
@@ -7546,7 +7527,6 @@ input:focus ~ .bg-danger {
 .custom-switch-danger .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #ea5455 !important;
   color: #fff;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 

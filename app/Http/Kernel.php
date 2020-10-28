@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\HasResetDefaultPasswordMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -62,12 +61,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin' => \App\Http\Middleware\AdminRole::class,
-        'cell-leader' => \App\Http\Middleware\CellLeaderRole::class,
-        'fellowship-leader' => \App\Http\Middleware\FellowshipLeaderRole::class,
-        'financial-assistant' => \App\Http\Middleware\FinancialAssistantRole::class,
-        'pastoral-assistant' => \App\Http\Middleware\PastoralAssistantRole::class,
-        'has-reset-default-password' => HasResetDefaultPasswordMiddleware::class
+        'approved_account' => \App\Http\Middleware\UserHasBeenApprovedMiddleware::class
     ];
 
     /**

@@ -1,10 +1,8 @@
 @extends('layouts.master')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('pageStyle')
-
-    <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/datatables.min.css') }}">
-
 @endsection
 
 @section('content')
@@ -134,21 +132,16 @@
                                                 {{ $payment->giving_option }}
                                             </td>
                                             <td>
-                                                @if($payment->payment_status == 'Approved' || $payment->payment_status ==
-                                                 'approved')
+                                                @if($payment->payment_status === 'Approved')
                                                     <span class="text-success">
-                                                         {{ ucwords($payment->payment_status) }}
+                                                            {{ ucwords($payment->payment_status) }}
                                                     </span>
-
-                                                @elseif($payment->payment_status == 'Declined' ||
-                                                    $payment->payment_status == 'declined')
+                                                @elseif($payment->payment_status === 'Declined')
                                                     <span class="text-warning">
                                                         {{ ucwords($payment->payment_status) }}
-                                                </span>
+                                                    </span>
                                                 @else
-                                                    <span class="text-danger">
-                                                    Failed
-                                                </span>
+                                                    <span class="text-danger">Failed</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -186,39 +179,48 @@
                                         <a href="">Clear Filters</a>
                                     </div>
                                     <div class="row mt-1">
-                                        <div class="col pb-1">
-                                            <select name="status" id="pay" class="custom-select">
-                                                <option value="">
-                                                    Payment Status
-                                                </option>
-                                                <option value="Approved">Approved</option>
-                                                <option value="Declined">Declined</option>
-                                                <option value="Failed">Failed</option>
-                                            </select>
-                                        </div>
-                                        <div class="col pb-1">
-                                            <input type="date" id="date"
-                                                   name="date" class="form-control datepicker"
-                                                   placeholder="Start Date">
-                                        </div>
-                                        <div class="col pb-1">
-                                            <input type="text" id="end-date"
-                                                   name="endDate" class="form-control datepicker"
-                                                   placeholder="End Date">
-                                        </div>
-                                        <div class="col pb-1">
-                                            <select name="reference" id="reference" class="custom-select">
-                                                <option value="">
-                                                    Reference
-                                                </option>
-                                                <option value="Tithe">Tithe</option>
-                                                <option value="Offering">Offering</option>
-                                                <option value="Seed Offering">Seed Offering</option>
-                                                <option value="Special Seed Offering">Special Seed Offering</option>
-                                                <option value="Vow">Vow</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
+                                        <form action="{{ route('givings.search') }}" method="GET">
+                                            <div class="row px-2">
+                                                <div class="col pb-1">
+                                                    <select name="status" id="pay" class="custom-select">
+                                                        <option value="">
+                                                            Payment Status
+                                                        </option>
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Declined">Declined</option>
+                                                        <option value="Failed">Failed</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col pb-1">
+                                                    <input type="date" id="date"
+                                                           name="start_date" class="form-control datepicker"
+                                                           placeholder="Start Date">
+                                                </div>
+                                                <div class="col pb-1">
+                                                    <input type="date" id="end-date"
+                                                           name="end_date" class="form-control datepicker"
+                                                           placeholder="End Date">
+                                                </div>
+                                                <div class="col pb-1">
+                                                    <select name="reference" id="reference" class="custom-select">
+                                                        <option value="">
+                                                            Reference
+                                                        </option>
+                                                        <option value="Tithe">Tithe</option>
+                                                        <option value="Offering">Offering</option>
+                                                        <option value="Seed Offering">Seed Offering</option>
+                                                        <option value="Special Seed Offering">Special Seed Offering</option>
+                                                        <option value="Vow">Vow</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <button class="btn btn-primary btn-block">
+                                                        FILTER
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <table id="all-payments" class="table table-hover-animation mb-2 border-0">
@@ -253,21 +255,16 @@
                                                 {{ $payment->giving_option }}
                                             </td>
                                             <td>
-                                                @if($payment->payment_status == 'Approved' || $payment->payment_status ==
-                                                'approved')
+                                                @if($payment->payment_status === 'Approved')
                                                     <span class="text-success">
-                                                         {{ ucwords($payment->payment_status) }}
+                                                            {{ ucwords($payment->payment_status) }}
                                                     </span>
-
-                                                @elseif($payment->payment_status == 'Declined' ||
-                                                    $payment->payment_status == 'declined')
+                                                @elseif($payment->payment_status === 'Declined')
                                                     <span class="text-warning">
                                                         {{ ucwords($payment->payment_status) }}
-                                                </span>
+                                                    </span>
                                                 @else
-                                                    <span class="text-danger">
-                                                    Failed
-                                                </span>
+                                                    <span class="text-danger">Failed</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -291,5 +288,12 @@
 
 @section('scripts')
     <script src="{{ asset('js/payment-dashboard.js') }}"></script>
-    <script src="{{ asset('js/range_dates.js') }}"></script>
+    <script src="{{ asset('js/flatpickr.js') }}"></script>
+    <script>
+        $(function () {
+            $(".datepicker").flatpickr({
+                dateFormat: "Y-m-d",
+            });
+        });
+    </script>
 @endsection

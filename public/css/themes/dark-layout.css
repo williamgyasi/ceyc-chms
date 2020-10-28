@@ -72,7 +72,6 @@ body.dark-layout .text-dark {
 }
 
 body.dark-layout .header-navbar-shadow {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(44%, rgba(44, 48, 60, 0.9)), color-stop(73%, rgba(44, 48, 60, 0.43)), to(rgba(44, 48, 60, 0)));
   background: linear-gradient(180deg, rgba(44, 48, 60, 0.9) 44%, rgba(44, 48, 60, 0.43) 73%, rgba(44, 48, 60, 0));
 }
 
@@ -101,19 +100,11 @@ body.dark-layout .header-navbar .navbar-container .nav .nav-item.nav-search .sea
   border-color: #414561;
 }
 
-body.dark-layout .header-navbar .navbar-container .nav .nav-item.nav-search .search-input.open .input::-webkit-input-placeholder {
-  color: #c2c6dc;
-}
-
 body.dark-layout .header-navbar .navbar-container .nav .nav-item.nav-search .search-input.open .input::-moz-placeholder {
   color: #c2c6dc;
 }
 
 body.dark-layout .header-navbar .navbar-container .nav .nav-item.nav-search .search-input.open .input:-ms-input-placeholder {
-  color: #c2c6dc;
-}
-
-body.dark-layout .header-navbar .navbar-container .nav .nav-item.nav-search .search-input.open .input::-ms-input-placeholder {
   color: #c2c6dc;
 }
 
@@ -181,7 +172,6 @@ body.dark-layout .main-menu {
 }
 
 body.dark-layout .main-menu .shadow-bottom {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(44%, #0f1642), color-stop(73%, rgba(15, 22, 66, 0.51)), to(rgba(44, 48, 60, 0)));
   background: linear-gradient(180deg, #0f1642 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0));
 }
 
@@ -860,19 +850,11 @@ body.dark-layout textarea.form-control:not(:focus) {
   border: 0;
 }
 
-body.dark-layout input.form-control::-webkit-input-placeholder, body.dark-layout .custom-file-label::-webkit-input-placeholder, body.dark-layout textarea.form-control::-webkit-input-placeholder {
-  color: #c2c6dc;
-}
-
 body.dark-layout input.form-control::-moz-placeholder, body.dark-layout .custom-file-label::-moz-placeholder, body.dark-layout textarea.form-control::-moz-placeholder {
   color: #c2c6dc;
 }
 
 body.dark-layout input.form-control:-ms-input-placeholder, body.dark-layout .custom-file-label:-ms-input-placeholder, body.dark-layout textarea.form-control:-ms-input-placeholder {
-  color: #c2c6dc;
-}
-
-body.dark-layout input.form-control::-ms-input-placeholder, body.dark-layout .custom-file-label::-ms-input-placeholder, body.dark-layout textarea.form-control::-ms-input-placeholder {
   color: #c2c6dc;
 }
 
@@ -1111,6 +1093,14 @@ body.dark-layout .input-group .input-group-prepend ~ .form-control {
 
 body.dark-layout .input-group .form-control ~ .input-group-append {
   border-left: 1px solid #414561;
+}
+
+body.dark-layout .form-label-group > input:not(:focus):not(:-moz-placeholder-shown) ~ label, body.dark-layout .form-label-group > textarea:not(:focus):not(:-moz-placeholder-shown) ~ label {
+  color: #c2c6dc !important;
+}
+
+body.dark-layout .form-label-group > input:not(:focus):not(:-ms-input-placeholder) ~ label, body.dark-layout .form-label-group > textarea:not(:focus):not(:-ms-input-placeholder) ~ label {
+  color: #c2c6dc !important;
 }
 
 body.dark-layout .form-label-group > input:not(:focus):not(:placeholder-shown) ~ label,
@@ -1437,19 +1427,11 @@ body.dark-layout.email-application .app-content .content-area-wrapper .app-fixed
   color: #c2c6dc;
 }
 
-body.dark-layout.email-application .app-content .content-area-wrapper .app-fixed-search .form-control::-webkit-input-placeholder {
-  color: #c2c6dc;
-}
-
 body.dark-layout.email-application .app-content .content-area-wrapper .app-fixed-search .form-control::-moz-placeholder {
   color: #c2c6dc;
 }
 
 body.dark-layout.email-application .app-content .content-area-wrapper .app-fixed-search .form-control:-ms-input-placeholder {
-  color: #c2c6dc;
-}
-
-body.dark-layout.email-application .app-content .content-area-wrapper .app-fixed-search .form-control::-ms-input-placeholder {
   color: #c2c6dc;
 }
 

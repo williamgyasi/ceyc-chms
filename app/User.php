@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const APPROVED = 1;
+    const UNAPPROVED = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,20 +21,8 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
-        'fellowship_id',
-        'department_id',
         'lastname',
         'firstname',
-        'othernames',
-        'phone',
-        'alt_phone',
-        'dob',
-        'residential_address',
-        'digital_address',
-        'school',
-        'work',
-        'gender',
-        'default_password_reset_at'
     ];
 
     /**
@@ -90,37 +81,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Defines Relationship between the Members and a Fellowship.
-     *
-     * A member belongs to only one Fellowship
-     */
-    public function fellowship()
-    {
-        return $this->belongsTo(Fellowship::class);
-    }
-
-    /**
-     * Defines Relationship between the Members(users) and a Cell
-     *
-     * A Member belongs to only one cell
-     */
-    public function cell()
-    {
-        return $this->belongsTo(Cell::class);
-    }
-
-     /**
-     * Defines a relationship between the Department and
-     * Members.
-     *
-     * A member belongs to a department
-     */
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    /**
      * Defines a relationship between users and their roles
      */
     public function roles()
@@ -128,11 +88,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)
 
                     ->withTimestamps();
-    }
-
-    public function getFellowshipNameAttribute()
-    {
-        return $this->fellowship->name;
     }
 
     /**

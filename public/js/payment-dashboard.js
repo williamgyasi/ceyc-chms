@@ -50,33 +50,33 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function() {
     var table = $('#all-payments').DataTable();
 
-    $('#amount-filter').keyup( function() {
-        table.draw();
-    } );
+    // $('#amount-filter').keyup( function() {
+    //     table.draw();
+    // } );
 
-    $('#date').change( function() {
-        table.draw();
-    } );
+    // $('#date').change( function() {
+    //     table.draw();
+    // } );
 
-    $('#end-date').change( function() {
-        table.draw();
-    } );
+    // $('#end-date').change( function() {
+    //     table.draw();
+    // } );
 } );
 
 
 /**
  * Datatable filter for filtering by payment status
  */
-$(document).ready(function() {
-    var table = $('#all-payments').DataTable();
+// $(document).ready(function() {
+//     var table = $('#all-payments').DataTable();
 
-    $('select#pay').change( function() {
-        var status = $("select#pay")
-            .children("option:selected").val();
+//     $('select#pay').change( function() {
+//         var status = $("select#pay")
+//             .children("option:selected").val();
 
-        table.column(5).search(status).draw();
-    } );
-} );
+//         table.column(5).search(status).draw();
+//     } );
+// } );
 
 /**
  * Datatable filter for filtering by payment reference
@@ -84,12 +84,12 @@ $(document).ready(function() {
 $(document).ready(function() {
     var table = $('#all-payments').DataTable();
 
-    $('select#reference').change( function() {
-        var reference = $("select#reference")
-            .children("option:selected").val();
+    // $('select#reference').change( function() {
+    //     var reference = $("select#reference")
+    //         .children("option:selected").val();
 
-        table.column(4).search(reference).draw();
-    } );
+    //     table.column(4).search(reference).draw();
+    // } );
 } );
 
 

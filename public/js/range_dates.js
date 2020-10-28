@@ -20,7 +20,8 @@
 $.fn.dataTableExt.afnFiltering.push(
 	function (oSettings, aData, iDataIndex) {
 		var iFini = document.getElementById('date').value;
-		var iFfin = document.getElementById('end-date').value;
+        var iFfin = document.getElementById('end-date').value;
+
 		var iStartDateCol = 7;
 		var iEndDateCol = 7;
 
