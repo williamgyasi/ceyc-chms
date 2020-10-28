@@ -52,5 +52,9 @@ Route::get('v2-payment', function () {
     return view('pages.givings.v2.step-1');
 });
 
+Route::get('/pay-ui', function () {
+    return view('pages.payment-ui.index');
+});
+
 Route::post('v2-payment/card', 'V2GivingController@cardGiving')->name('v2-card-giving');
 Route::post('v2-payment/mobile-money', 'V2GivingController@mobileMoneyGiving')->name('v2-momo-giving');

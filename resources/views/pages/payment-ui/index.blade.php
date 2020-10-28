@@ -3,9 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width ; initial-scale=1.0 ">
+<<<<<<< HEAD:Payment UI/index.html
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="stylesheet" href="./style.css" type="text/css">
         <link rel="stylesheet" href="./card.css" type="text/css">
+=======
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+>>>>>>> 1418b351d5efc6be6d56739fa457f3b2a68a5975:resources/views/pages/payment-ui/index.blade.php
     </head>
 
     <body>
@@ -16,9 +20,30 @@
 
               <div class="left-half">
 
+<<<<<<< HEAD:Payment UI/index.html
               </div>
               
               <div class="other-half">
+=======
+                    <div class="card__container">
+                        <h2>Payment Method</h2>
+                        <div class="options__payment">
+                            <label for="1">Visa</label>
+                            <input type="radio" name="visa-card" id="1" value="1" required>
+                            <label for="2">Mobile Money</label>
+                            <input type="radio" name="visa-card" id="2" value="1" required>
+                        </div>
+
+                        <div class="card__component">
+                            <div class="card__component__visa card__component__visa--front">
+                                &nbsp;
+                            </div>
+                            <div class="card__component__visa card__component__visa--back">
+                                i am at the back
+                            </div>
+                        </div>
+                        
+>>>>>>> 1418b351d5efc6be6d56739fa457f3b2a68a5975:resources/views/pages/payment-ui/index.blade.php
 
               </div>
               <!-- <div class="form__container">
