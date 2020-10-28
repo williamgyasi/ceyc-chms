@@ -48,8 +48,8 @@ function numberValidator() {
   }
 }
 
-function writeCardNumber() {
-  cardNumber.innerHTML = numberInput.value;
+function writeCardNumber(event) {
+  cardNumber.innerHTML = event.target.value;
   numberValidator();
 }
 

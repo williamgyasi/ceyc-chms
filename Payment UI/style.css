@@ -21,24 +21,91 @@ body{
    justify-content: center;
 }
 .wrapper-container{
-    height: 90%;
+    height: 100%;
     display: flex;
     width: 80%;
     border-radius: 5px;
-    box-shadow: 0 2rem 5rem #777;
-    overflow: hidden;
-    background-color: blue;
+    /* box-shadow: 0 2rem 5rem #777; */
+    /* overflow: hidden; */
+
 }
 .left-half{
     width: 30%;
     height: 100%;
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 
 .other-half{
     width: 70%;
     position: relative;
     height: 100%;
-    background-color: darkturquoise;
+    
 }
 
+/* TAB LAYOUT */
+.form__container{
+    width:65%;
+    border-radius: 1rem;
+    height: 70%;
+    margin: 0 auto;
+    border: 1px solid red;
+	background-color: white;
+	padding: 0 1rem;
+}
+.form__card, .card__number, .card__holder, .cvv{
+	display: flex;
+    flex-direction: column;
+    
+}
+.form__card{
+    height: 100%;
+    margin-top: 7rem;
+    /* justify-content: flex-end; */
+    padding-top: 8rem;
+    /* background-color: red; */
+}
+.form__bottom{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.form__label{
+	font-size:.9rem;
+	color: #212529;
+	font-weight: bold;
+}
+.form__input, .form__select{
+	border: 1px solid rgba(63,63,63,.2);
+	border-radius: 4px;
+	padding: .8rem;
+    margin: .2rem 0 1rem 0; 
+    
+	
+}
+.form__input:focus, .form__select:focus{
+	outline-color: #D4EAFD;
+}
+.card__expirationDate{
+	width: 70%;
+}
+.cvv{
+	width: 30%;
+}
+.form__select{
+	width: 35%;
+	cursor: pointer;
+}
+.form__button{
+	background-color: #0055D4;
+	color: #fff;
+	font-size: 1rem;
+	padding: .8rem;
+	border-radius: 4px;
+	margin-top: 1.5rem;
+	box-shadow: 2px 2px 15px -4px #0043a7;
+	cursor: pointer;
+}
+
+.invalidField{
+	border-color: rgba(225, 27, 63, .5);
+}
