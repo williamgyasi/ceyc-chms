@@ -46,6 +46,7 @@ Route::get('giving/credit-card/vbv-confirmation', 'GivingController@vbvConfirmat
 Route::post('giving', 'GivingController@store')->name('giving.store');
 Route::get('giving', 'GivingController@showGivingForm')->name('giving.create');
 Route::get('giving/{giving}/confirm', 'GivingController@confirm')->name('giving.confirm');
+Route::get('givings/filters', 'GivingController@search')->name('givings.search');
 
 
 Route::get('v2-payment', function () {

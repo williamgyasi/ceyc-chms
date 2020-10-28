@@ -23,6 +23,10 @@ class Giving extends Model
         return 'slug';
     }
 
+    protected $casts = [
+        'created_at' => 'date'
+    ];
+
     /**
      * Capitalise the first letter of the payment status attribute
      * @param $value
@@ -30,6 +34,11 @@ class Giving extends Model
     public function setPaymentStatus($value)
     {
         $this->attributes['payment_status'] = ucfirst($value);
+    }
+
+    public function getPaymentStatusAttribute($value)
+    {
+        return ucfirst($value);
     }
 
     public static function scopeMadeOnCurrentDay($query)
@@ -65,7 +74,31 @@ class Giving extends Model
         return $query->whereDate('created_at', Carbon::today())
                     ->where(function($query) {
                         $query->wherePaymentStatus('Failed')
-                            ->orWhereNull('payment_status');
+                        ->orWhere('payment_status', 'error')
+                        ->orWhere('payment_status', 'access denied')
+                        ->orWhereNull('payment_status');
                     });
+    }
+
+    /**
+     * Method to filter givings
+     *
+     * @param [type] $query
+     * @param array $filters
+     * @return void
+     */
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['status']) {
+            $query->wherePaymentStatus($filters['status']);
+        }
+
+        if ($filters['start_date'] && $filters['end_date']) {
+            $query->whereBetween('created_at', [$filters['start_date'], $filters['end_date']]);
+        }
+
+        if ($filters['reference']) {
+            $query->whereGivingOption($filters['reference']);
+        }
     }
 }

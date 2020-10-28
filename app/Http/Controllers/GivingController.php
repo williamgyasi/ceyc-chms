@@ -33,6 +33,15 @@ class GivingController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+       return view('pages.givings.search-results', [
+            'givings' =>  Giving::filter(
+                $request->only('status', 'start_date', 'end_date', 'reference')
+                )->get()
+       ]);
+    }
+
     /**
      * Method to display the form for giving
      */
@@ -110,13 +119,13 @@ class GivingController extends Controller
     public function cardPayment(CardPaymentRequest $request, PaymentService $paymentService)
     {
         $response = $paymentService->cardPayment($request->validated());
-     
+
         if ($response->code == '200' && $response->status == 'vbv required') {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => 'Pending']);
             return redirect()->away($response->reason);
-        } 
-        
+        }
+
         if ($response->code === '000') {
             Giving::whereTransactionId($request->transaction_id)
                 ->update(['payment_status' => $response->status]);
@@ -178,7 +187,7 @@ class GivingController extends Controller
 
     protected function createSlug($fullName)
     {
-        return Carbon::today()->format('dmyg') . 
+        return Carbon::today()->format('dmyg') .
             bin2hex(random_bytes(5)) . Str::slug($fullName);
     }
 }
