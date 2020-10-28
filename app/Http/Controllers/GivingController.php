@@ -16,7 +16,7 @@ class GivingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only('index');
+        $this->middleware('auth')->only('index', 'search');
     }
 
     /**
