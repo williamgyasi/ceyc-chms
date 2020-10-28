@@ -33,6 +33,10 @@ html{
 }
 
 
+.payment__cardDetails{
+    width: 65%;
+}
+
 .payment__selector{
     width: 100%;
     display: flex;
@@ -55,12 +59,53 @@ html{
     margin-right: 3rem;
 }
 
-
-.payment__cardDetails{
-    width: 65%;
-    background-color: black;
-
+.payment__card{
+    width: 60%;
+    height:35%;
+    margin:2rem auto;
+    position: relative;
 }
+.payment__side{
+    width: 100%;
+    height:100%;
+    border-radius: .5rem;
+    background-color: red;
+    perspective: 150rem;
+    transition:  all 1s ;
+    backface-visibility: hidden;
+    box-shadow: 0 1rem 2rem rgb(37, 37, 37);
+    position: absolute;
+    cursor: pointer;
+}
+.payment__card--front{
+    /* background: url('./ezgif-3-d03dc14eed45.webp');
+    background-position: center;
+    background-size: cover;
+     */
+     background-color: yellow;
+}
+
+.payment__card__chip{
+    width: 40%;
+    height: 40%;
+}
+
+.payment__card--back{
+    transform: rotateY(180deg);
+    background-color: red;
+}
+
+.payment__card:hover .payment__card--front{
+    transform: rotateY(-180deg);
+}
+.payment__card:hover .payment__card--back{
+    transform: rotateY(0);
+}
+
+
+
+
+
 
 
 
