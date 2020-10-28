@@ -37,6 +37,7 @@ Route::get('admin/users/roles', 'UserRoleController@index')->name('user.roles.in
 Route::get('admin/users/roles/assign', 'UserRoleController@assignRoleForm')->name('user.roles.assign.form');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('givings/dashboard', 'GivingController@index')->name('givings.dashboard');
 Route::get('giving/successful', 'GivingController@successful')->name('giving.successful');
 Route::get('giving/error', 'GivingController@errorState')->name('giving.error');
